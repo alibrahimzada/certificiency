@@ -1,0 +1,49 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Rol Listesi
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <a routerLink="/roles/new" class="btn btn-success btn-pill btn-sm">
+                    <i class="fa fa-plus marr10"></i>Yeni Rol Ekle
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-section">
+            <div class="kt-section__content">
+
+                <div class="kt-pagination  kt-pagination--brand">
+                    <ul class="kt-pagination__links">
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Rol İsmi</th>
+                                <th>İzin Sayısı</th>
+                                <th>Bildirim Sayısı</th>
+                                <th class="text-right">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let role of roles;">
+                                <td>{{role.roleName}}</td>
+                                <td>{{role.permissions ? role.permissions.length : 0}}</td>
+                                <td>{{role.notifications ? role.notifications.length : 0}}</td>
+                                <td class="text-right"> <button class="btn btn-success "
+                                        [routerLink]="['/roles/detail/'+role.id]">Düzenle</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

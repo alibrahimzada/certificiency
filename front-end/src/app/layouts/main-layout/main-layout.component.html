@@ -1,0 +1,216 @@
+<!-- begin::Page loader -->
+
+<!-- end::Page Loader -->
+
+<!-- begin:: Page -->
+
+<!-- begin:: Header Mobile -->
+<div id="kt_header_mobile"
+     class="kt-header-mobile  kt-header-mobile--fixed ">
+  <div class="kt-header-mobile__logo">
+    <a routerLink="/">
+      <img alt="Logo"
+           src="assets/media/logos/logo-2-sm.png" />
+    </a>
+  </div>
+  <div class="kt-header-mobile__toolbar">
+    <button class="kt-header-mobile__toolbar-toggler"
+            id="kt_header_mobile_toggler"><span></span></button>
+    <button class="kt-header-mobile__toolbar-topbar-toggler"
+            id="kt_header_mobile_topbar_toggler"><i class="flaticon-more-1"></i></button>
+  </div>
+</div>
+
+<!-- end:: Header Mobile -->
+<div class="kt-grid kt-grid--hor kt-grid--root">
+  <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper"
+         id="kt_wrapper">
+
+      <!-- begin:: Header -->
+      <div id="kt_header"
+           class="kt-header kt-grid__item  kt-header--fixed "
+           data-ktheader-minimize="on">
+        <div class="kt-header__top">
+          <div class="kt-container ">
+
+            <!-- begin:: Brand -->
+            <div class="kt-header__brand   kt-grid__item"
+                 id="kt_header_brand">
+              <div class="kt-header__brand-logo">
+                <a routerLink="/">
+                  <img alt="Logo"
+                       src="/assets/img/logo.png"
+                       class="kt-header__brand-logo-default" style="width: 64px;height:64px;"/>
+                  <img alt="Logo"
+                       src="/assets/img/logo.png"
+                       class="kt-header__brand-logo-sticky" style="width: 64px;height:64px;" />
+                </a>
+              </div>
+            </div>
+
+            <!-- end:: Brand -->
+
+            <!-- begin:: Header Topbar -->
+            <div class="kt-header__topbar">
+
+              <!--begin: Notifications -->
+              <div class="kt-header__topbar-item dropdown">
+                <div class="kt-header__topbar-wrapper"
+                     data-toggle="dropdown"
+                     data-offset="10px,10px">
+                     <!-- (click)="refreshNotifications()"> -->
+                  <span class="kt-header__topbar-icon rounded d-flex align-items-center"
+                        [ngStyle]="{background: notificationCount > 0 ? '#fd397a' : '#2d1e5f'}"
+                        style="width: auto !important; padding: 0 16px;">
+
+                    <i class="far fa-bell mr-3  text-white"></i>
+                    <span class="text-white">{{notificationCount}}</span>
+                  </span>
+                </div>
+                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                  <form>
+
+                    <!--begin: Head -->
+                    <div class="kt-head kt-head--skin-dark p-3"
+                         style="background-image: url(assets/media/misc/bg-1.jpg)">
+                      <h3 class="kt-head__title">
+                        Bildirimler
+                      </h3>
+                    </div>
+
+                    <!--end: Head -->
+                    <div class="tab-content">
+                      <div class="tab-pane active show"
+                           id="topbar_notifications_notifications"
+                           role="tabpanel">
+                        <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll"
+                             data-scroll="true"
+                             data-height="300"
+                             data-mobile-height="200">
+                          <ng-container *ngIf="notifications && notifications.length !== 0">
+                            <a href="#"
+                               (click)="navigateToNotification($event, notification)"
+                               *ngFor="let notification of notifications"
+                               class="kt-notification__item">
+                              <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                  {{notification.content}}
+                                </div>
+                                <div class="kt-notification__item-time">
+                                  {{notification.createdAt | date: 'dd/MM/yyyy HH:mm'}}
+                                </div>
+                              </div>
+                            </a>
+                          </ng-container>
+                          <div *ngIf="!notifications || notifications.length === 0"
+                               class="w-100 text-center">
+                            Bildirim yok.
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!--end: Notifications -->
+              <!--begin: User bar -->
+              <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                <div class="kt-header__topbar-wrapper"
+                     data-toggle="dropdown"
+                     data-offset="10px,10px"
+                     aria-expanded="false">
+                  <span
+                        class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">{{user.firstName.slice(0,1) + user.lastName.slice(0,1)}}</span>
+                </div>
+                <div class="dropdown-menu dropdown-menu-fit  dropdown-menu-right dropdown-menu-anim dropdown-menu-xl"
+                     style="max-width: 100px">
+                  <div class="kt-head kt-head--skin-dark p-3"
+                       style="background-image: url(assets/media/misc/bg-1.jpg)">
+                    <h3 class="kt-head__title">
+                      {{user.firstName}} {{user.lastName}}
+                    </h3>
+                    <button class="btn btn-danger btn-block mt-3"
+                            type="button"
+                            (click)="logout()">Çıkış
+                      Yap</button>
+                  </div>
+
+                </div>
+              </div>
+
+              <!--end: User bar -->
+            </div>
+
+            <!-- end:: Header Topbar -->
+          </div>
+        </div>
+        <div class="kt-header__bottom">
+          <div class="kt-container ">
+
+            <!-- begin: Header Menu -->
+            <button class="kt-header-menu-wrapper-close"
+                    id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+            <div class="kt-header-menu-wrapper"
+                 id="kt_header_menu_wrapper">
+              <div id="kt_header_menu"
+                   class="kt-header-menu kt-header-menu-mobile ">
+                <ul class="kt-menu__nav ">
+                  <li routerLink="/"
+                      [routerLinkActiveOptions]="{exact: true}"
+                      routerLinkActive="kt-menu__item--here"
+                      class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                      data-ktmenu-submenu-toggle="click"
+                      aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Ana
+                        Sayfa</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="kt-header-toolbar">
+
+              </div>
+            </div>
+
+            <!-- end: Header Menu -->
+          </div>
+        </div>
+      </div>
+
+      <!-- end:: Header -->
+      <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch"
+           id="kt_body">
+        <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
+             id="kt_content">
+          <!-- begin:: Content -->
+          <div class="kt-container  kt-grid__item kt-grid__item--fluid"
+               style="margin-top: 16px; margin-bottom: 16px">
+            <router-outlet></router-outlet>
+          </div>
+
+          <!-- end:: Content -->
+        </div>
+      </div>
+
+      <!-- begin:: Footer -->
+      <div class="kt-footer  kt-footer--extended  kt-grid__item"
+           id="kt_footer">
+        <div class="kt-footer__bottom">
+          <div class="kt-container ">
+            <div class="kt-footer__wrapper">
+              <div class="kt-footer__logo">
+                <div class="kt-footer__copyright">
+                  <span>{{year}} &copy; Certificiency</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end:: Footer -->
+    </div>
+  </div>
+</div>

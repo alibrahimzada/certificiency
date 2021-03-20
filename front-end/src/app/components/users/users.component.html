@@ -1,0 +1,95 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Kullanıcı Listesi
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <a routerLink="/users/new" class="btn btn-success btn-pill btn-sm">
+                    <i class="fa fa-plus marr10"></i>Yeni Ekle
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-section">
+            <div class="kt-section__content">
+
+                <div class="kt-pagination  kt-pagination--brand">
+                    <ul class="kt-pagination__links">
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı Adı</th>
+                                <th>E-mail</th>
+                                <th>Ad</th>
+                                <th>Soyad</th>
+                                <th>Rol</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users;">
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{getRoleName(user.roleId)}}</td>
+                                <td>
+                                    <button class="btn btn-info mr-2" (click)="showChangePasswordModal(user)">Şifre
+                                        Değiştir</button>
+                                    <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.id]">Düzenle</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
+                                            class="fa fa-trash"></i>sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade">
+    <div class="modal-dialog" role="document" style="max-width: 600px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Şifre Değiştir</h5>
+                <button type="button" class="close" (click)="hideChangePasswordModal()" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="password" class="col-2 col-form-label">Şifre</label>
+                    <div class="col-10">
+                        <input class="form-control" type="password" [(ngModel)]="newPasswordBody.password" id="password"
+                            name="password">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="confirm" class="col-2 col-form-label">Şifre Tekrar</label>
+                    <div class="col-10">
+                        <input class="form-control" type="password" [(ngModel)]="newPasswordBody.confirm" id="confirm"
+                            name="confirm">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold"
+                    (click)="hideChangePasswordModal()">Kapat</button>
+                <button type="button" class="btn btn-primary font-weight-bold"
+                    (click)="changePassword()">Değiştir</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head  d-flex align-items-center justify-content-between">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Yeni Rol
+            </h3>
+        </div>
+        <button type="button" routerLink="/users" class="btn btn-secondary mr-3">Geri Dön</button>
+    </div>
+    <div class="container" style="width: 90%">
+        <form class="kt-form kt-form--label-left" autocomplete="off">
+            <div class="kt-portlet__body">
+                <div class="form-group row">
+                    <label for="ad" class="col-2 col-form-label">Rol İsmi</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="ad" name="ad" [(ngModel)]="role.roleName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="role" class="col-2 col-form-label">İzinler</label>
+                    <div class="col-10">
+                        <ng-select labelForId="role" [clearable]="false" [items]="permissions" [multiple]="true"
+                            [closeOnSelect]="false" name="permissions" bindLabel="name" [(ngModel)]="role.permissions"
+                            placeholder="İzinler">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="notifications" class="col-2 col-form-label">Bildirimler</label>
+                    <div class="col-10">
+                        <span class="text-muted"><span class="text-warning">***</span>Mühendisler kendilerinin atandığı
+                            işlerden otomatik olarak
+                            bildirimleri alır.
+                        </span>
+                        <ng-select labelForId="notifications" [clearable]="false" [items]="notifications"
+                            [multiple]="true" [closeOnSelect]="false" name="notifications" bindLabel="name"
+                            [(ngModel)]="role.notifications" placeholder="Bildirimler">
+                        </ng-select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-success" (click)="save()">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

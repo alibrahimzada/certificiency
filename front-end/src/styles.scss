@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+* {
+  outline: none !important;
+}
+
+.ng-select-container {
+  border-color: #e2e5ec !important;
+  outline: none;
+}
+
+.custom-dropzone {
+  border-radius: 6px;
+  border: 1px dashed #5578eb;
+}
+.files-container {
+  padding: 8px;
+  .file-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dedede;
+    padding: 6px 0;
+    img {
+      width: 100px;
+      border-radius: 6px;
+      margin-right: 16px;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        width: 75%;
+        position: relative;
+      }
+    }
+    span {
+      flex: 1;
+    }
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.blockUI.blockOverlay {
+  position: fixed !important;
+}
+a.kt-menu__link.kt-menu__toggle {
+  text-align: center;
+}
+
+.kt-radio > span:after,
+.kt-checkbox > input:disabled ~ span:after,
+.kt-checkbox > span:after {
+  border-color: #d13051;
+}
