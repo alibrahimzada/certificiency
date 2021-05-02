@@ -9,3 +9,8 @@ class RequestHandler():
     
     def extractContext(self):
         return None
+
+class CoreAppContext:
+    user_id = None
+    customer_id = None
+

@@ -1,7 +1,7 @@
 from hashlib import sha256
 
 class ICryptoHelper:
-    def sha256Encrypt(self, user_id: str, password: str):
+    def sha256Encrypt(self, user_email: str, password: str):
         pass
 
     def encrypt(self, plain_text: str):
@@ -13,9 +13,8 @@ class ICryptoHelper:
 
 class CryptoHelper(ICryptoHelper):
 
-    def sha256Encrypt(self, user_id, password):
-        user_id = user_id.lower()
-        hashString = user_id[::-1] + password
+    def sha256Encrypt(self, user_email, password):
+        user_email = user_email.lower()
+        hashString = user_email[::-1] + password
         hashedWord = sha256(hashString.encode('ascii')).hexdigest()
         return hashedWord
-

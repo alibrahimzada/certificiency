@@ -1,10 +1,11 @@
 
 class ISqlHelper:
-    def readData(self):
+    def readData(self, sql: str):
         pass
 
 
 class SqlHelper(ISqlHelper):
 
-    def readData(self):
+    def get_one(self, sql):
+        
         pass

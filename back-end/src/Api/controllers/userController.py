@@ -1,4 +1,4 @@
-# from ..api import app
+from ..api import app
 # from core.controllers import Controller
 # from service.user import UserService
 # put __init__.py files in each directory

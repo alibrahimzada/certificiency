@@ -36,7 +36,7 @@ def get_users():
         This is the endpoint returning user list
     """
     print("Test")
-    return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}])
+    return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}, {'username': 'beyza', 'email': 'beyza@gmail.com'}])
 
 if __name__ == '__main__':
     app.run()
