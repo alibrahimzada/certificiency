@@ -10,7 +10,6 @@ sys.path.insert(1, os.getcwd() + '/back-end/src')
 
 # put __init__.py files in each directory
 
-
 app = Flask(__name__)
 CORS(app)
 # app.config.from_object(os.environ['APP_SETTINGS'])
@@ -21,6 +20,9 @@ config = {
     "testing": "src.config.TestingConfig",
     "production": "src.config.ProductionConfig"
 }
+
+from api.controllers import userController
+app.register_blueprint(userController.bp, url_prefix='/userController')
 
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
