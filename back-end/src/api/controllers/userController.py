@@ -1,5 +1,5 @@
-from ..api import app
-# from core.controllers import Controller
+from api import app
+from core.controllers import Controller
 # from service.user import UserService
 # put __init__.py files in each directory
 from flask import jsonify
@@ -8,7 +8,8 @@ from flask import jsonify
 class UserController(Controller):
 
     def __init__(self):
-        self.service = UserService()
+        # self.service = UserService()
+        pass
 
 
     @app.route('/api/v1/user', methods=['GET'])

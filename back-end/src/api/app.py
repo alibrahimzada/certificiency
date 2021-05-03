@@ -4,6 +4,9 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
+import sys
+
+sys.path.insert(1, os.getcwd() + '/back-end/src')
 
 # put __init__.py files in each directory
 
