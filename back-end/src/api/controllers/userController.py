@@ -1,31 +1,21 @@
-from api import app
-from core.controllers import Controller
+# from api import app
+from service.userService import UserService
 # from service.user import UserService
 # put __init__.py files in each directory
 from flask import jsonify, Blueprint
 
-bp = Blueprint('userController', __name__)
+user_service = UserService()
 
-@bp.route('/api/v1/user', methods=['GET'])
+bp = Blueprint('user', __name__)
+@bp.route('', methods=['GET'])
 def get_users():
     """
         This is the endpoint returning user list
     """
-    print("Test")
-    return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}])
+    users = user_service.get_users()
 
-# class UserController(Controller):
-
-#     def __init__(self):
-#         Controller.__init__()
-#         # self.service = UserService()
-#         pass
+    return jsonify(users)
 
 
-#     @bp.route('/api/v1/user', methods=['GET'])
-#     def get_users(self):
-#         """
-#             This is the endpoint returning user list
-#         """
-#         print("Test")
-#         return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}])
+
+    

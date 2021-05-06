@@ -1,12 +1,18 @@
+from data.models.base_entity import BaseEntity
 
-class User:
+class User(BaseEntity):
 
     # put variables to init
     def __init__(self):
-        pass
+        super(User, self).__init__()
     
     def createUser(self):
         pass
     
     def getAllUsers(self):
-        return [{'username': 'ali', 'email': 'ali@gmail.com'}, {'username': 'beyza', 'email': 'beyza@gmail.com'}]
+        sql = """SELECT display_name AS DisplayName
+                 FROM \"Users\""""
+
+        users = self.sql_helper.query_all(sql)
+
+        return users

@@ -6,8 +6,6 @@ from flask_cors import CORS
 import os
 import sys
 
-sys.path.insert(1, os.getcwd() + '/back-end/src')
-
 # put __init__.py files in each directory
 
 app = Flask(__name__)
@@ -22,7 +20,7 @@ config = {
 }
 
 from api.controllers import userController
-app.register_blueprint(userController.bp, url_prefix='/userController')
+app.register_blueprint(userController.bp, url_prefix='/api/v1/user')
 
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
@@ -35,13 +33,13 @@ def hello():
 def hello_name(name):
     return "Hello {}!".format(name)
 
-@app.route('/api/v1/user', methods=['GET'])
-def get_users():
-    """
-        This is the endpoint returning user list
-    """
-    print("Test")
-    return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}, {'username': 'beyza', 'email': 'beyza@gmail.com'}])
+# @app.route('/api/v1/user', methods=['GET'])
+# def get_users():
+#     """
+#         This is the endpoint returning user list
+#     """
+#     print("Test")
+#     return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}, {'username': 'beyza', 'email': 'beyza@gmail.com'}])
 
 if __name__ == '__main__':
     app.run()
