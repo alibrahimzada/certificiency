@@ -1,5 +1,5 @@
 # from api import app
-from service.userService import UserService
+from service.user_service import UserService
 # from service.user import UserService
 # put __init__.py files in each directory
 from flask import jsonify, Blueprint

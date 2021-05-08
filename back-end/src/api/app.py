@@ -19,8 +19,8 @@ config = {
     "production": "src.config.ProductionConfig"
 }
 
-from api.controllers import userController
-app.register_blueprint(userController.bp, url_prefix='/api/v1/user')
+from api.controllers import user_controller
+app.register_blueprint(user_controller.bp, url_prefix='/api/v1/user')
 
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 

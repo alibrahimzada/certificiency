@@ -1,4 +1,4 @@
-from data.helpers.sqlHelper import SqlHelper
+from data.helpers.sql_helper import SqlHelper
 
 class BaseEntity:
 
