@@ -47,6 +47,7 @@ class Event(BaseEntity):
         #          values({}, '{}');""".format(data['event_id'], data['event_name']))
         status = self.sql_helper.execute(sql)
         print(status)
+<<<<<<< HEAD
 
 
     def delete_event(self, data):
@@ -67,3 +68,5 @@ class Event(BaseEntity):
 
         status = self.sql_helper.execute(sql)
         print(status)
+=======
+>>>>>>> e24cce0ac6988de8e3742919b62e30b5c70ee96a

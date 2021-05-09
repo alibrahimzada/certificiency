@@ -31,7 +31,7 @@ def create_event():
 @bp.route('/delete-event', methods=['DELETE'])
 def delete_event():
     """
-        This is endpoint for deleting a new event 
+        This is endpoint for deleting an event 
     """
     data = request.get_json()
     event_service.delete_event(data)
@@ -42,7 +42,7 @@ def delete_event():
 @bp.route('/update-event', methods=['PUT'])
 def update_event():
     """
-        This is endpoint for updating a new event 
+        This is endpoint for updating an event 
     """
     data = request.get_json()
     event_service.update_event(data)
