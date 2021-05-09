@@ -10,8 +10,8 @@ class User(BaseEntity):
         pass
     
     def getAllUsers(self):
-        sql = """SELECT display_name AS DisplayName
-                 FROM \"Users\""""
+        sql = """SELECT email AS email
+                 FROM \"User\""""
 
         users = self.sql_helper.query_all(sql)
 
