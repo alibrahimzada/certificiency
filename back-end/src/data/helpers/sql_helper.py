@@ -33,6 +33,8 @@ class SqlHelper(ISqlHelper):
 
         cur.close()
 
+        con.close()
+
         return records
 
     def query_first_or_default(self, sql):
@@ -46,6 +48,8 @@ class SqlHelper(ISqlHelper):
 
         cur.close()
 
+        con.close()
+
         return records
 
     def execute(self, sql: str):
@@ -58,5 +62,7 @@ class SqlHelper(ISqlHelper):
         #con.commit()
 
         cur.close()
+
+        con.close()
 
         return True
