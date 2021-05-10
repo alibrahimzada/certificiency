@@ -18,7 +18,7 @@ class SqlHelper(ISqlHelper):
 
     def get_connection(self):
         con = psycopg2.connect("dbname=postgres user=postgres password=123456789")
-
+        con.autocommit = True
         return con
 
     def query_all(self, sql):
@@ -54,6 +54,8 @@ class SqlHelper(ISqlHelper):
         cur = con.cursor()
 
         cur.execute(sql)
+
+        #con.commit()
 
         cur.close()
 

@@ -42,12 +42,11 @@ class Event(BaseEntity):
     def insert_event(self, data):
 
         sql = """INSERT INTO \"Event\"
-                 VALUES (4, 'Test Event 4')"""
+                 VALUES (3, 'Test Event 3')"""
         # print("""INSERT INTO public.\"Event\" (event_id, event_name)
         #          values({}, '{}');""".format(data['event_id'], data['event_name']))
         status = self.sql_helper.execute(sql)
         print(status)
-<<<<<<< HEAD
 
 
     def delete_event(self, data):
@@ -68,5 +67,3 @@ class Event(BaseEntity):
 
         status = self.sql_helper.execute(sql)
         print(status)
-=======
->>>>>>> e24cce0ac6988de8e3742919b62e30b5c70ee96a
