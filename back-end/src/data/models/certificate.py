@@ -38,28 +38,39 @@ class Certificate(BaseEntity):
         return certificates
 
     def insert_certificate(self, data):
+        query = """INSERT INTO \"Certificate\"
+                   values({}, '{}');""".format(data['certificate_id'], data['certificate_name'])
 
-        sql = """INSERT INTO \"Certificate\"
-                 VALUES ()"""
-        status = self.sql_helper.execute(sql)
-        print(status)
+        try:        
+            rows_affected = self.sql_helper.execute(query)
+            if rows_affected > 0:
+                return {"status": "success"}
+            return {"status": "fail"}
+        
+        except:
+            return {"status": "fail"}
 
 
     def delete_certificate(self, data):
-        sql = """ 
-            DELETE FROM \"Certificate\"
-            WHERE ={}
-        """.format(data[''])
-        status = self.sql_helper.execute(sql)
-        print(status)
+        query = """ 
+                DELETE FROM \"Certificate\"
+                WHERE certificate_id={}""".format(data['certificate_id'])
+
+        rows_affected = self.sql_helper.execute(query)
+        
+        if rows_affected > 0:
+            return {'status': 'success'}
+        return {'status': 'fail'}
 
 
     def update_certificate(self, data):
-        sql = """
+        query = """
             UPDATE \"Certificate\"
-            SET 
-            WHERE 
-        """
+            SET certificate_name = '{}'
+            WHERE certificate_id={}""".format(data['certificate_name'], data['certificate_id'])
 
-        status = self.sql_helper.execute(sql)
-        print(status)
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 'success'}
+        return {'status': 'fail'}

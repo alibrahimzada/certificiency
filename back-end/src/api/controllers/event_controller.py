@@ -16,17 +16,15 @@ def get_events():
 
     return jsonify(events)
 
-@bp.route('/create-event', methods=['POST'])
-def create_event():
+@bp.route('/insert-event', methods=['POST'])
+def insert_event():
     """
         This is the endpoint for creating a new event
     """
 
     data = request.get_json()
-    event_service.create_event(data)
-
-    return 'worked'
-
+    status = event_service.create_event(data)
+    return status
 
 @bp.route('/delete-event', methods=['DELETE'])
 def delete_event():
@@ -34,10 +32,8 @@ def delete_event():
         This is endpoint for deleting an event 
     """
     data = request.get_json()
-    event_service.delete_event(data)
-    print(data)
-    return "deleted"
-
+    status = event_service.delete_event(data)
+    return status
 
 @bp.route('/update-event', methods=['PUT'])
 def update_event():
@@ -45,5 +41,5 @@ def update_event():
         This is endpoint for updating an event 
     """
     data = request.get_json()
-    event_service.update_event(data)
-    return "updated"
+    status = event_service.update_event(data)
+    return status

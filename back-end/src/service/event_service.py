@@ -7,15 +7,13 @@ class EventService(Service):
         self.event = Event()
 
     def get_events(self):
-        events = self.event.get_all_events()
+        return self.event.get_all_events()
 
-        return events
-
-    def create_event(self, data):
-        self.event.insert_event(data)
+    def insert_event(self, data):
+        return self.event.insert_event(data)
 
     def delete_event(self, data):
-        self.event.delete_event(data)
+        return self.event.delete_event(data)
 
     def update_event(self, data):
-        self.event.update_event(data)    
+        return self.event.update_event(data)

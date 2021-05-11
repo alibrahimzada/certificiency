@@ -5,10 +5,7 @@ class Event(BaseEntity):
     # put variables to init
     def __init__(self):
         super(Event, self).__init__()
-    
-    def create_event(self):
-        pass
-    
+
     def get_column_names(self):
         sql = """SELECT column_name
                  FROM information_schema.columns
@@ -20,10 +17,10 @@ class Event(BaseEntity):
     def get_all_events(self):
         column_names = self.get_column_names()
 
-        sql = """SELECT *
-                 FROM \"Event\""""
+        query = """SELECT *
+                   FROM \"Event\""""
 
-        res = self.sql_helper.query_all(sql)
+        res = self.sql_helper.query_all(query)
 
         events = []
         for i in range(len(res)):
@@ -40,30 +37,37 @@ class Event(BaseEntity):
         return events
 
     def insert_event(self, data):
+        query = """INSERT INTO \"Event\"
+                   values({}, '{}');""".format(data['event_id'], data['event_name'])
 
-        sql = """INSERT INTO \"Event\"
-                 VALUES (3, 'Test Event 3')"""
-        # print("""INSERT INTO public.\"Event\" (event_id, event_name)
-        #          values({}, '{}');""".format(data['event_id'], data['event_name']))
-        status = self.sql_helper.execute(sql)
-        print(status)
-
+        try:        
+            rows_affected = self.sql_helper.execute(query)
+            if rows_affected > 0:
+                return {"status": "success"}
+            return {"status": "fail"}
+        
+        except:
+            return {"status": "fail"}
 
     def delete_event(self, data):
-        sql = """ 
-            DELETE FROM \"Event\"
-            WHERE event_id={}
-        """.format(data['event_id'])
-        status = self.sql_helper.execute(sql)
-        print(status)
+        query = """ 
+                DELETE FROM \"Event\"
+                WHERE event_id={}""".format(data['event_id'])
 
+        rows_affected = self.sql_helper.execute(query)
+        
+        if rows_affected > 0:
+            return {'status': 'success'}
+        return {'status': 'fail'}
 
     def update_event(self, data):
-        sql = """
+        query = """
             UPDATE \"Event\"
-            SET 
-            WHERE 
-        """
+            SET event_name = '{}'
+            WHERE event_id={}""".format(data['event_name'], data['event_id'])
 
-        status = self.sql_helper.execute(sql)
-        print(status)
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 'success'}
+        return {'status': 'fail'}

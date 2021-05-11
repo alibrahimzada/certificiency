@@ -58,11 +58,9 @@ class SqlHelper(ISqlHelper):
         cur = con.cursor()
 
         cur.execute(sql)
-
-        #con.commit()
-
+        rows_affected = cur.rowcount
         cur.close()
 
         con.close()
 
-        return True
+        return rows_affected

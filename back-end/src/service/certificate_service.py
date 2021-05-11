@@ -7,15 +7,13 @@ class CertificateService(Service):
         self.certificate = Certificate()
 
     def get_certificates(self):
-        certificates = self.certificate.get_all_certificates()
-
-        return certificates
+        return self.certificate.get_all_certificates()
 
     def create_certificate(self, data):
-        self.certificate.insert_certificate(data)
+        return self.certificate.insert_certificate(data)
 
     def delete_certificate(self, data):
-        self.certificate.delete_certificate(data)
+        return self.certificate.delete_certificate(data)
 
     def update_certificate(self, data):
-        self.certificate.update_certificate(data)    
+        return self.certificate.update_certificate(data)

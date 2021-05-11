@@ -19,12 +19,11 @@ config = {
     "production": "src.config.ProductionConfig"
 }
 
-from api.controllers import user_controller
-from api.controllers import event_controller
+from api.controllers import user_controller, event_controller, certificate_controller
 
 app.register_blueprint(user_controller.bp, url_prefix='/api/v1/user')
 app.register_blueprint(event_controller.bp, url_prefix='/api/v1/event')
-
+app.register_blueprint(certificate_controller.bp, url_prefix='/api/v1/certificate')
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
 @app.route('/')

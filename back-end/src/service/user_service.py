@@ -7,6 +7,13 @@ class UserService(Service):
         self.user = User()
 
     def get_users(self):
-        users = self.user.getAllUsers()
+        return self.user.get_all_users()
 
-        return users
+    def insert_user(self, data):
+        return self.user.insert_user(data)
+
+    def delete_user(self, data):
+        return self.user.delete_user(data)
+
+    def update_user(self, data):
+        return self.user.update_user(data)
