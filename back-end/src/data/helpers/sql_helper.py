@@ -7,11 +7,18 @@ class ISqlHelper:
     def query_all(self, sql: str):
         pass
 
-    def query_first_or_default(self, sql: str):
+    def query_first_or_default(self, table_name):
         pass
 
     def execute(self, sql: str):
         pass
+
+    def get_column_names(self, sql:str):
+        pass
+
+    def get_rows(self, sql: str):
+        pass
+
 
 
 class SqlHelper(ISqlHelper):
@@ -64,3 +71,34 @@ class SqlHelper(ISqlHelper):
         con.close()
 
         return rows_affected
+
+
+    def get_column_names(self, table_name):
+        query = """SELECT column_name
+                 FROM information_schema.columns
+                 WHERE table_name = '{}';""".format(table_name)
+        
+        column_names = self.query_all(query)
+        return column_names
+
+    def get_rows(self, table_name):
+        column_names = self.get_column_names(table_name)
+
+        query = """SELECT *
+                 FROM \"{}\"""".format(table_name)
+
+        res = self.query_all(query)
+
+        rows = []
+        for i in range(len(res)):
+            row_details = {}
+
+            for j in range(len(res[i])):
+                table_column = column_names[j][0]
+                cell_value = res[i][j]
+
+                row_details[table_column] = cell_value
+            
+            rows.append(row_details)
+
+        return rows
