@@ -15,12 +15,13 @@ config = {
     "production": "src.config.ProductionConfig"
 }
 
-from api.controllers import user_controller, event_controller, certificate_controller, customer_controller
+from api.controllers import user_controller, event_controller, certificate_controller, customer_controller, auth_controller
 
 app.register_blueprint(user_controller.bp, url_prefix='/api/v1/user')
 app.register_blueprint(event_controller.bp, url_prefix='/api/v1/event')
 app.register_blueprint(certificate_controller.bp, url_prefix='/api/v1/certificate')
 app.register_blueprint(customer_controller.bp, url_prefix='/api/v1/customer')
+app.register_blueprint(auth_controller.bp, url_prefix='/api/v1/auth')
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
 @app.route('/')
