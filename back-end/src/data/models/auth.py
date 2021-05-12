@@ -6,7 +6,7 @@ class Auth(BaseEntity):
         super(Auth, self).__init__()
 
     def login(self, data):
-        query = """SELECT * \"users\"
+        query = """SELECT * users
                    WHERE username = {} and password = {};
                    """.format(data['username'], data['password'])
 

@@ -24,7 +24,7 @@ class ISqlHelper:
 class SqlHelper(ISqlHelper):
 
     def get_connection(self):
-        con = psycopg2.connect("dbname=postgres user=postgres password=123456789")
+        con = psycopg2.connect("dbname=certificiency user=postgres password=123456789")
         con.autocommit = True
         return con
 
