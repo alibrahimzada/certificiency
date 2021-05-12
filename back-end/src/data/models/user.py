@@ -1,46 +1,60 @@
 from data.models.base_entity import BaseEntity
+from psycopg2.errors import UniqueViolation
 
 class User(BaseEntity):
-
-    # put variables to init
     def __init__(self):
         super(User, self).__init__()
   
     def get_all_users(self):
-        return self.sql_helper.get_rows('User')
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        rows = self.sql_helper.get_rows('users')
+        api_response['data'] = rows
+        return api_response
 
     def insert_user(self, data):
-        query = """INSERT INTO \"User\"
-                   values({}, '{}');""".format(data['user_id'], data['user_email'])
+        query = """INSERT INTO \"users\"
+                   values({}, '{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', '{}', '{}');
+                   """.format(data['user_id'], data['username'],
+                             data['password'], data['first_name'],
+                             data['last_name'], data['customer_id'],
+                             data['role_id'], data['is_active'],
+                             data['email'], data['created_on'],
+                             data['last_login'], data['is_deleted'])
 
-        try:        
+        try:
             rows_affected = self.sql_helper.execute(query)
             if rows_affected > 0:
-                return {"status": "success"}
-            return {"status": "fail"}
+                return {'status': 200, 'success': True, 'errors': []}
+
+            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of user with id = {} into USER table unsuccessful'.format(data['user_id'])]}
         
-        except:
-            return {"status": "fail"}
+        except UniqueViolation:
+            return {'status': 400, 'success': False, 'errors': ['Error! User with id = {} already exists'.format(data['user_id'])]}
 
     def delete_user(self, data):
-        query = """ 
-                DELETE FROM \"User\"
-                WHERE user_id={}""".format(data['user_id'])
+        query = """ DELETE FROM \"users\"
+                    WHERE user_id={}
+                """.format(data['user_id'])
 
         rows_affected = self.sql_helper.execute(query)
         
         if rows_affected > 0:
-            return {'status': 'success'}
-        return {'status': 'fail'}
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Deletion of user with id = {} from USER table unsuccessful'.format(data['user_id'])]}
 
     def update_user(self, data):
-        query = """
-            UPDATE \"User\"
-            SET user_email = '{}'
-            WHERE user_id={}""".format(data['user_email'], data['user_id'])
+        query = """ UPDATE \"users\"
+                    SET username='{}', password='{}', first_name='{}',
+                    last_name='{}', customer_id={}, role_id={}, is_active='{}',
+                    email='{}', created_on='{}', last_login='{}', is_deleted='{}'
+                    WHERE user_id={}
+                """.format(data['username'], data['password'], data['first_name'],
+                           data['last_name'], data['customer_id'], data['role_id'], 
+                           data['is_active'], data['email'], data['created_on'],
+                           data['last_login'], data['is_deleted'], data['user_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
         if rows_affected > 0:
-            return {'status': 'success'}
-        return {'status': 'fail'}
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Updating of user with id = {} from USER table unsuccessful'.format(data['user_id'])]}

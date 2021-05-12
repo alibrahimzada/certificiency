@@ -1,4 +1,5 @@
 from data.models.base_entity import BaseEntity
+from psycopg2.errors import UniqueViolation
 
 class Event(BaseEntity):
 
@@ -7,40 +8,50 @@ class Event(BaseEntity):
         super(Event, self).__init__()
 
     def get_all_events(self):
-        return self.sql_helper.get_rows('Event')
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        rows = self.sql_helper.get_rows('events')
+        api_response['data'] = rows
+        return api_response
 
     def insert_event(self, data):
-        query = """INSERT INTO \"Event\"
-                   values({}, '{}');""".format(data['event_id'], data['event_name'])
+        query = """INSERT INTO \"events\"
+                   values({}, '{}', {}, '{}', '{}', '{}', '{}')
+                """.format(data['event_id'], data['event_name'], data['event_category_id'],
+                           data['event_location'], data['event_thumbnail'], data['event_link'],
+                           data['is_deleted'])
 
-        try:        
+        try:
             rows_affected = self.sql_helper.execute(query)
             if rows_affected > 0:
-                return {"status": "success"}
-            return {"status": "fail"}
+                return {'status': 200, 'success': True, 'errors': []}
+
+            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of event with id = {} into EVENT table unsuccessful'.format(data['event_id'])]}
         
-        except:
-            return {"status": "fail"}
+        except UniqueViolation:
+            return {'status': 400, 'success': False, 'errors': ['Error! Event with id = {} already exists'.format(data['event_id'])]}
 
     def delete_event(self, data):
-        query = """ 
-                DELETE FROM \"Event\"
-                WHERE event_id={}""".format(data['event_id'])
+        query = """ DELETE FROM \"events\"
+                    WHERE event_id={}
+                """.format(data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
         if rows_affected > 0:
-            return {'status': 'success'}
-        return {'status': 'fail'}
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Deletion of event with id = {} from EVENT table unsuccessful'.format(data['event_id'])]}
 
     def update_event(self, data):
-        query = """
-            UPDATE \"Event\"
-            SET event_name = '{}'
-            WHERE event_id={}""".format(data['event_name'], data['event_id'])
+        query = """ UPDATE \"events\"
+                    SET event_name='{}', event_category_id={}, event_location='{}',
+                    event_thumbnail='{}', event_link='{}', is_deleted='{}'
+                    WHERE event_id={}
+                """.format(data['event_name'], data['event_category_id'], data['event_location'], 
+                           data['event_thumbnail'], data['event_link'], data['is_deleted'],
+                           data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
         if rows_affected > 0:
-            return {'status': 'success'}
-        return {'status': 'fail'}
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Updating of event with id = {} from EVENT table unsuccessful'.format(data['event_id'])]}

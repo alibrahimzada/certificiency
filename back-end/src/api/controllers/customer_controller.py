@@ -1,5 +1,5 @@
 from service.customer_service import CustomerService
-from flask import jsonify, Blueprint, request
+from flask import Blueprint, request
 
 customer_service = CustomerService()
 
@@ -10,7 +10,7 @@ def get_customers():
         This is the endpoint returning customers list
     """
     api_response = customer_service.get_customers()
-    return jsonify(api_response)
+    return api_response
 
 @bp.route('/insert-customer', methods=['POST'])
 def insert_customer():

@@ -1,10 +1,6 @@
 from __future__ import absolute_import
 from flask import Flask
-from flask import jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-import os
-import sys
 
 # put __init__.py files in each directory
 
@@ -19,29 +15,21 @@ config = {
     "production": "src.config.ProductionConfig"
 }
 
-from api.controllers import user_controller, event_controller, certificate_controller
+from api.controllers import user_controller, event_controller, certificate_controller, customer_controller
 
 app.register_blueprint(user_controller.bp, url_prefix='/api/v1/user')
 app.register_blueprint(event_controller.bp, url_prefix='/api/v1/event')
 app.register_blueprint(certificate_controller.bp, url_prefix='/api/v1/certificate')
+app.register_blueprint(customer_controller.bp, url_prefix='/api/v1/customer')
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
 @app.route('/')
 def hello():
     return "Hello World!"
 
-
 @app.route('/<name>')
 def hello_name(name):
     return "Hello {}!".format(name)
-
-# @app.route('/api/v1/user', methods=['GET'])
-# def get_users():
-#     """
-#         This is the endpoint returning user list
-#     """
-#     print("Test")
-#     return jsonify([{'username': 'ali', 'email': 'ali@gmail.com'}, {'username': 'beyza', 'email': 'beyza@gmail.com'}])
 
 if __name__ == '__main__':
     app.run()
