@@ -7,7 +7,7 @@ from flask import jsonify, Blueprint, request
 event_service = EventService()
 
 bp = Blueprint('event', __name__)
-@bp.route('/get-events', methods=['GET'])
+@bp.route('/all', methods=['GET'])
 def get_events():
     """
         This is the endpoint returning event list
@@ -16,17 +16,17 @@ def get_events():
 
     return jsonify(events)
 
-@bp.route('/insert-event', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def insert_event():
     """
         This is the endpoint for creating a new event
     """
 
     data = request.get_json()
-    status = event_service.create_event(data)
+    status = event_service.insert_event(data)
     return status
 
-@bp.route('/delete-event', methods=['DELETE'])
+@bp.route('/', methods=['DELETE'])
 def delete_event():
     """
         This is endpoint for deleting an event 
@@ -35,7 +35,7 @@ def delete_event():
     status = event_service.delete_event(data)
     return status
 
-@bp.route('/update-event', methods=['PUT'])
+@bp.route('/', methods=['PUT'])
 def update_event():
     """
         This is endpoint for updating an event 
