@@ -11,6 +11,12 @@ class Role(BaseEntity):
         api_response['data'] = rows
         return api_response
 
+    def get_role(self, role_id):
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        role_data = self.sql_helper.get_single_instance('roles', 'role_id', role_id)
+        api_response['data'] = role_data
+        return api_response
+
     def insert_role(self, data):
         query = """INSERT INTO \"roles\"
                    values({}, '{}', '{}', '{}', '{}');
