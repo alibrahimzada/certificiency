@@ -22,7 +22,7 @@ class Role(BaseEntity):
                    values({}, '{}', '{}', '{}', '{}');
                    """.format(data['role_id'], data['role_name'],
                              data['role_permissions'], data['customer_id'],
-                             False)
+                             data['is_deleted'])
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -47,10 +47,10 @@ class Role(BaseEntity):
 
     def update_role(self, data):
         query = """ UPDATE \"roles\"
-                    SET role_name='{}', role_permissions='{}', customer_id='{}'
+                    SET role_name='{}', role_permissions='{}', customer_id='{}', is_deleted='{}'
                     WHERE role_id={}
                 """.format(data['role_name'], data['role_permissions'],
-                            data['customer_id'], data['role_id'])
+                            data['customer_id'], data['is_deleted'], data['role_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
