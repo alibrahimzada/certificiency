@@ -4,7 +4,7 @@ from flask import Blueprint, request
 customer_service = CustomerService()
 
 bp = Blueprint('customer', __name__)
-@bp.route('/get-customers', methods=['GET'])
+@bp.route('/all', methods=['GET'])
 def get_customers():
     """
         This is the endpoint returning customers list
@@ -12,7 +12,7 @@ def get_customers():
     api_response = customer_service.get_customers()
     return api_response
 
-@bp.route('/insert-customer', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def insert_customer():
     """
         This is the endpoint for creating a new customer
@@ -21,7 +21,7 @@ def insert_customer():
     api_response = customer_service.insert_customer(data)
     return api_response
 
-@bp.route('/delete-customer', methods=['DELETE'])
+@bp.route('/', methods=['DELETE'])
 def delete_customer():
     """
         This is endpoint for deleting a customer
@@ -30,7 +30,7 @@ def delete_customer():
     api_response = customer_service.delete_customer(data)
     return api_response
 
-@bp.route('/update-customer', methods=['PUT'])
+@bp.route('/', methods=['PUT'])
 def update_customer():
     """
         This is endpoint for updating a customer
