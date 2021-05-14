@@ -9,6 +9,9 @@ class EventService(Service):
     def get_events(self):
         return self.event.get_all_events()
 
+    def get_event(self, event_id):
+        return self.event.get_event(event_id)
+
     def insert_event(self, data):
         return self.event.insert_event(data)
 

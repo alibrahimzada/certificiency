@@ -13,6 +13,12 @@ class Event(BaseEntity):
         api_response['data'] = rows
         return api_response
 
+    def get_event(self, event_id):
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        event_data = self.sql_helper.get_single_instance('events', 'event_id', event_id)
+        api_response['data'] = event_data
+        return api_response
+
     def insert_event(self, data):
         query = """INSERT INTO \"events\"
                    values({}, '{}', {}, '{}', '{}', '{}', '{}')

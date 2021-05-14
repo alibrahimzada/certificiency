@@ -1,8 +1,5 @@
-# from api import app
 from service.event_service import EventService
-# from service.user import UserService
-# put __init__.py files in each directory
-from flask import jsonify, Blueprint, request
+from flask import Blueprint, request
 
 event_service = EventService()
 
@@ -12,9 +9,16 @@ def get_events():
     """
         This is the endpoint returning event list
     """
-    events = event_service.get_events()
+    api_response = event_service.get_events()
+    return api_response
 
-    return jsonify(events)
+@bp.route('/<event_id>', methods=['GET'])
+def get_event(event_id):
+    """
+        This is the endpoint returning a single event with the given id
+    """
+    api_response = event_service.get_event(event_id)
+    return api_response
 
 @bp.route('/', methods=['POST'])
 def insert_event():
@@ -23,8 +27,8 @@ def insert_event():
     """
 
     data = request.get_json()
-    status = event_service.insert_event(data)
-    return status
+    api_response = event_service.insert_event(data)
+    return api_response
 
 @bp.route('/', methods=['DELETE'])
 def delete_event():
@@ -32,8 +36,8 @@ def delete_event():
         This is endpoint for deleting an event 
     """
     data = request.get_json()
-    status = event_service.delete_event(data)
-    return status
+    api_response = event_service.delete_event(data)
+    return api_response
 
 @bp.route('/', methods=['PUT'])
 def update_event():
@@ -41,5 +45,5 @@ def update_event():
         This is endpoint for updating an event 
     """
     data = request.get_json()
-    status = event_service.update_event(data)
-    return status
+    api_response = event_service.update_event(data)
+    return api_response
