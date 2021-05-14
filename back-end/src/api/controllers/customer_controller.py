@@ -12,6 +12,15 @@ def get_customers():
     api_response = customer_service.get_customers()
     return api_response
 
+@bp.route('/<customer_id>', methods=['GET'])
+def get_customer(customer_id):
+    """
+        This is the endpoint returning a single customer with the given id
+    """
+
+    api_response = customer_service.get_customer(customer_id)
+    return api_response
+
 @bp.route('/', methods=['POST'])
 def insert_customer():
     """

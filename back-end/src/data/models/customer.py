@@ -11,6 +11,12 @@ class Customer(BaseEntity):
         api_response['data'] = rows
         return api_response
 
+    def get_customer(self, customer_id):
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        customer_data = self.sql_helper.get_single_instance('customers', 'customer_id', customer_id)
+        api_response['data'] = customer_data
+        return api_response
+        
     def insert_customer(self, data):
         query = """INSERT INTO \"customers\"
                    values({}, '{}', '{}', '{}', '{}', '{}')
