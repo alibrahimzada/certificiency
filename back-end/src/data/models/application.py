@@ -11,6 +11,12 @@ class Application(BaseEntity):
         api_response['data'] = rows
         return api_response
 
+    def get_application(self, application_id):
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        application_data = self.sql_helper.get_single_instance('applications', 'application_id', application_id)
+        api_response['data'] = application_data
+        return api_response
+
     def insert_application(self, data):
         query = """INSERT INTO \"applications\"
                    values({}, '{}', '{}', '{}', '{}', '{}')

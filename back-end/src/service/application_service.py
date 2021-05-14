@@ -9,6 +9,9 @@ class ApplicationService(Service):
     def get_applications(self):
         return self.application.get_all_applications()
 
+    def get_application(self, application_id):
+        return self.application.get_application(application_id)
+
     def create_application(self, data):
         return self.application.insert_application(data)
 

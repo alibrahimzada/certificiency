@@ -12,6 +12,14 @@ def get_applications():
     api_response = application_service.get_applications()
     return api_response
 
+@bp.route('/<application_id>', methods=['GET'])
+def get_application(application_id):
+    """
+        This is the endpoint returning a single application with the given id
+    """
+    api_response = application_service.get_application(application_id)
+    return api_response
+
 @bp.route('/', methods=['POST'])
 def insert_application():
     """
