@@ -22,7 +22,7 @@ class Application(BaseEntity):
                    values({}, '{}', '{}', '{}', '{}', '{}')
                 """.format(data['application_id'], data['event_id'],
                            data['user_id'], data['applied_on'],
-                           data['application_status'], data['is_deleted'])
+                           data['application_status'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -35,7 +35,8 @@ class Application(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! Application with id = {} already exists'.format(data['application_id'])]}
 
     def delete_application(self, data):
-        query = """DELETE FROM \"applications\"
+        query = """UPDATE \"applications\"
+                   SET is_deleted = 'true' 
                    WHERE application_id={}
                 """.format(data['application_id'])
 

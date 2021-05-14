@@ -24,7 +24,7 @@ class Event(BaseEntity):
                    values({}, '{}', {}, '{}', '{}', '{}', '{}')
                 """.format(data['event_id'], data['event_name'], data['event_category_id'],
                            data['event_location'], data['event_thumbnail'], data['event_link'],
-                           data['is_deleted'])
+                           False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -37,7 +37,8 @@ class Event(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! Event with id = {} already exists'.format(data['event_id'])]}
 
     def delete_event(self, data):
-        query = """ DELETE FROM \"events\"
+        query = """ UPDATE \"events\"
+                    SET is_deleted = 'true'
                     WHERE event_id={}
                 """.format(data['event_id'])
 

@@ -24,7 +24,7 @@ class Certificate(BaseEntity):
                 """.format(data['certificate_id'], data['certified_on'],
                            data['application_id'], data['certificate_link'],
                            data['certificate_properties'], data['is_public'],
-                           data['is_active'])
+                           False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -37,7 +37,8 @@ class Certificate(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! Certificate with id = {} already exists'.format(data['certificate_id'])]}
 
     def delete_certificate(self, data):
-        query = """ DELETE FROM \"certificates\"
+        query = """ UPDATE \"certificates\"
+                    SET is_deleted = 'true'
                     WHERE certificate_id={}
                 """.format(data['certificate_id'])
 

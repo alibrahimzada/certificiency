@@ -69,6 +69,6 @@ CREATE TABLE certificates (
    certificate_link VARCHAR ( 255 ) NOT NULL,
    certificate_properties JSON NOT NULL,
    is_public BOOLEAN NOT NULL,
-   is_active BOOLEAN NOT NULL,
+   is_deleted BOOLEAN NOT NULL,
    FOREIGN KEY (application_id) REFERENCES applications (application_id)	
 );

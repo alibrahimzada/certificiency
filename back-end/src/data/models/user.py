@@ -25,7 +25,7 @@ class User(BaseEntity):
                              data['last_name'], data['customer_id'],
                              data['role_id'], data['is_active'],
                              data['email'], data['created_on'],
-                             data['last_login'], data['is_deleted'])
+                             data['last_login'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -38,7 +38,8 @@ class User(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! User with id = {} already exists'.format(data['user_id'])]}
 
     def delete_user(self, data):
-        query = """ DELETE FROM \"users\"
+        query = """ UPDATE FROM \"users\"
+                    SET is_deleted = 'true'
                     WHERE user_id={}
                 """.format(data['user_id'])
 

@@ -21,8 +21,7 @@ class Role(BaseEntity):
         query = """INSERT INTO \"roles\"
                    values({}, '{}', '{}', '{}', '{}');
                    """.format(data['role_id'], data['role_name'],
-                             data['role_permissions'], data['customer_id'],
-                             data['is_deleted'])
+                             data['role_permissions'], data['customer_id'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -35,7 +34,8 @@ class Role(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! Role with id = {} already exists'.format(data['role_id'])]}
 
     def delete_role(self, data):
-        query = """ DELETE FROM \"roles\"
+        query = """ UPDATE \"roles\"
+                    SET is_deleted = 'true'
                     WHERE role_id={}
                 """.format(data['role_id'])
 

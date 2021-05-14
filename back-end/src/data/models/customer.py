@@ -22,7 +22,7 @@ class Customer(BaseEntity):
                    values({}, '{}', '{}', '{}', '{}', '{}')
                 """.format(data['customer_id'], data['customer_name'],
                            data['is_active'], data['created_on'],
-                           data['company_permissions'], data['is_deleted'])
+                           data['company_permissions'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -35,7 +35,8 @@ class Customer(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! Customer with id = {} already exists'.format(data['customer_id'])]}
 
     def delete_customer(self, data):
-        query = """DELETE FROM \"customers\"
+        query = """UPDATE \"customers\"
+                   SET is_deleted = 'true' 
                    WHERE customer_id={}
                 """.format(data['customer_id'])
 

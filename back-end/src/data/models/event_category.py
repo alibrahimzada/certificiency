@@ -21,7 +21,7 @@ class EventCategory(BaseEntity):
         query = """INSERT INTO \"event_categories\"
                    values({}, '{}', '{}');
                    """.format(data['event_category_id'], data['event_category_name'],
-                              data['is_deleted'])
+                              False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -34,7 +34,8 @@ class EventCategory(BaseEntity):
             return {'status': 400, 'success': False, 'errors': ['Error! event_category with id = {} already exists'.format(data['event_category_id'])]}
 
     def delete_event_category(self, data):
-        query = """ DELETE FROM \"event_categories\"
+        query = """ UPDATE \"event_categories\"
+                    SET is_deleted = 'true'
                     WHERE event_category_id={}
                 """.format(data['event_category_id'])
 
