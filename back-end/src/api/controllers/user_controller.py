@@ -12,6 +12,15 @@ def get_users():
     api_response = user_service.get_users()
     return api_response
 
+@bp.route('/<user_id>', methods=['GET'])
+def get_user(user_id):
+    """
+        This is the endpoint returning a single user with the given id
+    """
+
+    api_response = user_service.get_user(user_id)
+    return api_response
+
 @bp.route('/', methods=['POST'])
 def insert_user():
     """

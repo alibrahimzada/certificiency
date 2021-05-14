@@ -102,3 +102,20 @@ class SqlHelper(ISqlHelper):
             rows.append(row_details)
 
         return rows
+
+    def get_single_instance(self, table_name, primary_key_name, primary_key):
+        query = """ SELECT *
+                    FROM \"{}\"
+                    WHERE {}={}
+                """.format(table_name, primary_key_name, primary_key)
+
+        instance = self.query_first_or_default(query)
+        columns = self.get_column_names(table_name)
+
+        data = {}
+        for i in range(len(instance)):
+            table_column = columns[i][0]
+            cell_value = instance[i]
+            data[table_column] = cell_value
+
+        return data

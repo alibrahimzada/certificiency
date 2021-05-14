@@ -9,6 +9,9 @@ class UserService(Service):
     def get_users(self):
         return self.user.get_all_users()
 
+    def get_user(self, user_id):
+        return self.user.get_user(user_id)
+
     def insert_user(self, data):
         return self.user.insert_user(data)
 
