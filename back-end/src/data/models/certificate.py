@@ -12,6 +12,12 @@ class Certificate(BaseEntity):
         api_response['data'] = rows
         return api_response
 
+    def get_certificate(self, certificate_id):
+        api_response = {'status': 200, 'success': True, 'errors': []}
+        certificate_data = self.sql_helper.get_single_instance('certificates', 'certificate_id', certificate_id)
+        api_response['data'] = certificate_data
+        return api_response
+
     def insert_certificate(self, data):
         query = """INSERT INTO \"certificates\"
                    values({}, '{}', {}, '{}', '{}', '{}', '{}')

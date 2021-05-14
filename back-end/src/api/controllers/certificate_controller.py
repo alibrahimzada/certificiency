@@ -12,6 +12,14 @@ def get_certificates():
     api_response = certificate_service.get_certificates()
     return api_response
 
+@bp.route('/<certificate_id>', methods=['GET'])
+def get_certificate(certificate_id):
+    """
+        This is the endpoint returning a single certificate with the given id
+    """
+    api_response = certificate_service.get_certificate(certificate_id)
+    return api_response
+
 @bp.route('/', methods=['POST'])
 def insert_certificate():
     """
