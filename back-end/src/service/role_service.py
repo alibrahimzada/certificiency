@@ -9,6 +9,9 @@ class RoleService(Service):
     def get_roles(self):
         return self.role.get_all_roles()
 
+    def get_role(self, role_id):
+        return self.role.get_role(role_id)
+
     def insert_role(self, data):
         return self.role.insert_role(data)
 

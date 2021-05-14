@@ -13,6 +13,15 @@ def get_roles():
     api_response = role_service.get_roles()
     return api_response
 
+@bp.route('/<role_id>', methods=['GET'])
+def get_role(role_id):
+    """
+        This is the endpoint returning a single role with the given id
+    """
+
+    api_response = role_service.get_role(role_id)
+    return api_response
+
 @bp.route('/', methods=['POST'])
 def insert_role():
     """
