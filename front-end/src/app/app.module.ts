@@ -19,6 +19,7 @@ import { AuthService } from './core/services/auth.service';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
+import { CustomerComponent } from './components/customer/customer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { UpsertRoleComponent } from './components/roles/components/upsert-role/u
     IsVisibleForUserDirective,
     HomeComponent,
     RolesComponent,
-    UpsertRoleComponent
+    UpsertRoleComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
