@@ -39,7 +39,7 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/user/' + id).pipe(
       map(res => res)
     )
   }
