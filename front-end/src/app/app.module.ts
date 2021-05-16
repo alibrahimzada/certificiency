@@ -20,6 +20,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { RolesComponent } from './components/roles/roles.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { EventCategoryComponent } from './components/event-category/event-category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { CustomerComponent } from './components/customer/customer.component';
     HomeComponent,
     RolesComponent,
     UpsertRoleComponent,
-    CustomerComponent
+    CustomerComponent,
+    EventCategoryComponent
   ],
   imports: [
     BrowserModule,

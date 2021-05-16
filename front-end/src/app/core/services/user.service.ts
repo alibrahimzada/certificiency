@@ -42,7 +42,5 @@ export class UserService {
     return this.httpClient.delete(API_ENDPOINT + '/user/' + id).pipe(
       map(res => res)
     )
-  }
-
-  
+  }  
 }
