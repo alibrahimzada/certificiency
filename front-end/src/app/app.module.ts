@@ -22,6 +22,7 @@ import { UpsertRoleComponent } from './components/roles/components/upsert-role/u
 import { CustomerComponent } from './components/customer/customer.component';
 import { EventCategoryComponent } from './components/event-category/event-category.component';
 import { EventComponent } from './components/event/event.component';
+import { ApplicationComponent } from './components/application/application.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { EventComponent } from './components/event/event.component';
     UpsertRoleComponent,
     CustomerComponent,
     EventCategoryComponent,
-    EventComponent
+    EventComponent,
+    ApplicationComponent
   ],
   imports: [
     BrowserModule,
