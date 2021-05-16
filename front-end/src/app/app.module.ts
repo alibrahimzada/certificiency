@@ -23,6 +23,7 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { EventCategoryComponent } from './components/event-category/event-category.component';
 import { EventComponent } from './components/event/event.component';
 import { ApplicationComponent } from './components/application/application.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ApplicationComponent } from './components/application/application.compo
     CustomerComponent,
     EventCategoryComponent,
     EventComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    CertificateComponent
   ],
   imports: [
     BrowserModule,
