@@ -26,11 +26,11 @@ export class UsersComponent implements OnInit {
     private roleService: RoleService,
     private apiService: GeneralApiService
   ) {
-    this.roleService.getRoles().subscribe(response => {
-      if (response.success) {
-        this.roles = response.data;
-      }
-    })
+    // this.roleService.getRoles().subscribe(response => {
+    //   if (response.success) {
+    //     this.roles = response.data;
+    //   }
+    // })
   }
 
   ngOnInit(): void {
@@ -41,6 +41,7 @@ export class UsersComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(response => {
       if (response.success) {
+        console.log(response);
         this.users = response.data;
       }
       else {

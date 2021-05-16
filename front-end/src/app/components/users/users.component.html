@@ -36,7 +36,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of users;">
-                                <td>{{user.username}}</td>
+                                <!-- <td>{{user.username}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.firstName}}</td>
                                 <td>{{user.lastName}}</td>
@@ -48,7 +48,7 @@
                                         [routerLink]="['/users/detail/'+user.id]">Düzenle</button>
                                     <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
                                             class="fa fa-trash"></i>sil</button>
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>
