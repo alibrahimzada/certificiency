@@ -26,8 +26,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.user.firstName = "Beyza";
-    this.user.lastName = "Aydogan";
+    this.user.first_name = "Beyza";
+    this.user.last_name = "Aydogan";
     // this.user = this.authService.getCurrentUser();
     // this.refreshNotifications();
     // this.route$ = this.router.events.subscribe(event => {

@@ -26,6 +26,12 @@ export class UserService {
     );
   }
 
+  getHelloWorld(): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT).pipe(
+      map(res => res)
+    );
+  }
+
   createUser(user: User): Observable<any> {
     return this.httpClient.post(API_ENDPOINT + '/user/', user).pipe(
       map(res => res)

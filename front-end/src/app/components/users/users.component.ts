@@ -29,7 +29,13 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.userService.getHelloWorld().subscribe(response => {
+      console.log(response);
+    });
   }
 
 }
