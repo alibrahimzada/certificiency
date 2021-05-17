@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerComponent } from './components/customer/customer.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
@@ -49,6 +50,12 @@ const routes: Routes = [
         path: 'roles/detail/:id',
         component: UpsertRoleComponent,
         canActivate: [AuthGuard]
+      }
+      ,
+      {
+        path: 'customer',
+        component: CustomerComponent
+        //canActivate: [AuthGuard]
       }
     ]
   },
