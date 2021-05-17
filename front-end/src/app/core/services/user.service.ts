@@ -15,50 +15,38 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user').pipe(
+    return this.httpClient.get(API_ENDPOINT + '/user/all').pipe(
       map(res => res)
     )
   }
 
   getById(id: string): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/single/' + id).pipe(
+    return this.httpClient.get(API_ENDPOINT + '/user/' + id).pipe(
+      map(res => res)
+    );
+  }
+
+  getHelloWorld(): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT).pipe(
       map(res => res)
     );
   }
 
   createUser(user: User): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/user/createUser', user).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/user/', user).pipe(
       map(res => res)
     )
   }
 
   updateUser(user: User): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/user/updateUser', user).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/user/', user).pipe(
       map(res => res)
     )
   }
 
-  getEngineers(neighborhood?: string): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/engineers?neighborhood=' + neighborhood || 'all').pipe(
+  deleteUser(id: string): Observable<any> {
+    return this.httpClient.delete(API_ENDPOINT + '/user/' + id).pipe(
       map(res => res)
     )
-  }
-
-  getLicenseEngineers(neighborhood?: string): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/licenseEngineers?neighborhood=' + neighborhood || 'all').pipe(
-      map(res => res)
-    )
-  }
-
-  getSettlementEngineers(neighborhood?: string): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/settlementEngineers?neighborhood=' + neighborhood || 'all').pipe(
-      map(res => res)
-    )
-  }
-
-  changePassword(body: { userId: string, password: string }): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/user/changePassword', body).pipe(
-      map(res => res)
-    );
-  }
+  }  
 }

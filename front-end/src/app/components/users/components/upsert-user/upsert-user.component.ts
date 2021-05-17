@@ -40,7 +40,7 @@ export class UpsertUserComponent implements OnInit {
 
   save() {
     this.loadingService.setLoading(true);
-    if (this.user.id) {
+    if (this.user.user_id) {
       const { password, ...rest } = this.user;
       this.userService.updateUser(rest as any).subscribe(response => {
         if (response.success) {

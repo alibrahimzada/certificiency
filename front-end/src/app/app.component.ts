@@ -18,11 +18,11 @@ export class AppComponent implements OnInit {
 
   }
   async ngOnInit() {
-    const token = this.authService.getToken();
-    if (!token) {
-      this.router.navigate(['/login']);
-    } else {
-      await this.roleService.getCurrentUserRoles().toPromise();
-    }
+    // const token = this.authService.getToken();
+    // if (!token) {
+    //   this.router.navigate(['/login']);
+    // } else {
+    //   await this.roleService.getCurrentUserRoles().toPromise();
+    // }
   }
 }

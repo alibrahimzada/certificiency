@@ -21,22 +21,22 @@ export class UpsertRoleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.route.snapshot.params.id) {
-      this.getRole();
-    }
+    // if (this.route.snapshot.params.id) {
+    //   this.getRole();
+    // }
     this.getPermissions();
-    this.getNotifications();
+    //this.getNotifications();
   }
 
-  getRole() {
-    this.loadingService.setLoading(true);
-    this.roleService.getRole(this.route.snapshot.params.id).subscribe(response => {
-      if (response.success) {
-        this.role = response.data;
-      }
-      this.loadingService.setLoading(false);
-    })
-  }
+  // getRole() {
+  //   this.loadingService.setLoading(true);
+  //   this.roleService.getRole(this.route.snapshot.params.id).subscribe(response => {
+  //     if (response.success) {
+  //       this.role = response.data;
+  //     }
+  //     this.loadingService.setLoading(false);
+  //   })
+  // }
 
   getPermissions() {
     this.loadingService.setLoading(true);
@@ -48,18 +48,18 @@ export class UpsertRoleComponent implements OnInit {
     })
   }
 
-  getNotifications() {
-    this.loadingService.setLoading(true);
-    this.roleService.getCompanyNotifications().subscribe(response => {
-      if (response.success) {
-        this.notifications = response.data;
-      }
-      this.loadingService.setLoading(false);
-    })
-  }
+  // getNotifications() {
+  //   this.loadingService.setLoading(true);
+  //   this.roleService.getCompanyNotifications().subscribe(response => {
+  //     if (response.success) {
+  //       this.notifications = response.data;
+  //     }
+  //     this.loadingService.setLoading(false);
+  //   })
+  // }
 
   save() {
-    this.roleService.upsertRole(this.role).subscribe(response => {
+    this.roleService.updateRole(this.role).subscribe(response => {
       if (response.success) {
         this.router.navigate(['/roles']);
       }

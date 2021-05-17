@@ -1,11 +1,12 @@
 from __future__ import absolute_import
 from flask import Flask
-from flask_cors import CORS
+# from flask_cors import CORS
 
 # put __init__.py files in each directory
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app, origins='*')
+# CORS(app)
 # app.config.from_object(os.environ['APP_SETTINGS'])
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
