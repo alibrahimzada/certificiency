@@ -1,4 +1,4 @@
-from service.role_service import RoleService
+from src.service.role_service import RoleService
 from flask import Blueprint, request
 
 role_service = RoleService()

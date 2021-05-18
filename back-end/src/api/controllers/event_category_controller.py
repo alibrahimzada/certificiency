@@ -1,4 +1,4 @@
-from service.event_category_service import EventCategoryService
+from src.service.event_category_service import EventCategoryService
 from flask import Blueprint, request
 
 event_category_service = EventCategoryService()

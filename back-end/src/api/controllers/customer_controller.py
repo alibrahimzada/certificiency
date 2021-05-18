@@ -1,4 +1,4 @@
-from service.customer_service import CustomerService
+from src.service.customer_service import CustomerService
 from flask import Blueprint, request
 
 customer_service = CustomerService()

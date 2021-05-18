@@ -1,4 +1,4 @@
-from data.models.base_entity import BaseEntity
+from src.data.models.base_entity import BaseEntity
 from psycopg2.errors import UniqueViolation
 
 class Application(BaseEntity):

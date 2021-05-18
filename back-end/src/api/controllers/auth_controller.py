@@ -1,4 +1,4 @@
-from service.auth_service import AuthService
+from src.service.auth_service import AuthService
 from flask import Blueprint, request
 
 auth_service = AuthService()

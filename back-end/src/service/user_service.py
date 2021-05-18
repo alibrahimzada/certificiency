@@ -1,5 +1,5 @@
-from service import Service
-from data.models.user import User
+from src.service import Service
+from src.data.models.user import User
 
 class UserService(Service):
 
