@@ -1,6 +1,6 @@
-from service import Service
-from data.models.auth import Auth 
-from service.helpers.crypto_helper import CryptoHelper
+from src.service import Service
+from src.data.models.auth import Auth 
+from src.service.helpers.crypto_helper import CryptoHelper
 
 class AuthService(Service):
 

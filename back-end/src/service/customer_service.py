@@ -1,5 +1,5 @@
-from service import Service
-from data.models.customer import Customer
+from src.service import Service
+from src.data.models.customer import Customer
 
 class CustomerService(Service):
 

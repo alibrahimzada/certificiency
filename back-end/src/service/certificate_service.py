@@ -1,5 +1,5 @@
-from service import Service
-from data.models.certificate import Certificate
+from src.service import Service
+from src.data.models.certificate import Certificate
 
 class CertificateService(Service):
 

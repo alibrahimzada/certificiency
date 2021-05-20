@@ -1,4 +1,4 @@
-from service.certificate_service import CertificateService
+from src.service.certificate_service import CertificateService
 from flask import Blueprint, request
 
 certificate_service = CertificateService()

@@ -1,5 +1,5 @@
-from service import Service
-from data.models.event_category import EventCategory
+from src.service import Service
+from src.data.models.event_category import EventCategory
 
 class EventCategoryService(Service):
 

@@ -1,5 +1,5 @@
-from service import Service
-from data.models.role import Role
+from src.service import Service
+from src.data.models.role import Role
 
 class RoleService(Service):
 

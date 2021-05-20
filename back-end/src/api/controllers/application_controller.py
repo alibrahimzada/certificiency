@@ -1,4 +1,4 @@
-from service.application_service import ApplicationService
+from src.service.application_service import ApplicationService
 from flask import Blueprint, request
 
 application_service = ApplicationService()

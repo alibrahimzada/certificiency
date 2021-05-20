@@ -1,4 +1,4 @@
-from service.user_service import UserService
+from src.service.user_service import UserService
 from flask import Blueprint, request
 # from flask_cors import CORS, cross_origin
 

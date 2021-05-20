@@ -1,5 +1,5 @@
-from service import Service
-from data.models.event import Event
+from src.service import Service
+from src.data.models.event import Event
 
 class EventService(Service):
 

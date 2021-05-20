@@ -16,7 +16,7 @@ config = {
     "production": "src.config.ProductionConfig"
 }
 
-from api.controllers import (user_controller, event_controller, certificate_controller,
+from src.api.controllers import (user_controller, event_controller, certificate_controller,
                             customer_controller, auth_controller, role_controller, 
                             application_controller, event_category_controller)
 

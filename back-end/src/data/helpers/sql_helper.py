@@ -23,8 +23,18 @@ class ISqlHelper:
 
 class SqlHelper(ISqlHelper):
 
+    def __init__(self):
+        self.is_test_db = False
+
     def get_connection(self):
-        con = psycopg2.connect("dbname=certificiency user=postgres password=123456789")
+        db_name = ''
+        if self.is_test_db:
+            db_name = 'certificiency-test'
+        else:
+            db_name = 'certificiency'
+
+        con = psycopg2.connect("dbname={} user=postgres password=123456789".format(db_name))
+
         con.autocommit = True
         return con
 

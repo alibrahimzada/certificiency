@@ -1,5 +1,5 @@
-from service import Service
-from data.models.application import Application
+from src.service import Service
+from src.data.models.application import Application
 
 class ApplicationService(Service):
 
