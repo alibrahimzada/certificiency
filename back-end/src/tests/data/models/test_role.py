@@ -37,9 +37,9 @@ class TestRole(unittest.TestCase):
                         'role_permissions': "{\"has_delete_authorization\": \"False\"}",
                         'customer_id': self.customer_data['customer_1']['customer_id']
             }
+
         }
 
-    def test_get_all_roles(self):
         # inserting the test customers into test database
         api_response = self.customer.insert_customer(self.customer_data['customer_0'])
         self.assertEqual(api_response['success'], True)
@@ -52,6 +52,14 @@ class TestRole(unittest.TestCase):
         api_response = self.role.insert_role(self.role_data['role_1'])
         self.assertEqual(api_response['success'], True)
 
+
+    def tearDown(self):
+        self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
+        self.remove_test_instance('role_id', self.role_data['role_1']['role_id'], 'roles')
+        self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
+        self.remove_test_instance('customer_id', self.customer_data['customer_1']['customer_id'], 'customers')
+
+    def test_get_all_roles(self):
         # getting all test roles from database
         api_response = self.role.get_all_roles()
         self.assertEqual(api_response['success'], True)
@@ -66,19 +74,9 @@ class TestRole(unittest.TestCase):
 
                 self.assertEqual(self.role_data[role][key], api_response['data'][counter][key])
 
-            self.remove_test_instance('role_id', self.role_data[role]['role_id'], 'roles')
-            self.remove_test_instance('customer_id', self.role_data[role]['customer_id'], 'customers')
             counter += 1
 
     def test_get_role(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.customer_data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
-        # inserting the test role into test database
-        api_response = self.role.insert_role(self.role_data['role_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test role from database
         api_response = self.role.get_role(self.role_data['role_0']['role_id'])
         self.assertEqual(api_response['success'], True)
@@ -91,18 +89,7 @@ class TestRole(unittest.TestCase):
 
             self.assertEqual(self.role_data['role_0'][key], api_response['data'][key])
 
-        self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
-        self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
-
     def test_insert_role(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.customer_data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
-        # inserting the test role into test database
-        api_response = self.role.insert_role(self.role_data['role_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test role from database
         api_response = self.role.get_role(self.role_data['role_0']['role_id'])
         self.assertEqual(api_response['success'], True)
@@ -119,43 +106,19 @@ class TestRole(unittest.TestCase):
         api_response = self.role.insert_role(self.role_data['role_0'])
         self.assertEqual(api_response['success'], False)
 
-        self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
-        self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
-
     def test_delete_role(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.customer_data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
-        # inserting the test role into test database
-        api_response = self.role.insert_role(self.role_data['role_0'])
-        self.assertEqual(api_response['success'], True)
-
-        data = {'role_id': self.role_data['role_0']['role_id']}
-
         # deleting the test role from test database (setting is_deleted attribute = true)
-        api_response = self.role.delete_role(data)
+        api_response = self.role.delete_role(self.role_data['role_0'])
         self.assertEqual(api_response['success'], True)
 
         # getting the deleted test role from database
-        api_response = self.role.get_role(data['role_id'])
+        api_response = self.role.get_role(self.role_data['role_0']['role_id'])
         self.assertEqual(api_response['success'], True)
 
         # asserting if is_deleted attribute has been changed to True
         self.assertEqual(api_response['data']['is_deleted'], True)
 
-        self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
-        self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
-
     def test_update_role(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.customer_data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
-        # inserting the test role into test database
-        api_response = self.role.insert_role(self.role_data['role_0'])
-        self.assertEqual(api_response['success'], True)
-
         # updating role attributes
         self.role_data['role_0']['role_name'] = 'Analyst'
         self.role_data['role_0']['is_deleted'] = False
@@ -167,9 +130,6 @@ class TestRole(unittest.TestCase):
         self.assertEqual(api_response['success'], True)
 
         self.assertEqual(api_response['data']['role_name'], 'Analyst')
-
-        self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
-        self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
 
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
         # removing the test instance from database

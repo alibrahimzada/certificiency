@@ -22,13 +22,17 @@ class TestCustomer(unittest.TestCase):
                             'company_permissions': "{\"has_update_authorization\": \"True\"}"}
         }
 
-    def test_get_all_customers(self):
         # inserting the test customers into test database
         api_response = self.customer.insert_customer(self.data['customer_0'])
         self.assertEqual(api_response['success'], True)
         api_response = self.customer.insert_customer(self.data['customer_1'])
-        self.assertEqual(api_response['success'], True)      
+        self.assertEqual(api_response['success'], True)
 
+    def tearDown(self):
+        self.remove_test_instance(self.data['customer_0']['customer_id'])
+        self.remove_test_instance(self.data['customer_1']['customer_id'])
+    
+    def test_get_all_customers(self):
         # getting all test customers from database
         api_response = self.customer.get_all_customers()
         self.assertEqual(api_response['success'], True)
@@ -43,14 +47,9 @@ class TestCustomer(unittest.TestCase):
 
                 self.assertEqual(self.data[customer][key], api_response['data'][counter][key])
 
-            self.remove_test_instance(self.data[customer]['customer_id'])
             counter += 1
 
     def test_get_customer(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test customer from database
         api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
         self.assertEqual(api_response['success'], True)
@@ -63,13 +62,7 @@ class TestCustomer(unittest.TestCase):
 
             self.assertEqual(self.data['customer_0'][key], api_response['data'][key])
 
-        self.remove_test_instance(self.data['customer_0']['customer_id'])
-
     def test_insert_customer(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test customer from database
         api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
         self.assertEqual(api_response['success'], True)
@@ -86,33 +79,19 @@ class TestCustomer(unittest.TestCase):
         api_response = self.customer.insert_customer(self.data['customer_0'])
         self.assertEqual(api_response['success'], False)
 
-        self.remove_test_instance(self.data['customer_0']['customer_id'])
-
     def test_delete_customer(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
-        data = {'customer_id': self.data['customer_0']['customer_id']}
-
         # deleting the test customer from test database (setting is_deleted attribute = true)
-        api_response = self.customer.delete_customer(data)
+        api_response = self.customer.delete_customer(self.data['customer_0'])
         self.assertEqual(api_response['success'], True)
 
         # getting the deleted test customer from database
-        api_response = self.customer.get_customer(data['customer_id'])
+        api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
         self.assertEqual(api_response['success'], True)
 
         # asserting if is_deleted attribute has been changed to True
         self.assertEqual(api_response['data']['is_deleted'], True)
 
-        self.remove_test_instance(self.data['customer_0']['customer_id'])
-
     def test_update_customer(self):
-        # inserting the test customer into test database
-        api_response = self.customer.insert_customer(self.data['customer_0'])
-        self.assertEqual(api_response['success'], True)
-
         # updating customer attributes
         self.data['customer_0']['customer_name'] = 'Bob'
         self.data['customer_0']['is_deleted'] = False
@@ -124,8 +103,6 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(api_response['success'], True)
 
         self.assertEqual(api_response['data']['customer_name'], 'Bob')
-
-        self.remove_test_instance(self.data['customer_0']['customer_id'])
 
     def remove_test_instance(self, primary_key):
         # removing the test instance from database
