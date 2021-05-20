@@ -2,13 +2,13 @@
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                Rol Listesi
+                Roles
             </h3>
         </div>
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-actions">
                 <a routerLink="/roles/new" class="btn btn-success btn-pill btn-sm">
-                    <i class="fa fa-plus marr10"></i>Yeni Rol Ekle
+                    <i class="fa fa-plus marr10"></i>Add Role
                 </a>
 
             </div>
@@ -26,20 +26,19 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Rol İsmi</th>
-                                <th>İzin Sayısı</th>
-                                <th>Bildirim Sayısı</th>
-                                <th class="text-right">İşlemler</th>
+                                <th>Rol Name</th>
+                                <th>Role Permissions</th>
+                             
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let role of roles;">
+                            <!-- <tr *ngFor="let role of roles;">
                                 <td>{{role.roleName}}</td>
                                 <td>{{role.permissions ? role.permissions.length : 0}}</td>
                                 <td>{{role.notifications ? role.notifications.length : 0}}</td>
                                 <td class="text-right"> <button class="btn btn-success "
                                         [routerLink]="['/roles/detail/'+role.id]">Düzenle</button></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
