@@ -4,8 +4,8 @@ sys.path.insert(1, os.getcwd() + '/back-end')
 
 import unittest
 
-from src.tests.api.data.models.test_customer import TestCustomer
-
+from src.tests.data.models.test_customer import TestCustomer
+from src.tests.data.models.test_role import TestRole
 
 class TestSuiteRunner():
 
@@ -17,7 +17,7 @@ class TestSuiteRunner():
             This method puts all test classes in one place
         """
         test_suite = unittest.TestSuite()
-        test_classes = [TestCustomer]
+        test_classes = [TestCustomer, TestRole]
 
         for test_class in test_classes:
             test_suite.addTest(unittest.makeSuite(test_class))
