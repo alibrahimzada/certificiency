@@ -11,6 +11,5 @@ def login():
         This is the endpoint for login procedures
     """
     data = request.get_json()
-    print(data)
     api_response = auth_service.login(data)
     return api_response
