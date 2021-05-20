@@ -9,4 +9,10 @@ class AuthService(Service):
         self.crypto_helper = CryptoHelper()
 
     def login(self, data):
+        encrypted_password = self.encrypt_password(data)
+        data['password'] = encrypted_password
         return self.auth.login(data)
+
+    def encrypt_password(self, data):
+        encrypted_password = self.crypto_helper.sha256_encrypt(data['username'], data['password'])
+        return encrypted_password
