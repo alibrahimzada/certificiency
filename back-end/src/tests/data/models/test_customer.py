@@ -127,9 +127,9 @@ class TestCustomer(unittest.TestCase):
 
         self.remove_test_instance(self.data['customer_0']['customer_id'])
 
-    def remove_test_instance(self, customer_id):
+    def remove_test_instance(self, primary_key):
         # removing the test instance from database
         query = """ DELETE FROM customers 
                     WHERE customer_id = {}
-                """.format(customer_id)
+                """.format(primary_key)
         self.customer.sql_helper.execute(query)
