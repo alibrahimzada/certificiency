@@ -16,13 +16,21 @@ class TestEventCategory(unittest.TestCase):
                           
         }
 
-    def test_get_all_event_categories(self):
+
         # inserting the test event_categories into test database
         api_response = self.event_category.insert_event_category(self.data['event_category_0'])
         self.assertEqual(api_response['success'], True)
         api_response = self.event_category.insert_event_category(self.data['event_category_1'])
         self.assertEqual(api_response['success'], True)     
 
+
+    def tearDown(self):
+        self.remove_test_instance(self.data['event_category_0']['event_category_id'])
+        self.remove_test_instance(self.data['event_category_1']['event_category_id'])        
+
+
+
+    def test_get_all_event_categories(self):
         # getting all test event_categorys from database
         api_response = self.event_category.get_all_event_categories()
         self.assertEqual(api_response['success'], True)
@@ -33,14 +41,9 @@ class TestEventCategory(unittest.TestCase):
             for key in self.data[event_category]:  
                 self.assertEqual(self.data[event_category][key], api_response['data'][counter][key])
 
-            self.remove_test_instance(self.data[event_category]['event_category_id'])
             counter += 1
 
     def test_get_event_category(self):
-        # inserting the test event_category into test database
-        api_response = self.event_category.insert_event_category(self.data['event_category_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test event_category from database
         api_response = self.event_category.get_event_category(self.data['event_category_0']['event_category_id'])
         self.assertEqual(api_response['success'], True)
@@ -49,13 +52,9 @@ class TestEventCategory(unittest.TestCase):
         for key in self.data['event_category_0']:
             self.assertEqual(self.data['event_category_0'][key], api_response['data'][key])
 
-        self.remove_test_instance(self.data['event_category_0']['event_category_id'])
+
 
     def test_insert_event_category(self):
-        # inserting the test event_category into test database
-        api_response = self.event_category.insert_event_category(self.data['event_category_0'])
-        self.assertEqual(api_response['success'], True)
-
         # getting the inserted test event_category from database
         api_response = self.event_category.get_event_category(self.data['event_category_0']['event_category_id'])
         self.assertEqual(api_response['success'], True)
@@ -68,33 +67,22 @@ class TestEventCategory(unittest.TestCase):
         api_response = self.event_category.insert_event_category(self.data['event_category_0'])
         self.assertEqual(api_response['success'], False)
 
-        self.remove_test_instance(self.data['event_category_0']['event_category_id'])
 
     def test_delete_event_category(self):
-        # inserting the test event_category into test database
-        api_response = self.event_category.insert_event_category(self.data['event_category_0'])
-        self.assertEqual(api_response['success'], True)
-
-        data = {'event_category_id': self.data['event_category_0']['event_category_id']}
 
         # deleting the test event_category from test database (setting is_deleted attribute = true)
-        api_response = self.event_category.delete_event_category(data)
+        api_response = self.event_category.delete_event_category(self.data['event_category_0'])
         self.assertEqual(api_response['success'], True)
 
         # getting the deleted test event_category from database
-        api_response = self.event_category.get_event_category(data['event_category_id'])
+        api_response = self.event_category.get_event_category(self.data['event_category_0']['event_category_id'])
         self.assertEqual(api_response['success'], True)
 
         # asserting if is_deleted attribute has been changed to True
         self.assertEqual(api_response['data']['is_deleted'], True)
 
-        self.remove_test_instance(self.data['event_category_0']['event_category_id'])
 
     def test_update_event_category(self):
-        # inserting the test event_category into test database
-        api_response = self.event_category.insert_event_category(self.data['event_category_0'])
-        self.assertEqual(api_response['success'], True)
-
         # updating event_category attributes
         self.data['event_category_0']['event_category_name'] = 'Updated Event Category 0'
         self.data['event_category_0']['is_deleted'] = False
@@ -107,7 +95,6 @@ class TestEventCategory(unittest.TestCase):
 
         self.assertEqual(api_response['data']['event_category_name'], 'Updated Event Category 0')
 
-        self.remove_test_instance(self.data['event_category_0']['event_category_id'])
 
     def remove_test_instance(self, event_category_id):
         # removing the test instance from database

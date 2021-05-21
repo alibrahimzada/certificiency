@@ -5,9 +5,10 @@ from src.data.models.role import Role
 from src.data.models.customer import Customer
 from src.data.models.user import User
 from src.data.models.application import Application
+from src.data.models.certificate import Certificate
 import datetime
 
-class TestApplication(unittest.TestCase):
+class TestCertificate(unittest.TestCase):
 
     def setUp(self):
         self.event_category = EventCategory()
@@ -16,6 +17,7 @@ class TestApplication(unittest.TestCase):
         self.role = Role()
         self.user = User()
         self.application = Application()
+        self.certificate = Certificate()
 
         self.event_category.sql_helper.is_test_db = True
         self.event.sql_helper.is_test_db = True
@@ -23,6 +25,7 @@ class TestApplication(unittest.TestCase):
         self.role.sql_helper.is_test_db = True
         self.user.sql_helper.is_test_db = True
         self.application.sql_helper.is_test_db = True
+        self.certificate.sql_helper.is_test_db = True
 
 
         # test event_category instances
@@ -119,10 +122,31 @@ class TestApplication(unittest.TestCase):
             'application_1': { 'application_id': 1,
                         'event_id': self.event_data['event_1']['event_id'],
                         'user_id': self.user_data['user_1']['user_id'],
-                        'applied_on': datetime.datetime(2021, 5, 20, 23, 0, 0),
+                        'applied_on': datetime.datetime(2021, 5, 10, 23, 0, 0),
                         'application_status': 1 
             }
         }
+
+        self.certificate_data = {
+            'certificate_0': { 'certificate_id': 0,
+                        'certified_on': datetime.datetime(2021, 5, 13, 23, 0, 0),
+                        'application_id': self.application_data['application_0']['application_id'],
+                        'certificate_link': 'google.com',
+                        'certificate_properties': "{\"a\": \"b\"}",
+                        'is_public': 1
+
+            },
+            'certificate_1': { 'certificate_id': 1,
+                        'certified_on': datetime.datetime(2021, 5, 13, 23, 0, 0),
+                        'application_id': self.application_data['application_1']['application_id'],
+                        'certificate_link': 'google.com',
+                        'certificate_properties': "{\"a\": \"b\"}",
+                        'is_public': 1
+
+            }
+
+        }
+
 
         # the test event categories into test database
         api_response = self.event_category.insert_event_category(self.event_category_data['event_category_0'])
@@ -162,8 +186,16 @@ class TestApplication(unittest.TestCase):
         api_response = self.application.insert_application(self.application_data['application_1'])
         self.assertEqual(api_response['success'], True)
 
+        # inserting the test certificates into test database
+        api_response = self.certificate.insert_certificate(self.certificate_data['certificate_0'])
+        self.assertEqual(api_response['success'], True)
+        api_response = self.certificate.insert_certificate(self.certificate_data['certificate_1'])
+        self.assertEqual(api_response['success'], True)
+
 
     def tearDown(self):
+        self.remove_test_instance('certificate_id', self.certificate_data['certificate_0']['certificate_id'], 'certificates')
+        self.remove_test_instance('certificate_id', self.certificate_data['certificate_1']['certificate_id'], 'certificates')
         self.remove_test_instance('application_id', self.application_data['application_0']['application_id'], 'applications')
         self.remove_test_instance('application_id', self.application_data['application_1']['application_id'], 'applications')
         self.remove_test_instance('user_id', self.user_data['user_0']['user_id'], 'users')
@@ -180,70 +212,81 @@ class TestApplication(unittest.TestCase):
 
 
 
-    def test_get_all_applications(self):
-        # getting all test applications from database
-        api_response = self.application.get_all_applications()
+    def test_get_all_certificates(self):
+        # getting all test certificates from database
+        api_response = self.certificate.get_all_certificates()
         self.assertEqual(api_response['success'], True)
 
-        # asserting every attribute of every application instance
+        # asserting every attribute of every certificate instance
         counter = 0
-        for application in self.application_data:
-            for key in self.application_data[application]:
-                self.assertEqual(self.application_data[application][key], api_response['data'][counter][key])
+        for certificate in self.certificate_data:
+            for key in self.certificate_data[certificate]:
+                if key == 'certificate_properties':
+                    self.assertEqual(eval(self.certificate_data[certificate][key]), api_response['data'][counter][key])
+                    continue
+
+                self.assertEqual(self.certificate_data[certificate][key], api_response['data'][counter][key])
 
             counter += 1
 
-    def test_get_application(self):
-        # getting the inserted test application from database
-        api_response = self.application.get_application(self.application_data['application_0']['application_id'])
+    def test_get_certificate(self):
+        # getting the inserted test certificate from database
+        api_response = self.certificate.get_certificate(self.certificate_data['certificate_0']['certificate_id'])
         self.assertEqual(api_response['success'], True)
 
+        # asserting every attribute of a certificate instance
+        for key in self.certificate_data['certificate_0']:
+            if key == 'certificate_properties':
+                self.assertEqual(eval(self.certificate_data['certificate_0'][key]), api_response['data'][key])
+                continue
 
-        # asserting every attribute of a application instance
-        for key in self.application_data['application_0']:
-            self.assertEqual(self.application_data['application_0'][key], api_response['data'][key])
+            self.assertEqual(self.certificate_data['certificate_0'][key], api_response['data'][key])
 
 
 
-    def test_insert_application(self):
-        # getting the inserted test application from database
-        api_response = self.application.get_application(self.application_data['application_0']['application_id'])
+    def test_insert_certificate(self):
+        # getting the inserted test certificate from database
+        api_response = self.certificate.get_certificate(self.certificate_data['certificate_0']['certificate_id'])
         self.assertEqual(api_response['success'], True)
 
-        # asserting every attribute of a application instance
-        for key in self.application_data['application_0']:
-            self.assertEqual(self.application_data['application_0'][key], api_response['data'][key])
+        # asserting every attribute of a certificate instance
+        for key in self.certificate_data['certificate_0']:
+            if key == 'certificate_properties':
+                self.assertEqual(eval(self.certificate_data['certificate_0'][key]), api_response['data'][key])
+                continue
 
-        # inserting the same application to test unsuccessful insertion
-        api_response = self.application.insert_application(self.application_data['application_0'])
+            self.assertEqual(self.certificate_data['certificate_0'][key], api_response['data'][key])
+
+        # inserting the same certificate to test unsuccessful insertion
+        api_response = self.certificate.insert_certificate(self.certificate_data['certificate_0'])
         self.assertEqual(api_response['success'], False)
 
 
-    def test_delete_application(self):
-        # deleting the test application from test database (setting is_deleted attribute = true)
-        api_response = self.application.delete_application(self.application_data['application_0'])
+    def test_delete_certificate(self):
+        # deleting the test certificate from test database (setting is_deleted attribute = true)
+        api_response = self.certificate.delete_certificate(self.certificate_data['certificate_0'])
         self.assertEqual(api_response['success'], True)
 
-        # getting the deleted test application from database
-        api_response = self.application.get_application(self.application_data['application_0']['application_id'])
+        # getting the deleted test certificate from database
+        api_response = self.certificate.get_certificate(self.certificate_data['certificate_0']['certificate_id'])
         self.assertEqual(api_response['success'], True)
 
         # asserting if is_deleted attribute has been changed to True
         self.assertEqual(api_response['data']['is_deleted'], True)
 
 
-    def test_update_application(self):
-        # updating application attributes
-        self.application_data['application_0']['application_status'] = 2
-        self.application_data['application_0']['is_deleted'] = False
-        api_response = self.application.update_application(self.application_data['application_0'])
+    def test_update_certificate(self):
+        # updating certificate attributes
+        self.certificate_data['certificate_0']['certificate_link'] = "yandex.com"
+        self.certificate_data['certificate_0']['is_deleted'] = False
+        api_response = self.certificate.update_certificate(self.certificate_data['certificate_0'])
         self.assertEqual(api_response['success'], True)
 
-        # getting the updated test application from database
-        api_response = self.application.get_application(self.application_data['application_0']['application_id'])
+        # getting the updated test certificate from database
+        api_response = self.certificate.get_certificate(self.certificate_data['certificate_0']['certificate_id'])
         self.assertEqual(api_response['success'], True)
 
-        self.assertEqual(api_response['data']['application_status'], 2)
+        self.assertEqual(api_response['data']['certificate_link'], "yandex.com")
 
 
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
@@ -251,4 +294,4 @@ class TestApplication(unittest.TestCase):
         query = """ DELETE FROM {} 
                     WHERE {} = {}
                 """.format(table_name, primary_key_name, primary_key)
-        self.application.sql_helper.execute(query)
+        self.certificate.sql_helper.execute(query)

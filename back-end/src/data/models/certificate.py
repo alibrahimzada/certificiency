@@ -50,11 +50,11 @@ class Certificate(BaseEntity):
 
     def update_certificate(self, data):
         query = """ UPDATE \"certificates\"
-                    SET certified_on='{}', application_id='{}', certification_link='{}',
-                    certificate_properties='{}', is_public='{}', is_active='{}'
+                    SET certified_on='{}', application_id='{}', certificate_link='{}',
+                    certificate_properties='{}', is_public='{}', is_deleted='{}'
                     WHERE certificate_id={}
                 """.format(data['certified_on'], data['application_id'], data['certificate_link'],
-                           data['certificate_properties'], data['is_public'], data['is_active'],
+                           data['certificate_properties'], data['is_public'], data['is_deleted'],
                            data['certificate_id'])
 
         rows_affected = self.sql_helper.execute(query)
