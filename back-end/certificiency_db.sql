@@ -46,6 +46,10 @@ CREATE TABLE events (
    event_location VARCHAR ( 100 ),
    event_thumbnail VARCHAR ( 500 ),
    event_link VARCHAR ( 100 ),
+   event_start_date TIMESTAMP,
+   event_end_date TIMESTAMP,
+   event_last_application_date TIMESTAMP,
+   event_quota INT,
    FOREIGN KEY (event_category_id) REFERENCES event_categories (event_category_id),
    is_deleted BOOLEAN NOT NULL
 );
