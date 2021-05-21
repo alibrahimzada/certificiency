@@ -28,10 +28,12 @@ class TestCustomer(unittest.TestCase):
         api_response = self.customer.insert_customer(self.data['customer_1'])
         self.assertEqual(api_response['success'], True)
 
+
     def tearDown(self):
         self.remove_test_instance(self.data['customer_0']['customer_id'])
         self.remove_test_instance(self.data['customer_1']['customer_id'])
-    
+
+
     def test_get_all_customers(self):
         # getting all test customers from database
         api_response = self.customer.get_all_customers()
@@ -49,6 +51,7 @@ class TestCustomer(unittest.TestCase):
 
             counter += 1
 
+
     def test_get_customer(self):
         # getting the inserted test customer from database
         api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
@@ -61,6 +64,7 @@ class TestCustomer(unittest.TestCase):
                 continue
 
             self.assertEqual(self.data['customer_0'][key], api_response['data'][key])
+
 
     def test_insert_customer(self):
         # getting the inserted test customer from database
@@ -79,6 +83,7 @@ class TestCustomer(unittest.TestCase):
         api_response = self.customer.insert_customer(self.data['customer_0'])
         self.assertEqual(api_response['success'], False)
 
+
     def test_delete_customer(self):
         # deleting the test customer from test database (setting is_deleted attribute = true)
         api_response = self.customer.delete_customer(self.data['customer_0'])
@@ -90,6 +95,7 @@ class TestCustomer(unittest.TestCase):
 
         # asserting if is_deleted attribute has been changed to True
         self.assertEqual(api_response['data']['is_deleted'], True)
+
 
     def test_update_customer(self):
         # updating customer attributes
@@ -103,6 +109,29 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(api_response['success'], True)
 
         self.assertEqual(api_response['data']['customer_name'], 'Bob')
+
+
+    def test_make_active(self): 
+        api_response = self.customer.make_active(self.data['customer_0']['customer_id'])
+        self.assertEqual(api_response['success'], True)
+
+        # getting the test customer from database
+        api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
+        self.assertEqual(api_response['success'], True)
+
+        self.assertEqual(api_response['data']['is_active'], True)
+
+
+    def test_make_passive(self): 
+        api_response = self.customer.make_passive(self.data['customer_0']['customer_id'])
+        self.assertEqual(api_response['success'], True)
+
+        # getting the test customer from database
+        api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
+        self.assertEqual(api_response['success'], True)
+
+        self.assertEqual(api_response['data']['is_active'], False)
+
 
     def remove_test_instance(self, primary_key):
         # removing the test instance from database

@@ -22,6 +22,7 @@ class UserService(Service):
     def delete_user(self, data):
         return self.user.delete_user(data)
 
+    # TODO: perform password encryption here as well
     def update_user(self, data):
         return self.user.update_user(data)
 

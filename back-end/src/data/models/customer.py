@@ -60,3 +60,31 @@ class Customer(BaseEntity):
             return {'status': 200, 'success': True, 'errors': []}
 
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of customer with id = {} from CUSTOMERS table unsuccessful'.format(data['customer_id'])]}
+
+
+    def make_active(self, customer_id):
+        query = """UPDATE \"customers\"
+                   SET is_active = 'true'
+                   WHERE customer_id={}
+                """.format(customer_id)
+                
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+
+        return {'status': 500, 'success': False, 'errors': ['Error while updating']}
+
+
+    def make_passive(self, customer_id):
+        query = """ UPDATE \"customers\"
+                    SET is_active = 'false'
+                    WHERE customer_id={}
+                """.format(customer_id)
+
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+
+        return {'status': 500, 'success': False, 'errors': ['Error while updating'.format(customer_id)]}

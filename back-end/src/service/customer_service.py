@@ -20,3 +20,9 @@ class CustomerService(Service):
 
     def update_customer(self, data):
         return self.customer.update_customer(data)
+
+    def make_active(self, customer_id):
+        return self.customer.make_active(customer_id)
+    
+    def make_passive(self, customer_id):
+        return self.customer.make_passive(customer_id)

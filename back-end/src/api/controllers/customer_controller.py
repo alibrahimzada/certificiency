@@ -47,3 +47,21 @@ def update_customer():
     data = request.get_json()
     api_response = customer_service.update_customer(data)
     return api_response
+
+@bp.route('/<customer_id>/make-active', methods=['PUT'])
+def make_active(customer_id):
+    """
+        This is endpoint for updating the is_active attribute
+        of the given customer to true
+    """
+    api_response = customer_service.make_active(customer_id)
+    return api_response
+
+@bp.route('/<customer_id>/make-passive', methods=['PUT'])
+def make_passive(customer_id):
+    """
+        This is endpoint for updating the is_active attribute
+        of the given customer to false
+    """
+    api_response = customer_service.make_passive(customer_id)
+    return api_response
