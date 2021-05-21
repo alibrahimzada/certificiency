@@ -4,7 +4,8 @@ CREATE TABLE customers(
    is_active BOOLEAN NOT NULL,
    created_on TIMESTAMP NOT NULL,
    company_permissions JSON NOT NULL,
-   is_deleted BOOLEAN NOT NULL
+   is_deleted BOOLEAN NOT NULL,
+   domain_name VARCHAR (250) UNIQUE NOT NULL
 );
 
 CREATE TABLE roles(
