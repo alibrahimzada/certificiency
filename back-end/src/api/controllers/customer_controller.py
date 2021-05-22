@@ -1,7 +1,9 @@
 from src.service.customer_service import CustomerService
+from src.service.helpers.request_handler import RequestHandler
 from flask import Blueprint, request
 
 customer_service = CustomerService()
+request_handler = RequestHandler()
 
 bp = Blueprint('customer', __name__)
 @bp.route('/all', methods=['GET'])
@@ -9,8 +11,15 @@ def get_customers():
     """
         This is the endpoint returning customers list
     """
-    api_response = customer_service.get_customers()
-    return api_response
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        # the core app context instance can be passed as argument in the following method
+        api_response = customer_service.get_customers()
+        return api_response
+
+    return req_handler_response
 
 @bp.route('/<customer_id>', methods=['GET'])
 def get_customer(customer_id):
