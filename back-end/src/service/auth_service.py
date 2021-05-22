@@ -17,6 +17,8 @@ class AuthService(Service):
     def __init__(self):
         self.auth = Auth()
         self.crypto_helper = CryptoHelper()
+        self.username_table = {}
+        self.userid_table = {}
 
     def login(self, data):
         encrypted_password = self.encrypt_password(data)
@@ -29,8 +31,14 @@ class AuthService(Service):
             password = api_response['data']['password']
 
             user = UserLogin(user_id, user_name, password)
+            self.username_table[user.name] = user
+            self.userid_table[user.id] = user
 
             jwt = JWT(app, self.authenticate, self.identity)
+
+            api_response['JWT'] = jwt
+
+            return api_response
             
         return api_response
 
@@ -39,10 +47,10 @@ class AuthService(Service):
         return encrypted_password
 
     def authenticate(self, username, password):
-        user = username_table.get(username, None)
+        user = self.username_table.get(username, None)
         if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
             return user
 
     def identity(self, payload):
         user_id = payload['identity']
-        return userid_table.get(user_id, None)
+        return self.userid_table.get(user_id, None)

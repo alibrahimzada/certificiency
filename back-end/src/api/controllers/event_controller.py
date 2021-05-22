@@ -47,3 +47,12 @@ def update_event():
     data = request.get_json()
     api_response = event_service.update_event(data)
     return api_response
+
+@bp.route('/my-events', methods=['GET'])
+def my_events():
+    """
+        This is endpoint for fetching all available events for the requested user
+    """
+
+
+    return 'temp'
