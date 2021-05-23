@@ -1,7 +1,9 @@
 from src.service.certificate_service import CertificateService
+from src.service.helpers.request_handler import RequestHandler
 from flask import Blueprint, request
 
 certificate_service = CertificateService()
+request_handler = RequestHandler()
 
 bp = Blueprint('certificate', __name__)
 @bp.route('/all', methods=['GET'])
@@ -46,3 +48,19 @@ def update_certificate():
     data = request.get_json()
     api_response = certificate_service.update_certificate(data)
     return api_response
+
+
+@bp.route('/my-certificates', methods=['GET'])
+def get_my_certificates():
+    """
+        This is endpoint for getting a specific user's certificates 
+    """
+
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = certificate_service.get_my_certificates(core_app_context)
+        return api_response
+
+    return req_handler_response

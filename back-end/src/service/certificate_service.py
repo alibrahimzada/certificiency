@@ -20,3 +20,6 @@ class CertificateService(Service):
 
     def update_certificate(self, data):
         return self.certificate.update_certificate(data)
+
+    def get_my_certificates(self, core_app_context):
+        return self.certificate.get_my_certificates(core_app_context)
