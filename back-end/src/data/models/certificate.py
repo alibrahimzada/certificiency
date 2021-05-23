@@ -67,18 +67,23 @@ class Certificate(BaseEntity):
     def get_my_certificates(self, core_app_context):
 
         query = """
-            SELECT c.certificate_id, c.certified_on, c.application_id, c.certificate_link, c.certificate_properties, c.is_public, c.is_deleted 
-            FROM certificates c, applications a
-            WHERE c.application_id = a.application_id AND
-                  a.user_id = {}          
+            SELECT * 
+            FROM certificates c
+            WHERE c.application_id IN (
+                                        SELECT a.application_id 
+                                        FROM applications a
+                                        WHERE  a.user_id = {}
+                                      )             
         """.format(core_app_context.user_id)
 
         result = self.sql_helper.query_all(query)
+
         if len(result) == 0:
             return {'status': 500, 'success': False, 'errors': ['Error while getting certificates']}
 
         column_names = self.sql_helper.get_column_names('certificates')
         my_certificates = []
+
         for certificate in result:
             certificate_data = {}
             for i in range(len(certificate)):
