@@ -43,29 +43,39 @@ class TestCertificate(unittest.TestCase):
                         'event_category_id':  self.event_category_data['event_category_0']['event_category_id'],
                         'event_location': "Online",
                         'event_thumbnail': "X",
-                        'event_link': "google.com"
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 6, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 6, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 6, 1, 23, 59, 59),
+                        'event_quota': 60
             },
             'event_1': { 'event_id': 1,
                         'event_name': 'Event 1',
                         'event_category_id':  self.event_category_data['event_category_1']['event_category_id'],
                         'event_location': "Online",
                         'event_thumbnail': "X",
-                        'event_link': "google.com"
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 7, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 7, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 7, 1, 23, 59, 59),
+                        'event_quota': 100
             }
         }
 
         # test customer instances
         self.customer_data = {
             'customer_0': { 'customer_id': 0,
-                            'customer_name': 'John',
+                            'customer_name': 'Turkcell',
                             'is_active': True,
                             'created_on': datetime.datetime(2009, 5, 5, 18, 33, 45),
-                            'company_permissions': "{\"has_update_authorization\": \"False\"}"},
+                            'company_permissions': "{\"can_create_multiple_events\": \"False\"}",
+                            'domain_name': 'turkcell.com'},
             'customer_1': { 'customer_id': 1,
-                            'customer_name': 'Jessica',
+                            'customer_name': 'Vodafone',
                             'is_active': False,
                             'created_on': datetime.datetime(2019, 6, 18, 23, 15, 5),
-                            'company_permissions': "{\"has_update_authorization\": \"True\"}"}
+                            'company_permissions': "{\"can_create_multiple_events\": \"True\"}",
+                            'domain_name': 'vodafone.com'}
         }
 
         # test role instances

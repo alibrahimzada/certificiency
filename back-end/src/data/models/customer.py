@@ -19,10 +19,10 @@ class Customer(BaseEntity):
         
     def insert_customer(self, data):
         query = """INSERT INTO \"customers\"
-                   values({}, '{}', '{}', '{}', '{}', '{}')
+                   values({}, '{}', '{}', '{}', '{}', '{}', '{}')
                 """.format(data['customer_id'], data['customer_name'],
                            data['is_active'], data['created_on'],
-                           data['company_permissions'], False)
+                           data['company_permissions'], False, data['domain_name'])
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -49,10 +49,10 @@ class Customer(BaseEntity):
 
     def update_customer(self, data):
         query = """UPDATE \"customers\"
-                   SET customer_name='{}', is_active='{}', created_on='{}', company_permissions='{}', is_deleted='{}'
+                   SET customer_name='{}', is_active='{}', created_on='{}', company_permissions='{}', is_deleted='{}', domain_name='{}'
                    WHERE customer_id={}
                 """.format(data['customer_name'], data['is_active'], data['created_on'],
-                           data['company_permissions'], data['is_deleted'], data['customer_id'])
+                           data['company_permissions'], data['is_deleted'], data['domain_name'], data['customer_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

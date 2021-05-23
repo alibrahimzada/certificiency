@@ -11,15 +11,17 @@ class TestCustomer(unittest.TestCase):
         # test customer instances
         self.data = {
             'customer_0': { 'customer_id': 0,
-                            'customer_name': 'John',
+                            'customer_name': 'Turkcell',
                             'is_active': True,
                             'created_on': datetime.datetime(2009, 5, 5, 18, 33, 45),
-                            'company_permissions': "{\"has_update_authorization\": \"False\"}"},
+                            'company_permissions': "{\"can_create_multiple_events\": \"False\"}",
+                            'domain_name': 'turkcell.com'},
             'customer_1': { 'customer_id': 1,
-                            'customer_name': 'Jessica',
+                            'customer_name': 'Vodafone',
                             'is_active': False,
                             'created_on': datetime.datetime(2019, 6, 18, 23, 15, 5),
-                            'company_permissions': "{\"has_update_authorization\": \"True\"}"}
+                            'company_permissions': "{\"can_create_multiple_events\": \"True\"}",
+                            'domain_name': 'vodafone.com'}
         }
 
         # inserting the test customers into test database
@@ -99,7 +101,7 @@ class TestCustomer(unittest.TestCase):
 
     def test_update_customer(self):
         # updating customer attributes
-        self.data['customer_0']['customer_name'] = 'Bob'
+        self.data['customer_0']['customer_name'] = 'TurkTelekom'
         self.data['customer_0']['is_deleted'] = False
         api_response = self.customer.update_customer(self.data['customer_0'])
         self.assertEqual(api_response['success'], True)
@@ -108,7 +110,7 @@ class TestCustomer(unittest.TestCase):
         api_response = self.customer.get_customer(self.data['customer_0']['customer_id'])
         self.assertEqual(api_response['success'], True)
 
-        self.assertEqual(api_response['data']['customer_name'], 'Bob')
+        self.assertEqual(api_response['data']['customer_name'], 'TurkTelekom')
 
 
     def test_make_active(self): 

@@ -21,10 +21,11 @@ class Event(BaseEntity):
 
     def insert_event(self, data):
         query = """INSERT INTO \"events\"
-                   values({}, '{}', {}, '{}', '{}', '{}', '{}')
+                   values({}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, '{}')
                 """.format(data['event_id'], data['event_name'], data['event_category_id'],
                            data['event_location'], data['event_thumbnail'], data['event_link'],
-                           False)
+                           data['event_start_date'], data['event_end_date'], 
+                           data['event_last_application_date'], data['event_quota'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -51,11 +52,13 @@ class Event(BaseEntity):
     def update_event(self, data):
         query = """ UPDATE \"events\"
                     SET event_name='{}', event_category_id={}, event_location='{}',
-                    event_thumbnail='{}', event_link='{}', is_deleted='{}'
+                    event_thumbnail='{}', event_link='{}', event_start_date='{}', 
+                    event_end_date='{}', event_last_application_date='{}', event_quota={}, is_deleted='{}'
                     WHERE event_id={}
                 """.format(data['event_name'], data['event_category_id'], data['event_location'], 
-                           data['event_thumbnail'], data['event_link'], data['is_deleted'],
-                           data['event_id'])
+                           data['event_thumbnail'], data['event_link'], data['event_start_date'],
+                           data['event_end_date'], data['event_last_application_date'], 
+                           data['event_quota'], data['is_deleted'], data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

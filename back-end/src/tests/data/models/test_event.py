@@ -26,14 +26,22 @@ class TestEvent(unittest.TestCase):
                         'event_category_id':  self.event_category_data['event_category_0']['event_category_id'],
                         'event_location': "Online",
                         'event_thumbnail': "X",
-                        'event_link': "google.com"
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 6, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 6, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 6, 1, 23, 59, 59),
+                        'event_quota': 60
             },
             'event_1': { 'event_id': 1,
                         'event_name': 'Event 1',
                         'event_category_id':  self.event_category_data['event_category_1']['event_category_id'],
                         'event_location': "Online",
                         'event_thumbnail': "X",
-                        'event_link': "google.com"
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 7, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 7, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 7, 1, 23, 59, 59),
+                        'event_quota': 100
             }
         }
 
