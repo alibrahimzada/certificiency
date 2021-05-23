@@ -15,8 +15,14 @@ export class AuthService {
     private router: Router
   ) { }
 
-  login(body: { email, password }): Observable<any> {
+  login(body: { username, password }): Observable<any> {
     return this.http.post(API_ENDPOINT + '/auth/login', body).pipe(
+      map(res => res)
+    )
+  }
+
+  helloWorld(): Observable<any> {
+    return this.http.get(API_ENDPOINT).pipe(
       map(res => res)
     )
   }

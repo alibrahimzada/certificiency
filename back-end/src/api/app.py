@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from src.service.auth_service import AuthService
 from flask import Flask
 # from flask_cors import CORS
 
@@ -32,7 +33,7 @@ app.register_blueprint(event_category_controller.bp, url_prefix='/api/v1/event_c
 
 @app.route('/')
 def hello():
-    return "Hello World!"
+    return {"test": "Hello World!"}
 
 @app.route('/<name>')
 def hello_name(name):
