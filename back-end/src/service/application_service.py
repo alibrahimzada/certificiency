@@ -20,3 +20,6 @@ class ApplicationService(Service):
 
     def update_application(self, data):
         return self.application.update_application(data)
+
+    def update_application_status(self, data):
+        return self.application.update_application_status(data)

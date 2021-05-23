@@ -1,7 +1,9 @@
 from src.service.application_service import ApplicationService
+from src.service.helpers.request_handler import RequestHandler
 from flask import Blueprint, request
 
 application_service = ApplicationService()
+request_handler = RequestHandler()
 
 bp = Blueprint('application', __name__)
 @bp.route('/all', methods=['GET'])
@@ -46,3 +48,18 @@ def update_application():
     data = request.get_json()
     api_response = application_service.update_application(data)
     return api_response
+
+
+@bp.route('/status', methods=['PUT'])
+def update_application_status():
+    """
+        This is endpoint for updating the status of the application
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        data = request.get_json()
+        api_response = application_service.update_application_status(data)
+        return api_response
+
+    return req_handler_response

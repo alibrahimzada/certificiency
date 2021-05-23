@@ -256,6 +256,22 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(api_response['data']['application_status'], 2)
 
 
+    def test_update_application_status(self):
+        data = {
+            "application_status": 3,
+            "application_id": self.application_data['application_0']['application_id']
+        }
+
+        api_response = self.application.update_application_status(data)
+        self.assertEqual(api_response['success'], True)
+
+        api_response = self.application.get_application(self.application_data['application_0']['application_id'])
+        self.assertEqual(api_response['success'], True)
+
+        self.assertEqual(api_response['data']['application_status'], 3)
+
+
+
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
         # removing the test instance from database
         query = """ DELETE FROM {} 

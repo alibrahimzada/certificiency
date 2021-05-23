@@ -6,6 +6,7 @@ from src.data.models.customer import Customer
 from src.data.models.user import User
 from src.data.models.application import Application
 from src.data.models.certificate import Certificate
+from src.service.helpers.request_handler import CoreAppContext
 import datetime
 
 class TestCertificate(unittest.TestCase):
@@ -200,7 +201,9 @@ class TestCertificate(unittest.TestCase):
         api_response = self.certificate.insert_certificate(self.certificate_data['certificate_0'])
         self.assertEqual(api_response['success'], True)
         api_response = self.certificate.insert_certificate(self.certificate_data['certificate_1'])
-        self.assertEqual(api_response['success'], True)
+        self.assertEqual(api_response['success'], True) 
+
+
 
 
     def tearDown(self):
@@ -298,6 +301,13 @@ class TestCertificate(unittest.TestCase):
 
         self.assertEqual(api_response['data']['certificate_link'], "yandex.com")
 
+
+    def test_get_my_certificates(self):
+        core_app_context = CoreAppContext(self.user_data['user_0']['user_id'], 
+                           self.user_data['user_0']['customer_id'], self.user_data['user_0']['role_id'])
+        api_response = self.certificate.get_my_certificates(core_app_context)
+        self.assertEqual(api_response['success'], True)
+        
 
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
         # removing the test instance from database

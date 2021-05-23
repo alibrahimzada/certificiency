@@ -60,3 +60,17 @@ class Application(BaseEntity):
             return {'status': 200, 'success': True, 'errors': []}
 
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of application with id = {} from APPLICATIONS table unsuccessful'.format(data['application_id'])]}
+
+    def update_application_status(self, data):
+        query = """UPDATE applications
+                   SET application_status = '{}'  
+                   WHERE application_id = {} 
+
+        """.format(data['application_status'], data['application_id'])
+        
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+
+        return {'status': 500, 'success': False, 'errors': ['Error while udpating application status!']}
