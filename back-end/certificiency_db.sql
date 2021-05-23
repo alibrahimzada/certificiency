@@ -51,6 +51,7 @@ CREATE TABLE events (
    event_end_date TIMESTAMP,
    event_last_application_date TIMESTAMP,
    event_quota INT,
+   customer_id INT NOT NULL,
    FOREIGN KEY (event_category_id) REFERENCES event_categories (event_category_id),
    is_deleted BOOLEAN NOT NULL
 );
