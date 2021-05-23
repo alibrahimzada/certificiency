@@ -11,6 +11,7 @@ from src.tests.data.models.test_event_category import TestEventCategory
 from src.tests.data.models.test_event import TestEvent
 from src.tests.data.models.test_application import TestApplication
 from src.tests.data.models.test_certificate import TestCertificate
+from src.tests.data.models.test_auth import TestAuth
 
 class TestSuiteRunner():
 
@@ -22,7 +23,8 @@ class TestSuiteRunner():
             This method puts all test classes in one place
         """
         test_suite = unittest.TestSuite()
-        test_classes = [TestCustomer, TestRole, TestUser, TestEventCategory, TestEvent, TestApplication, TestCertificate]
+        test_classes = [TestCustomer, TestRole, TestUser, TestEventCategory,
+                        TestEvent, TestApplication, TestCertificate, TestAuth]
 
         for test_class in test_classes:
             test_suite.addTest(unittest.makeSuite(test_class))
