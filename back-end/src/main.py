@@ -8,7 +8,7 @@ from src.api.app import app
 from flask_cors import CORS
 
 def run_api():
-    CORS(app, resources={r"/api/*": {"origins": "*"}},  supports_credentials=True)
+    CORS(app)
     app.run(
         host=os.environ.get('HOST', 'localhost'),
         debug=True

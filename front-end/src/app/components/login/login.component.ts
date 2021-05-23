@@ -13,7 +13,7 @@ declare const $: any;
 })
 export class LoginComponent implements OnInit {
   credentials = {
-    email: '',
+    username: '',
     password: ''
   };
   resetPassword = {
@@ -36,11 +36,15 @@ export class LoginComponent implements OnInit {
     if (token) {
       this.router.navigate(['/']);
     }
+    this.authService.helloWorld().subscribe(response =>{
+      console.log(response);
+    })
   }
 
   login() {
     this.loadingService.setLoading(true);
     this.authService.login(this.credentials).subscribe(response => {
+      console.log(response);
       const { success, errors } = response;
       if (success === true) {
         this.authService.saveUserToLocalStorage(response);

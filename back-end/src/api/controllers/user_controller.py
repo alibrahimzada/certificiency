@@ -1,11 +1,11 @@
 from src.service.user_service import UserService
 from flask import Blueprint, request
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 user_service = UserService()
 
 bp = Blueprint('user', __name__)
-# CORS(bp)
+CORS(bp)
 @bp.route('/all', methods=['GET'])
 # @cross_origin()
 def get_users():
