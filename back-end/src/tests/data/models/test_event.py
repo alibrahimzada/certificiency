@@ -2,6 +2,7 @@ import unittest
 from src.data.models.event import Event
 from src.data.models.event_category import EventCategory
 from src.data.models.customer import Customer
+from src.service.helpers.request_handler import CoreAppContext
 import datetime
 
 class TestEvent(unittest.TestCase):
@@ -153,6 +154,15 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(api_response['success'], True)
 
         self.assertEqual(api_response['data']['event_name'], 'Updated Event 0')
+
+    def test_get_my_events(self):
+        core_app_context = CoreAppContext(0, self.customer_data['customer_0']['customer_id'], 0)
+        api_response = self.event.get_my_events(core_app_context)
+        self.assertEqual(api_response['success'], True)
+
+        for event_data in api_response['data']:
+            for key in self.event_data['event_0']:
+                self.assertEqual(event_data[key], self.event_data['event_0'][key])
 
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
         # removing the test instance from database

@@ -69,8 +69,23 @@ class Event(BaseEntity):
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of event with id = {} from EVENT table unsuccessful'.format(data['event_id'])]}
 
     def get_my_events(self, core_app_context):
-        # query = """ SELECT *
-        #             FROM \"events"\
-        #             WHERE 
-        #         """
-        pass
+        query = """ SELECT *
+                    FROM \"events\"
+                    WHERE customer_id={} AND is_deleted=false
+                """.format(core_app_context.customer_id)
+
+        result = self.sql_helper.query_all(query)
+
+        if len(result) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting events']}
+
+        column_names = self.sql_helper.get_column_names('events')
+        my_events = []
+
+        for event in result:
+            event_data = {}
+            for i in range(len(event)):
+                event_data[column_names[i][0]] = event[i]
+            my_events.append(event_data)   
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': my_events}
