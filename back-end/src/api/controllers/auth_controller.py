@@ -1,16 +1,11 @@
 from src.service.auth_service import AuthService
-from flask import Blueprint, request, jsonify
 from src.api.app import app
+from flask import request
 
 auth_service = AuthService()
+api_version = '/api/v1/auth'
 
-bp = Blueprint('auth', __name__)
-
-from flask_cors import CORS
-
-#CORS(app)
-
-@app.route('/auth/login', methods=['POST'])
+@app.route(api_version + '/login', methods=['POST'])
 def login():
     """
         This is the endpoint for login procedures

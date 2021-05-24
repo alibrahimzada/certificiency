@@ -1,12 +1,13 @@
 from src.service.application_service import ApplicationService
 from src.service.helpers.request_handler import RequestHandler
-from flask import Blueprint, request
+from src.api.app import app
+from flask import request
 
 application_service = ApplicationService()
 request_handler = RequestHandler()
+api_version = '/api/v1/application'
 
-bp = Blueprint('application', __name__)
-@bp.route('/all', methods=['GET'])
+@app.route(api_version + '/all', methods=['GET'])
 def get_applications():
     """
         This is the endpoint returning application list
@@ -14,7 +15,7 @@ def get_applications():
     api_response = application_service.get_applications()
     return api_response
 
-@bp.route('/<application_id>', methods=['GET'])
+@app.route(api_version + '/<application_id>', methods=['GET'])
 def get_application(application_id):
     """
         This is the endpoint returning a single application with the given id
@@ -22,7 +23,7 @@ def get_application(application_id):
     api_response = application_service.get_application(application_id)
     return api_response
 
-@bp.route('/', methods=['POST'])
+@app.route(api_version + '/', methods=['POST'])
 def insert_application():
     """
         This is the endpoint for creating a new application
@@ -31,7 +32,7 @@ def insert_application():
     api_response = application_service.create_application(data)
     return api_response
 
-@bp.route('/', methods=['DELETE'])
+@app.route(api_version + '/', methods=['DELETE'])
 def delete_application():
     """
         This is endpoint for deleting an application 
@@ -40,7 +41,7 @@ def delete_application():
     api_response = application_service.delete_application(data)
     return api_response
 
-@bp.route('/', methods=['PUT'])
+@app.route(api_version + '/', methods=['PUT'])
 def update_application():
     """
         This is endpoint for updating an application 
@@ -50,7 +51,7 @@ def update_application():
     return api_response
 
 
-@bp.route('/status', methods=['PUT'])
+@app.route(api_version + '/status', methods=['PUT'])
 def update_application_status():
     """
         This is endpoint for updating the status of the application

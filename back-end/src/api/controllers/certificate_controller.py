@@ -1,12 +1,13 @@
 from src.service.certificate_service import CertificateService
 from src.service.helpers.request_handler import RequestHandler
-from flask import Blueprint, request
+from src.api.app import app
+from flask import request
 
 certificate_service = CertificateService()
 request_handler = RequestHandler()
+api_version = '/api/v1/certificate'
 
-bp = Blueprint('certificate', __name__)
-@bp.route('/all', methods=['GET'])
+@app.route(api_version + '/all', methods=['GET'])
 def get_certificates():
     """
         This is the endpoint returning certificate list
@@ -14,7 +15,7 @@ def get_certificates():
     api_response = certificate_service.get_certificates()
     return api_response
 
-@bp.route('/<certificate_id>', methods=['GET'])
+@app.route(api_version + '/<certificate_id>', methods=['GET'])
 def get_certificate(certificate_id):
     """
         This is the endpoint returning a single certificate with the given id
@@ -22,7 +23,7 @@ def get_certificate(certificate_id):
     api_response = certificate_service.get_certificate(certificate_id)
     return api_response
 
-@bp.route('/', methods=['POST'])
+@app.route(api_version + '/', methods=['POST'])
 def insert_certificate():
     """
         This is the endpoint for creating a new certificate
@@ -31,7 +32,7 @@ def insert_certificate():
     api_response = certificate_service.create_certificate(data)
     return api_response
 
-@bp.route('/', methods=['DELETE'])
+@app.route(api_version + '/', methods=['DELETE'])
 def delete_certificate():
     """
         This is endpoint for deleting a certificate 
@@ -40,7 +41,7 @@ def delete_certificate():
     api_response = certificate_service.delete_certificate(data)
     return api_response
 
-@bp.route('/', methods=['PUT'])
+@app.route(api_version + '/', methods=['PUT'])
 def update_certificate():
     """
         This is endpoint for updating a certificate 
@@ -50,7 +51,7 @@ def update_certificate():
     return api_response
 
 
-@bp.route('/my-certificates', methods=['GET'])
+@app.route(api_version + '/my-certificates', methods=['GET'])
 def get_my_certificates():
     """
         This is endpoint for getting a specific user's certificates 

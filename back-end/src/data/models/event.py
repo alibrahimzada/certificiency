@@ -65,3 +65,10 @@ class Event(BaseEntity):
         if rows_affected > 0:
             return {'status': 200, 'success': True, 'errors': []}
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of event with id = {} from EVENT table unsuccessful'.format(data['event_id'])]}
+
+    def get_my_events(self, core_app_context):
+        query = """ SELECT *
+                    FROM \"events"\
+                    WHERE 
+                """
+        pass

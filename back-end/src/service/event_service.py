@@ -20,3 +20,6 @@ class EventService(Service):
 
     def update_event(self, data):
         return self.event.update_event(data)
+
+    def get_my_events(self, core_app_context):
+        return self.event.get_my_events(core_app_context)

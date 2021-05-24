@@ -1,12 +1,13 @@
 from src.service.customer_service import CustomerService
 from src.service.helpers.request_handler import RequestHandler
-from flask import Blueprint, request
+from src.api.app import app
+from flask import request
 
 customer_service = CustomerService()
 request_handler = RequestHandler()
+api_version = '/api/v1/customer'
 
-bp = Blueprint('customer', __name__)
-@bp.route('/all', methods=['GET'])
+@app.route(api_version + '/all', methods=['GET'])
 def get_customers():
     """
         This is the endpoint returning customers list
@@ -21,7 +22,7 @@ def get_customers():
 
     return req_handler_response
 
-@bp.route('/<customer_id>', methods=['GET'])
+@app.route(api_version + '/<customer_id>', methods=['GET'])
 def get_customer(customer_id):
     """
         This is the endpoint returning a single customer with the given id
@@ -30,7 +31,7 @@ def get_customer(customer_id):
     api_response = customer_service.get_customer(customer_id)
     return api_response
 
-@bp.route('/', methods=['POST'])
+@app.route(api_version + '/', methods=['POST'])
 def insert_customer():
     """
         This is the endpoint for creating a new customer
@@ -39,7 +40,7 @@ def insert_customer():
     api_response = customer_service.insert_customer(data)
     return api_response
 
-@bp.route('/', methods=['DELETE'])
+@app.route(api_version + '/', methods=['DELETE'])
 def delete_customer():
     """
         This is endpoint for deleting a customer
@@ -48,7 +49,7 @@ def delete_customer():
     api_response = customer_service.delete_customer(data)
     return api_response
 
-@bp.route('/', methods=['PUT'])
+@app.route(api_version + '/', methods=['PUT'])
 def update_customer():
     """
         This is endpoint for updating a customer
@@ -57,7 +58,7 @@ def update_customer():
     api_response = customer_service.update_customer(data)
     return api_response
 
-@bp.route('/<customer_id>/make-active', methods=['PUT'])
+@app.route(api_version + '/<customer_id>/make-active', methods=['PUT'])
 def make_active(customer_id):
     """
         This is endpoint for updating the is_active attribute
@@ -66,7 +67,7 @@ def make_active(customer_id):
     api_response = customer_service.make_active(customer_id)
     return api_response
 
-@bp.route('/<customer_id>/make-passive', methods=['PUT'])
+@app.route(api_version + '/<customer_id>/make-passive', methods=['PUT'])
 def make_passive(customer_id):
     """
         This is endpoint for updating the is_active attribute
