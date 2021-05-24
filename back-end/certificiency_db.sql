@@ -53,6 +53,7 @@ CREATE TABLE events (
    event_quota INT,
    customer_id INT NOT NULL,
    FOREIGN KEY (event_category_id) REFERENCES event_categories (event_category_id),
+   FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
    is_deleted BOOLEAN NOT NULL
 );
 
