@@ -24,41 +24,6 @@ class TestApplication(unittest.TestCase):
         self.user.sql_helper.is_test_db = True
         self.application.sql_helper.is_test_db = True
 
-
-        # test event_category instances
-        self.event_category_data = {
-            'event_category_0': { 'event_category_id': 0,
-                            'event_category_name': 'Event Category 0'},
-            'event_category_1': { 'event_category_id': 1,
-                            'event_category_name': 'Event Category 1'}
-        }
-
-        # test event instances
-        self.event_data = {
-            'event_0': { 'event_id': 0,
-                        'event_name': 'Event 0',
-                        'event_category_id':  self.event_category_data['event_category_0']['event_category_id'],
-                        'event_location': "Online",
-                        'event_thumbnail': "X",
-                        'event_link': "google.com",
-                        'event_start_date': datetime.datetime(2021, 6, 6, 17, 0, 0),
-                        'event_end_date': datetime.datetime(2021, 6, 6, 18, 0, 0),
-                        'event_last_application_date': datetime.datetime(2021, 6, 1, 23, 59, 59),
-                        'event_quota': 60
-            },
-            'event_1': { 'event_id': 1,
-                        'event_name': 'Event 1',
-                        'event_category_id':  self.event_category_data['event_category_1']['event_category_id'],
-                        'event_location': "Online",
-                        'event_thumbnail': "X",
-                        'event_link': "google.com",
-                        'event_start_date': datetime.datetime(2021, 7, 6, 17, 0, 0),
-                        'event_end_date': datetime.datetime(2021, 7, 6, 18, 0, 0),
-                        'event_last_application_date': datetime.datetime(2021, 7, 1, 23, 59, 59),
-                        'event_quota': 100
-            }
-        }
-
         # test customer instances
         self.customer_data = {
             'customer_0': { 'customer_id': 0,
@@ -117,6 +82,42 @@ class TestApplication(unittest.TestCase):
             }
         }
 
+        # test event_category instances
+        self.event_category_data = {
+            'event_category_0': { 'event_category_id': 0,
+                            'event_category_name': 'Event Category 0'},
+            'event_category_1': { 'event_category_id': 1,
+                            'event_category_name': 'Event Category 1'}
+        }
+
+        # test event instances
+        self.event_data = {
+            'event_0': { 'event_id': 0,
+                        'event_name': 'Event 0',
+                        'event_category_id':  self.event_category_data['event_category_0']['event_category_id'],
+                        'event_location': "Online",
+                        'event_thumbnail': "X",
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 6, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 6, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 6, 1, 23, 59, 59),
+                        'event_quota': 60,
+                        'customer_id': 0
+            },
+            'event_1': { 'event_id': 1,
+                        'event_name': 'Event 1',
+                        'event_category_id':  self.event_category_data['event_category_1']['event_category_id'],
+                        'event_location': "Online",
+                        'event_thumbnail': "X",
+                        'event_link': "google.com",
+                        'event_start_date': datetime.datetime(2021, 7, 6, 17, 0, 0),
+                        'event_end_date': datetime.datetime(2021, 7, 6, 18, 0, 0),
+                        'event_last_application_date': datetime.datetime(2021, 7, 1, 23, 59, 59),
+                        'event_quota': 100,
+                        'customer_id': 1
+            }
+        }
+
         # test application instances
         self.application_data = {
             'application_0': { 'application_id': 0,
@@ -133,18 +134,6 @@ class TestApplication(unittest.TestCase):
                         'application_status': 1 
             }
         }
-
-        # the test event categories into test database
-        api_response = self.event_category.insert_event_category(self.event_category_data['event_category_0'])
-        self.assertEqual(api_response['success'], True)
-        api_response = self.event_category.insert_event_category(self.event_category_data['event_category_1'])
-        self.assertEqual(api_response['success'], True)
-
-        # inserting the test events into test database
-        api_response = self.event.insert_event(self.event_data['event_0'])
-        self.assertEqual(api_response['success'], True)
-        api_response = self.event.insert_event(self.event_data['event_1'])
-        self.assertEqual(api_response['success'], True)
 
         # inserting the test customers into test database
         api_response = self.customer.insert_customer(self.customer_data['customer_0'])
@@ -165,6 +154,17 @@ class TestApplication(unittest.TestCase):
         api_response = self.user.insert_user(self.user_data['user_1'])
         self.assertEqual(api_response['success'], True)
 
+        # the test event categories into test database
+        api_response = self.event_category.insert_event_category(self.event_category_data['event_category_0'])
+        self.assertEqual(api_response['success'], True)
+        api_response = self.event_category.insert_event_category(self.event_category_data['event_category_1'])
+        self.assertEqual(api_response['success'], True)
+
+        # inserting the test events into test database
+        api_response = self.event.insert_event(self.event_data['event_0'])
+        self.assertEqual(api_response['success'], True)
+        api_response = self.event.insert_event(self.event_data['event_1'])
+        self.assertEqual(api_response['success'], True)
 
         # inserting the test applications into test database
         api_response = self.application.insert_application(self.application_data['application_0'])
@@ -172,23 +172,19 @@ class TestApplication(unittest.TestCase):
         api_response = self.application.insert_application(self.application_data['application_1'])
         self.assertEqual(api_response['success'], True)
 
-
     def tearDown(self):
         self.remove_test_instance('application_id', self.application_data['application_0']['application_id'], 'applications')
         self.remove_test_instance('application_id', self.application_data['application_1']['application_id'], 'applications')
+        self.remove_test_instance('event_id', self.event_data['event_0']['event_id'], 'events')
+        self.remove_test_instance('event_id', self.event_data['event_1']['event_id'], 'events')
+        self.remove_test_instance('event_category_id', self.event_category_data['event_category_0']['event_category_id'], 'event_categories')
+        self.remove_test_instance('event_category_id', self.event_category_data['event_category_1']['event_category_id'], 'event_categories')
         self.remove_test_instance('user_id', self.user_data['user_0']['user_id'], 'users')
         self.remove_test_instance('user_id', self.user_data['user_1']['user_id'], 'users')
         self.remove_test_instance('role_id', self.role_data['role_0']['role_id'], 'roles')
         self.remove_test_instance('role_id', self.role_data['role_1']['role_id'], 'roles')
         self.remove_test_instance('customer_id', self.customer_data['customer_0']['customer_id'], 'customers')
         self.remove_test_instance('customer_id', self.customer_data['customer_1']['customer_id'], 'customers')
-        self.remove_test_instance('event_id', self.event_data['event_0']['event_id'], 'events')
-        self.remove_test_instance('event_id', self.event_data['event_1']['event_id'], 'events')
-        self.remove_test_instance('event_category_id', self.event_category_data['event_category_0']['event_category_id'], 'event_categories')
-        self.remove_test_instance('event_category_id', self.event_category_data['event_category_1']['event_category_id'], 'event_categories')
-
-
-
 
     def test_get_all_applications(self):
         # getting all test applications from database

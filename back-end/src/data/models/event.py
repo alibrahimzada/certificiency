@@ -21,11 +21,12 @@ class Event(BaseEntity):
 
     def insert_event(self, data):
         query = """INSERT INTO \"events\"
-                   values({}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, '{}')
+                   values({}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, '{}')
                 """.format(data['event_id'], data['event_name'], data['event_category_id'],
                            data['event_location'], data['event_thumbnail'], data['event_link'],
                            data['event_start_date'], data['event_end_date'], 
-                           data['event_last_application_date'], data['event_quota'], False)
+                           data['event_last_application_date'], data['event_quota'],
+                           data['customer_id'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -53,12 +54,13 @@ class Event(BaseEntity):
         query = """ UPDATE \"events\"
                     SET event_name='{}', event_category_id={}, event_location='{}',
                     event_thumbnail='{}', event_link='{}', event_start_date='{}', 
-                    event_end_date='{}', event_last_application_date='{}', event_quota={}, is_deleted='{}'
+                    event_end_date='{}', event_last_application_date='{}', event_quota={}, customer_id={}, is_deleted='{}'
                     WHERE event_id={}
                 """.format(data['event_name'], data['event_category_id'], data['event_location'], 
                            data['event_thumbnail'], data['event_link'], data['event_start_date'],
                            data['event_end_date'], data['event_last_application_date'], 
-                           data['event_quota'], data['is_deleted'], data['event_id'])
+                           data['event_quota'], data['customer_id'], data['is_deleted'],
+                           data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
@@ -67,8 +69,8 @@ class Event(BaseEntity):
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of event with id = {} from EVENT table unsuccessful'.format(data['event_id'])]}
 
     def get_my_events(self, core_app_context):
-        query = """ SELECT *
-                    FROM \"events"\
-                    WHERE 
-                """
+        # query = """ SELECT *
+        #             FROM \"events"\
+        #             WHERE 
+        #         """
         pass
