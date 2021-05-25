@@ -298,7 +298,15 @@ class TestCertificate(unittest.TestCase):
                            self.user_data['user_0']['customer_id'], self.user_data['user_0']['role_id'])
         api_response = self.certificate.get_my_certificates(core_app_context)
         self.assertEqual(api_response['success'], True)
-        
+
+        for my_certificate in api_response['data']:    
+            for key in self.certificate_data['certificate_0']:
+                if key == 'certificate_properties':
+                    self.assertEqual(eval(self.certificate_data['certificate_0'][key]), my_certificate[key])
+                    continue
+
+                self.assertEqual(self.certificate_data['certificate_0'][key], my_certificate[key])
+
 
     def remove_test_instance(self, primary_key_name, primary_key, table_name):
         # removing the test instance from database
