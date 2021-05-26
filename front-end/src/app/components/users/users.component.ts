@@ -33,8 +33,14 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(){
-    this.userService.getHelloWorld().subscribe(response => {
-      console.log(response);
+    this.userService.getUsers().subscribe(response => {
+      if (response.success){
+        this.users = response.data;
+        console.log(this.users);
+      }
+      else {
+        this.alertService.alert("Error!", "Users cannot be fetched!", "error");
+      }
     });
   }
 

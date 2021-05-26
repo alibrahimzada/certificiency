@@ -16,7 +16,7 @@ export class AuthService {
   ) { }
 
   login(body: { username, password }): Observable<any> {
-    return this.http.post(API_ENDPOINT + '/auth/login', body).pipe(
+    return this.http.post(API_ENDPOINT + '/api/v1/auth/login', body).pipe(
       map(res => res)
     )
   }

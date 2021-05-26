@@ -5,7 +5,7 @@ from flask import request
 user_service = UserService()
 api_version = '/api/v1/user'
 
-@app.route(api_version + '/all', methods=['GET'])
+@app.route('api/v1/user/all', methods=['GET'])
 def get_users():
     """
         This is the endpoint returning user list

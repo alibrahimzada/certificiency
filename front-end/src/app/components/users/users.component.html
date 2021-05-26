@@ -2,13 +2,13 @@
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                Kullanıcı Listesi
+                User List
             </h3>
         </div>
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-actions">
                 <a routerLink="/users/new" class="btn btn-success btn-pill btn-sm">
-                    <i class="fa fa-plus marr10"></i>Yeni Ekle
+                    <i class="fa fa-plus marr10"></i>Add new user
                 </a>
 
             </div>
@@ -26,21 +26,31 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Kullanıcı Adı</th>
-                                <th>E-mail</th>
-                                <th>Ad</th>
-                                <th>Soyad</th>
-                                <th>Rol</th>
-                                <th>İşlemler</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of users;">
-                                <!-- <td>{{user.username}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.first_name}}</td>
+                                <td>{{user.last_name}}</td>
                                 <td>{{user.email}}</td>
-                                <td>{{user.firstName}}</td>
-                                <td>{{user.lastName}}</td>
-                                <td>{{getRoleName(user.roleId)}}</td>
+                                <td></td>
+                                <td>
+                                    <!-- <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.id]">Update</button> -->
+                                    <!-- <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
+                                        class="fa fa-trash"></i>Delete</button> -->
+                                    <button class="btn btn-success mr-2">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
+                                            class="fa fa-trash"></i>Delete</button>
+                                </td>
+                                <!-- <td>{{getRoleName(user.roleId)}}</td>
                                 <td>
                                     <button class="btn btn-info mr-2" (click)="showChangePasswordModal(user)">Şifre
                                         Değiştir</button>
@@ -62,7 +72,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Şifre Değiştir</h5>
-                <button type="button" class="close"  aria-label="Close">
+                <button type="button" class="close" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
@@ -85,10 +95,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold"
-                    >Kapat</button>
-                <button type="button" class="btn btn-primary font-weight-bold"
-                    >Değiştir</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold">Kapat</button>
+                <button type="button" class="btn btn-primary font-weight-bold">Değiştir</button>
             </div>
         </div>
     </div>

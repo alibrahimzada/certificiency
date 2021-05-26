@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { authErrors } from './../../core/errors';
 import { AlertService } from './../../core/services/alert.service';
 import { LoadingService } from './../../core/services/loading.service';
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService,
+    private userService: UserService,
     private loadingService: LoadingService,
     private roleService: RoleService,
   ) { }

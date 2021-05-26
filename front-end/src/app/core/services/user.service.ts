@@ -15,7 +15,7 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/user/all').pipe(
+    return this.httpClient.get(API_ENDPOINT + '/api/v1/user/all').pipe(
       map(res => res)
     )
   }
