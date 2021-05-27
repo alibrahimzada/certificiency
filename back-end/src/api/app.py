@@ -127,7 +127,7 @@ def get_role(role_id):
 
     return req_handler_response
 
-@app.route('/api/v1/role', methods=['POST'])
+@app.route('/api/v1/role/insert', methods=['POST'])
 def insert_role():
     """
         This is the endpoint for creating a new role
@@ -137,13 +137,13 @@ def insert_role():
     if req_handler_response['success']:
         core_app_context = req_handler_response['core_app_context']
         data = request.get_json()
-        api_response = role_service.insert_role(data)
+        api_response = role_service.insert_role(data, core_app_context)
         return api_response
 
     return req_handler_response
 
-@app.route('/api/v1/role', methods=['DELETE'])
-def delete_role():
+@app.route('/api/v1/role/delete/<role_id>', methods=['DELETE'])
+def delete_role(role_id):
     """
         This is endpoint for deleting a role 
     """
@@ -152,25 +152,25 @@ def delete_role():
     if req_handler_response['success']:
         core_app_context = req_handler_response['core_app_context']
         data = request.get_json()
-        api_response = role_service.delete_role(data)
+        api_response = role_service.delete_role(role_id)
         return api_response
 
     return req_handler_response
 
-# @app.route('/api/v1/role', methods=['PUT'])
-# def update_user():
-#     """
-#         This is endpoint for updating a role
-#     """
-#     req_handler_response = request_handler.validate_token(request)
+@app.route('/api/v1/role/update', methods=['PUT'])
+def update_role():
+    """
+        This is endpoint for updating a role
+    """
+    req_handler_response = request_handler.validate_token(request)
 
-#     if req_handler_response['success']:
-#         core_app_context = req_handler_response['core_app_context']
-#         data = request.get_json()
-#         api_response = role_service.update_role(data)
-#         return api_response
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()
+        api_response = role_service.update_role(data, core_app_context)
+        return api_response
 
-#     return req_handler_response
+    return req_handler_response
 
 if __name__ == '__main__':
     app.run()

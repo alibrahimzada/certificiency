@@ -19,12 +19,11 @@
                                 <input [(ngModel)]="credentials.password" class="form-control" type="password"
                                     placeholder="Şifre" name="password" (keyup.enter)="login()">
                             </div>
-                            <a style="display: block; margin: 8px 0; font-weight:bold; color: #fff;cursor:pointer"
-                                (click)="showPasswordModal()">Şifremi unuttum</a>
+                            <!-- <a style="display: block; margin: 8px 0; font-weight:bold; color: #fff;cursor:pointer"
+                                (click)="showPasswordModal()">Forget Password</a> -->
                             <div class="kt-login__actions">
                                 <button type="button" id="kt_login_signin_submit" (click)="login()"
-                                    class="btn btn-pill kt-login__btn-primary">Giriş
-                                    Yap</button>
+                                    class="btn btn-pill kt-login__btn-primary">Log in</button>
                             </div>
                         </form>
                     </div>
@@ -41,7 +40,7 @@
     <div class="modal-dialog" role="document" style="max-width: 600px">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Şifre değiştir</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
                 <button type="button" class="close" (click)="hidePasswordModal()" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -49,31 +48,31 @@
             <div class="modal-body">
                 <ng-container *ngIf="resetPassword.step === 0">
                     <div class="form-group row">
-                        <label for="forgotEmail" class="col-4 col-form-label">Sistemde kayıtlı email adresiniz</label>
+                        <label for="forgotEmail" class="col-4 col-form-label">Email Address</label>
                         <div class="col-8">
                             <input class="form-control" type="text" id="forgotEmail" name="forgotEmail"
                                 [(ngModel)]="resetPassword.email">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary font-weight-bold" (click)="sendCode()">İleri</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" (click)="sendCode()">Next</button>
                 </ng-container>
                 <ng-container *ngIf="resetPassword.step === 1">
                     <div class="form-group row">
-                        <label for="code" class="col-4 col-form-label">Mail adresinize gönderilen kod</label>
+                        <label for="code" class="col-4 col-form-label">Code sent to your mail address</label>
                         <div class="col-8">
                             <input class="form-control" type="text" id="code" name="code"
                                 [(ngModel)]="resetPassword.code">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="newPass" class="col-4 col-form-label">Yeni Şifreniz</label>
+                        <label for="newPass" class="col-4 col-form-label">New Password</label>
                         <div class="col-8">
                             <input class="form-control" type="password" id="newPass" name="newPass"
                                 [(ngModel)]="resetPassword.password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="newPassAgain" class="col-4 col-form-label">Yeni Şifreniz (Tekrar)</label>
+                        <label for="newPassAgain" class="col-4 col-form-label">Confirm New Password</label>
                         <div class="col-8">
                             <input class="form-control" type="password" id="newPassAgain" name="newPassAgain"
                                 [(ngModel)]="resetPassword.passwordAgain">
@@ -81,14 +80,10 @@
                     </div>
                     <button type="button"
                         [disabled]="!resetPassword.password || !resetPassword.passwordAgain||resetPassword.password !== resetPassword.passwordAgain"
-                        class="btn btn-primary font-weight-bold" (click)="changePassword()">Değiştir</button>
+                        class="btn btn-primary font-weight-bold" (click)="changePassword()">Update</button>
                 </ng-container>
 
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold"
-                    (click)="hidePasswordModal()">Kapat</button>
-            </div> -->
         </div>
     </div>
 </div>

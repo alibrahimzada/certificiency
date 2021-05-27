@@ -17,12 +17,12 @@ class Role(BaseEntity):
         api_response['data'] = role_data
         return api_response
 
-    def insert_role(self, data):
-        query = """INSERT INTO \"roles\"
-                   values({}, '{}', '{}', '{}', '{}');
-                   """.format(data['role_id'], data['role_name'],
-                             data['role_permissions'], data['customer_id'], False)
-
+    def insert_role(self, data, core_app_context):
+        query = """INSERT INTO \"roles\" (role_id, role_name, role_permissions, customer_id, is_deleted)
+                   values(DEFAULT, '{}', '{}', '{}', '{}');
+                   """.format(data['role_name'],
+                             {}, core_app_context.customer_id, False)
+        print(query)
         try:
             rows_affected = self.sql_helper.execute(query)
             if rows_affected > 0:
@@ -33,11 +33,11 @@ class Role(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! Role with id = {} already exists'.format(data['role_id'])]}
 
-    def delete_role(self, data):
+    def delete_role(self, role_id):
         query = """ UPDATE \"roles\"
                     SET is_deleted = 'true'
                     WHERE role_id={}
-                """.format(data['role_id'])
+                """.format(role_id)
 
         rows_affected = self.sql_helper.execute(query)
         
@@ -45,12 +45,12 @@ class Role(BaseEntity):
             return {'status': 200, 'success': True, 'errors': []}
         return {'status': 500, 'success': False, 'errors': ['Error! Deletion of role with id = {} from ROLE table unsuccessful'.format(data['role_id'])]}
 
-    def update_role(self, data):
+    def update_role(self, data, core_app_context):
         query = """ UPDATE \"roles\"
-                    SET role_name='{}', role_permissions='{}', customer_id='{}', is_deleted='{}'
+                    SET role_name='{}', role_permissions='{}', customer_id='{}'
                     WHERE role_id={}
-                """.format(data['role_name'], data['role_permissions'],
-                            data['customer_id'], data['is_deleted'], data['role_id'])
+                """.format(data['role_name'], {},
+                            core_app_context.customer_id, data['role_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

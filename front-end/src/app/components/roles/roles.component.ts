@@ -23,6 +23,7 @@ export class RolesComponent implements OnInit {
     this.roleService.getRoles().subscribe(response => {
       if (response.success) {
         this.roles = response.data;
+        console.log(response);
       }
       this.loadingService.setLoading(false);
     })

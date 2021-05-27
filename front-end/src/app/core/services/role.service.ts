@@ -31,19 +31,19 @@ export class RoleService {
   }
 
   createRole(role: Role): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/role/', role).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/role/insert', role).pipe(
       map(res => res)
     )
   }
 
   updateRole(role: Role): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/role/', role).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/role/update', role).pipe(
       map(res => res)
     )
   }
 
   deleteRole(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/role/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/role/delete' + id).pipe(
       map(res => res)
     )
   }
