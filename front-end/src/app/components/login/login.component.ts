@@ -50,9 +50,10 @@ export class LoginComponent implements OnInit {
       const { success, errors } = response;
       if (success === true) {
         this.authService.saveUserToLocalStorage(response);
-        this.roleService.getCurrentUserRoles().subscribe(response => {
-          this.router.navigate(['/']);
-        })
+        // this.roleService.getCurrentUserRoles().subscribe(response => {
+        //   this.router.navigate(['/']);
+        // })
+        this.router.navigate(['/']);
       } else {
         this.alertService.alert('Hata!', authErrors.login[errors[0]], 'error');
       }

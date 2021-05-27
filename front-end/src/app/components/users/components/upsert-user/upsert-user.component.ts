@@ -27,6 +27,7 @@ export class UpsertUserComponent implements OnInit {
     this.roleService.getRoles().subscribe(response => {
       if (response.success) {
         this.roles = response.data;
+        console.log(response);
       }
     });
     if (this.route.snapshot.params.id) {
@@ -39,7 +40,7 @@ export class UpsertUserComponent implements OnInit {
   }
 
   save() {
-    this.loadingService.setLoading(true);
+    // this.loadingService.setLoading(true);
     if (this.user.user_id) {
       const { password, ...rest } = this.user;
       this.userService.updateUser(rest as any).subscribe(response => {

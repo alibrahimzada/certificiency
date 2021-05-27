@@ -15,7 +15,7 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<any> {
-    return this.httpClient.get(API_ENDPOINT + '/api/v1/user/all').pipe(
+    return this.httpClient.get(API_ENDPOINT + '/user/all').pipe(
       map(res => res)
     )
   }
@@ -33,19 +33,19 @@ export class UserService {
   }
 
   createUser(user: User): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/user/', user).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/user/insert', user).pipe(
       map(res => res)
     )
   }
 
   updateUser(user: User): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/user/', user).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/user/update', user).pipe(
       map(res => res)
     )
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/user/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/user/delete/' + id).pipe(
       map(res => res)
     )
   }  

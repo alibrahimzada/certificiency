@@ -42,13 +42,13 @@
                                 <td>{{user.email}}</td>
                                 <td></td>
                                 <td>
-                                    <!-- <button class="btn btn-success mr-2"
-                                        [routerLink]="['/users/detail/'+user.id]">Update</button> -->
-                                    <!-- <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
-                                        class="fa fa-trash"></i>Delete</button> -->
-                                    <button class="btn btn-success mr-2">Update</button>
-                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
-                                            class="fa fa-trash"></i>Delete</button>
+                                    <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.user_id]">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
+                                        class="fa fa-trash"></i>Delete</button>
+                                    <!-- <button class="btn btn-success mr-2">Update</button> -->
+                                    <!-- <button class="btn btn-danger mr-2"><i
+                                            class="fa fa-trash"></i>Delete</button> -->
                                 </td>
                                 <!-- <td>{{getRoleName(user.roleId)}}</td>
                                 <td>

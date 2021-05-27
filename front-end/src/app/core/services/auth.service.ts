@@ -16,7 +16,7 @@ export class AuthService {
   ) { }
 
   login(body: { username, password }): Observable<any> {
-    return this.http.post(API_ENDPOINT + '/api/v1/auth/login', body).pipe(
+    return this.http.post(API_ENDPOINT + '/auth/login', body).pipe(
       map(res => res)
     )
   }
@@ -27,9 +27,9 @@ export class AuthService {
     )
   }
 
-  saveUserToLocalStorage(response: { token: string, user: any }) {
+  saveUserToLocalStorage(response: { token: string, data: any }) {
     localStorage.setItem('token', response.token);
-    localStorage.setItem('user', JSON.stringify(response.user));
+    localStorage.setItem('user', JSON.stringify(response.data));
   }
 
   getToken() {

@@ -8,6 +8,7 @@ from src.api.app import app
 from flask_cors import CORS
 
 def run_api():
+    app.config['CORS_HEADERS'] = 'Content-Type'
     CORS(app)
     app.run(
         host=os.environ.get('HOST', 'localhost'),

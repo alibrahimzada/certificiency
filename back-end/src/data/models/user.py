@@ -17,15 +17,15 @@ class User(BaseEntity):
         api_response['data'] = user_data
         return api_response
 
-    def insert_user(self, data):
-        query = """INSERT INTO \"users\"
-                   values({}, '{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', '{}', '{}');
-                   """.format(data['user_id'], data['username'],
+    def insert_user(self, data, core_app_context):
+        query = """INSERT INTO \"users\" (user_id, username, password, first_name, last_name, customer_id, role_id, is_active, email, created_on, last_login, is_deleted)
+                   values(DEFAULT, '{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', '{}', '{}');
+                   """.format(data['username'],
                              data['password'], data['first_name'],
-                             data['last_name'], data['customer_id'],
-                             data['role_id'], data['is_active'],
+                             data['last_name'], core_app_context.customer_id,
+                             data['role_id'], True,
                              data['email'], data['created_on'],
-                             data['last_login'], False)
+                             data['created_on'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -37,11 +37,11 @@ class User(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! User with id = {} already exists'.format(data['user_id'])]}
 
-    def delete_user(self, data):
+    def delete_user(self, user_id):
         query = """ UPDATE \"users\"
                     SET is_deleted = 'true'
                     WHERE user_id={}
-                """.format(data['user_id'])
+                """.format(user_id)
 
         rows_affected = self.sql_helper.execute(query)
         
@@ -51,11 +51,11 @@ class User(BaseEntity):
 
     def update_user(self, data):
         query = """ UPDATE \"users\"
-                    SET username='{}', password='{}', first_name='{}',
+                    SET username='{}', first_name='{}',
                     last_name='{}', customer_id={}, role_id={}, is_active='{}',
                     email='{}', created_on='{}', last_login='{}', is_deleted='{}'
                     WHERE user_id={}
-                """.format(data['username'], data['password'], data['first_name'],
+                """.format(data['username'], data['first_name'],
                            data['last_name'], data['customer_id'], data['role_id'], 
                            data['is_active'], data['email'], data['created_on'],
                            data['last_login'], data['is_deleted'], data['user_id'])

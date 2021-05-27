@@ -1,33 +1,33 @@
-<!-- <div class="kt-portlet">
+<div class="kt-portlet">
     <div class="kt-portlet__head  d-flex align-items-center justify-content-between">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                Yeni Personel
+                Add New User
             </h3>
         </div>
-        <button type="button" routerLink="/users" class="btn btn-secondary mr-3">Geri Dön</button>
+        <button type="button" routerLink="/users" class="btn btn-secondary mr-3">Back to List</button>
     </div>
     <div class="container" style="width: 90%">
         <form class="kt-form kt-form--label-left" autocomplete="off">
             <div class="kt-portlet__body">
                 <div class="form-group row">
-                    <label for="role" class="col-2 col-form-label">Rol</label>
+                    <label for="role" class="col-2 col-form-label">Role</label>
                     <div class="col-10">
-                        <ng-select labelForId="role" [clearable]="false" [items]="roles" name="island"
-                            bindLabel="roleName" bindValue="id" [(ngModel)]="user.roleId" placeholder="Rol">
+                        <ng-select labelForId="role" [clearable]="false" [items]="roles" name="role"
+                            bindLabel="role_name" bindValue="role_id" [(ngModel)]="user.role_id" placeholder="Role">
                         </ng-select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="ad" class="col-2 col-form-label">Ad</label>
+                    <label for="ad" class="col-2 col-form-label">Name</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" id="ad" name="ad" [(ngModel)]="user.firstName">
+                        <input class="form-control" type="text" id="ad" name="ad" [(ngModel)]="user.first_name">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="soyad" class="col-2 col-form-label">Soyad</label>
+                    <label for="soyad" class="col-2 col-form-label">Surname</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" id="soyad" name="soyad" [(ngModel)]="user.lastName">
+                        <input class="form-control" type="text" id="soyad" name="soyad" [(ngModel)]="user.last_name">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -38,13 +38,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="username" class="col-2 col-form-label">Kullanıcı Adı</label>
+                    <label for="username" class="col-2 col-form-label">Username</label>
                     <div class="col-10">
                         <input class="form-control" autocomplete="off" type="text" id="username" name="username"
                             [(ngModel)]="user.username">
                     </div>
                 </div>
-                <div class="form-group row" *ngIf="!user.id">
+                <div class="form-group row" *ngIf="!user.user_id">
                     <label for="password" class="col-2 col-form-label">Password</label>
                     <div class="col-10">
                         <input class="form-control" autocomplete="off" type="password" id="password" name="password"
@@ -57,11 +57,11 @@
                 <div class="kt-form__actions">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-end">
-                            <button type="button" class="btn btn-success" (click)="save()">Kaydet</button>
+                            <button type="button" class="btn btn-success" (click)="save()">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-</div> -->
+</div>

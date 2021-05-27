@@ -1,6 +1,7 @@
 from src.service import Service
 from src.data.models.user import User
 from src.service.helpers.crypto_helper import CryptoHelper
+import datetime
 
 class UserService(Service):
 
@@ -14,13 +15,14 @@ class UserService(Service):
     def get_user(self, user_id):
         return self.user.get_user(user_id)
 
-    def insert_user(self, data):
+    def insert_user(self, data, core_app_context):
         encrypted_password = self.encrypt_password(data)
         data['password'] = encrypted_password
-        return self.user.insert_user(data)
+        data['created_on'] = datetime.datetime.now()
+        return self.user.insert_user(data, core_app_context)
 
-    def delete_user(self, data):
-        return self.user.delete_user(data)
+    def delete_user(self, user_id):
+        return self.user.delete_user(user_id)
 
     # TODO: perform password encryption here as well
     def update_user(self, data):

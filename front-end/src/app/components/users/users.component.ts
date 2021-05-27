@@ -44,4 +44,15 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  deleteUser(id: string, email: string) {
+    const x = confirm('Are you sure to delete the user having email ' + email + ' ?');
+    if (x) {
+      this.userService.deleteUser(id).subscribe(response => {
+        if (response.success) {
+          this.getUsers();
+        }
+      })
+    }
+  }
+
 }

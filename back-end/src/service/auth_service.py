@@ -23,7 +23,7 @@ class AuthService(Service):
 
             jwt = self.auth_helper.encode_auth_token(user_id, customer_id, role_id)
 
-            api_response['token'] = str(jwt)
+            api_response['token'] = jwt.decode("utf-8")
             api_response['exp_in_mins'] = 480   # token expires in 8 hours
             return api_response
             
