@@ -9,10 +9,21 @@ class UserService(Service):
         self.crypto_helper = CryptoHelper()
 
     def get_users(self):
-        return self.user.get_all_users()
+        api_response = self.user.get_all_users()
+
+        for row in api_response['data']:
+            row.pop('is_deleted', None)
+            row.pop('password', None)
+        
+        return api_response
 
     def get_user(self, user_id):
-        return self.user.get_user(user_id)
+        api_response = self.user.get_user(user_id)
+
+        api_response['data'].pop('is_deleted', None)
+        api_response['data'].pop('password', None)
+
+        return api_response
 
     def insert_user(self, data):
         encrypted_password = self.encrypt_password(data)
