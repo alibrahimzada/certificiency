@@ -12,7 +12,7 @@ class ApplicationService(Service):
     def get_application(self, application_id):
         return self.application.get_application(application_id)
 
-    def create_application(self, data):
+    def insert_application(self, data):
         return self.application.insert_application(data)
 
     def delete_application(self, data):
