@@ -9,8 +9,8 @@ class UserService(Service):
         self.user = User()
         self.crypto_helper = CryptoHelper()
 
-    def get_users(self):
-        api_response = self.user.get_all_users()
+    def get_users(self, core_app_context):
+        api_response = self.user.get_all_users(core_app_context)
 
         for row in api_response['data']:
             row.pop('is_deleted', None)
@@ -35,7 +35,6 @@ class UserService(Service):
     def delete_user(self, user_id):
         return self.user.delete_user(user_id)
 
-    # TODO: perform password encryption here as well
     def update_user(self, data):
         return self.user.update_user(data)
 
