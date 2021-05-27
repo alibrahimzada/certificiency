@@ -91,11 +91,8 @@ class SqlHelper(ISqlHelper):
         column_names = self.query_all(query)
         return column_names
 
-    def get_rows(self, table_name):
+    def get_rows(self, query, table_name):
         column_names = self.get_column_names(table_name)
-
-        query = """SELECT *
-                 FROM \"{}\"""".format(table_name)
 
         res = self.query_all(query)
 

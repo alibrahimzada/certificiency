@@ -50,18 +50,26 @@ def get_users():
     """
     req_handler_response = request_handler.validate_token(request)
 
-    print(req_handler_response)
-    api_response = user_service.get_users()
-    return api_response
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = user_service.get_users(core_app_context)
+        return api_response
+
+    return req_handler_response
 
 @app.route('/api/v1/user/<user_id>', methods=['GET'])
 def get_user(user_id):
     """
         This is the endpoint returning a single user with the given id
     """
+    req_handler_response = request_handler.validate_token(request)
 
-    api_response = user_service.get_user(user_id)
-    return api_response
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = user_service.get_user(user_id)
+        return api_response
+
+    return req_handler_response
 
 @app.route('/api/v1/user/insert', methods=['POST'])
 def insert_user():
@@ -76,25 +84,36 @@ def insert_user():
         api_response = user_service.insert_user(data, core_app_context)
         return api_response
 
-    return req_handler_response['success']
+    return req_handler_response
 
 @app.route('/api/v1/user/delete/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     """
         This is endpoint for deleting a user 
     """
-    data = request.get_json()
-    api_response = user_service.delete_user(user_id)
-    return api_response
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = user_service.delete_user(user_id)
+        return api_response
+
+    return req_handler_response
 
 @app.route('/api/v1/user/update', methods=['PUT'])
 def update_user():
     """
         This is endpoint for updating a user
     """
-    data = request.get_json()
-    api_response = user_service.update_user(data)
-    return api_response
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()
+        api_response = user_service.update_user(data)
+        return api_response
+
+    return req_handler_response
 
 @app.route('/api/v1/role/all', methods=['GET'])
 def get_roles():

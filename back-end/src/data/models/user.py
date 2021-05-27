@@ -5,9 +5,13 @@ class User(BaseEntity):
     def __init__(self):
         super(User, self).__init__()
   
-    def get_all_users(self):
+    def get_all_users(self, core_app_context):
+        query = """ SELECT *
+                    FROM users
+                    WHERE customer_id={} AND is_deleted=false
+                """.format(core_app_context.customer_id)
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('users')
+        rows = self.sql_helper.get_rows(query, 'users')
         api_response['data'] = rows
         return api_response
 
@@ -47,18 +51,15 @@ class User(BaseEntity):
         
         if rows_affected > 0:
             return {'status': 200, 'success': True, 'errors': []}
-        return {'status': 500, 'success': False, 'errors': ['Error! Deletion of user with id = {} from USER table unsuccessful'.format(data['user_id'])]}
+        return {'status': 500, 'success': False, 'errors': ['Error! Deletion unsuccessful']}
 
     def update_user(self, data):
         query = """ UPDATE \"users\"
-                    SET username='{}', first_name='{}',
-                    last_name='{}', customer_id={}, role_id={}, is_active='{}',
-                    email='{}', created_on='{}', last_login='{}', is_deleted='{}'
+                    SET username='{}', first_name='{}', last_name='{}',
+                    role_id={}, is_active='{}', email='{}'
                     WHERE user_id={}
-                """.format(data['username'], data['first_name'],
-                           data['last_name'], data['customer_id'], data['role_id'], 
-                           data['is_active'], data['email'], data['created_on'],
-                           data['last_login'], data['is_deleted'], data['user_id'])
+                """.format(data['username'], data['first_name'], data['last_name'],
+                           data['role_id'],  data['is_active'], data['email'], data['user_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
