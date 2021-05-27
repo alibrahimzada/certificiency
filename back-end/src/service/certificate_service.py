@@ -12,7 +12,7 @@ class CertificateService(Service):
     def get_certificate(self, certificate_id):
         return self.certificate.get_certificate(certificate_id)
 
-    def create_certificate(self, data):
+    def insert_certificate(self, data):
         return self.certificate.insert_certificate(data)
 
     def delete_certificate(self, data):
