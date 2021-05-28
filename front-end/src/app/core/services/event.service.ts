@@ -27,19 +27,19 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/event/', event).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/event/insert', event).pipe(
       map(res => res)
     )
   }
 
   updateEvent(event: Event): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/event/', event).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/event/update', event).pipe(
       map(res => res)
     )
   }
 
   deleteEvent(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/event/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/event/delete/' + id).pipe(
       map(res => res)
     )
   }  

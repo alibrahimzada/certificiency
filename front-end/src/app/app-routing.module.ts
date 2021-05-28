@@ -4,6 +4,8 @@ import { UpsertCustomerComponent } from './components/customer/components/upsert
 import { CustomerComponent } from './components/customer/customer.component';
 import { UpsertEventCategoryComponent } from './components/event-category/components/upsert-event-category/upsert-event-category.component';
 import { EventCategoryComponent } from './components/event-category/event-category.component';
+import { UpsertEventComponent } from './components/event/components/upsert-event/upsert-event.component';
+import { EventComponent } from './components/event/event.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
@@ -67,6 +69,21 @@ const routes: Routes = [
       {
         path: 'event-categories/detail/:id',
         component: UpsertEventCategoryComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'events',
+        component: EventComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'events/new',
+        component: UpsertEventComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'events/detail/:id',
+        component: UpsertEventComponent,
         canActivate: [AuthGuard]
       },
       {

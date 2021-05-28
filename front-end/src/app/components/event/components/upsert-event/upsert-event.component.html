@@ -1,0 +1,89 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head  d-flex align-items-center justify-content-between">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Add New Event
+            </h3>
+        </div>
+        <button type="button" routerLink="/events" class="btn btn-secondary mr-3">Back to List</button>
+    </div>
+    <div class="container" style="width: 90%">
+        <form class="kt-form kt-form--label-left" autocomplete="off">
+            <div class="kt-portlet__body">
+                <div class="form-group row">
+                    <label for="event_category_id" class="col-2 col-form-label">Category</label>
+                    <div class="col-10">
+                        <ng-select labelForId="event_category_id" [clearable]="false" [items]="eventCategories" name="event_category_id"
+                            bindLabel="event_category_name" bindValue="event_category_id" [(ngModel)]="event.event_category_id" placeholder="Category...">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_name" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="event_name" name="event_name"
+                            [(ngModel)]="event.event_name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_location" class="col-2 col-form-label">Location</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="event_location" name="event_location"
+                            [(ngModel)]="event.event_location">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_link" class="col-2 col-form-label">Link</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="event_link" name="event_link"
+                            [(ngModel)]="event.event_link">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_thumbnail" class="col-2 col-form-label">Thumbnail</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="event_thumbnail" name="event_thumbnail"
+                            [(ngModel)]="event.event_thumbnail">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_start_date" class="col-2 col-form-label">Start Date</label>
+                    <div class="col-10">
+                        <input class="form-control" type="date" [(ngModel)]="event.event_start_date"
+                            id="event_start_date" name="event_start_date">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_end_date" class="col-2 col-form-label">End Date</label>
+                    <div class="col-10">
+                        <input class="form-control" type="date" [(ngModel)]="event.event_end_date"
+                            id="event_end_date" name="event_end_date">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_last_application_date" class="col-2 col-form-label">Last Application Date</label>
+                    <div class="col-10">
+                        <input class="form-control" type="date" [(ngModel)]="event.event_last_application_date"
+                            id="event_last_application_date" name="event_last_application_date">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="event_quota" class="col-2 col-form-label">Quota</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="event_quota" name="event_quota"
+                            [(ngModel)]="event.event_quota">
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-success" (click)="save()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
