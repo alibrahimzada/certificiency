@@ -12,11 +12,11 @@ class EventService(Service):
     def get_event(self, event_id):
         return self.event.get_event(event_id)
 
-    def insert_event(self, data):
-        return self.event.insert_event(data)
+    def insert_event(self, data, core_app_context):
+        return self.event.insert_event(data, core_app_context)
 
-    def delete_event(self, data):
-        return self.event.delete_event(data)
+    def delete_event(self, event_id):
+        return self.event.delete_event(event_id)
 
     def update_event(self, data):
         return self.event.update_event(data)

@@ -8,8 +8,13 @@ class Event(BaseEntity):
         super(Event, self).__init__()
 
     def get_all_events(self):
+        query = """ SELECT *
+                    FROM events
+                    WHERE is_deleted=false
+                """
+
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('events')
+        rows = self.sql_helper.get_rows(query, 'events')
         api_response['data'] = rows
         return api_response
 
@@ -19,14 +24,17 @@ class Event(BaseEntity):
         api_response['data'] = event_data
         return api_response
 
-    def insert_event(self, data):
-        query = """INSERT INTO \"events\"
-                   values({}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, '{}')
-                """.format(data['event_id'], data['event_name'], data['event_category_id'],
+    def insert_event(self, data, core_app_context):
+        query = """INSERT INTO \"events\" (event_id, event_name, event_category_id,
+                                            event_location, event_thumbnail, event_link,
+                                            event_start_date, event_end_date, event_last_application_date,
+                                            event_quota, customer_id, is_deleted)
+                   values(DEFAULT, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, '{}')
+                """.format(data['event_name'], data['event_category_id'],
                            data['event_location'], data['event_thumbnail'], data['event_link'],
                            data['event_start_date'], data['event_end_date'], 
                            data['event_last_application_date'], data['event_quota'],
-                           data['customer_id'], False)
+                           core_app_context.customer_id, False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -38,11 +46,11 @@ class Event(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! Event with id = {} already exists'.format(data['event_id'])]}
 
-    def delete_event(self, data):
+    def delete_event(self, event_id):
         query = """ UPDATE \"events\"
                     SET is_deleted = 'true'
                     WHERE event_id={}
-                """.format(data['event_id'])
+                """.format(event_id)
 
         rows_affected = self.sql_helper.execute(query)
 
@@ -54,13 +62,12 @@ class Event(BaseEntity):
         query = """ UPDATE \"events\"
                     SET event_name='{}', event_category_id={}, event_location='{}',
                     event_thumbnail='{}', event_link='{}', event_start_date='{}', 
-                    event_end_date='{}', event_last_application_date='{}', event_quota={}, customer_id={}, is_deleted='{}'
+                    event_end_date='{}', event_last_application_date='{}', event_quota={}
                     WHERE event_id={}
                 """.format(data['event_name'], data['event_category_id'], data['event_location'], 
                            data['event_thumbnail'], data['event_link'], data['event_start_date'],
                            data['event_end_date'], data['event_last_application_date'], 
-                           data['event_quota'], data['customer_id'], data['is_deleted'],
-                           data['event_id'])
+                           data['event_quota'], data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

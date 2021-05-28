@@ -5,6 +5,7 @@ from src.service.user_service import UserService
 from src.service.role_service import RoleService
 from src.service.customer_service import CustomerService
 from src.service.event_category_service import EventCategoryService
+from src.service.event_service import EventService
 from src.service.helpers.request_handler import RequestHandler
 from flask_cors import cross_origin
 
@@ -27,6 +28,7 @@ user_service = UserService()
 role_service = RoleService()
 customer_service = CustomerService()
 event_category_service = EventCategoryService()
+event_service = EventService()
 request_handler = RequestHandler()
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
@@ -362,6 +364,92 @@ def update_event_category():
         core_app_context = req_handler_response['core_app_context']
         data = request.get_json()
         api_response = event_category_service.update_event_category(data)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/all', methods=['GET'])
+def get_events():
+    """
+        This is the endpoint returning event list
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = event_service.get_events()
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/<event_id>', methods=['GET'])
+def get_event(event_id):
+    """
+        This is the endpoint returning a single event with the given id
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = event_service.get_event(event_id)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/insert', methods=['POST'])
+def insert_event():
+    """
+        This is the endpoint for creating a new event
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()
+        api_response = event_service.insert_event(data, core_app_context)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/delete/<event_id>', methods=['DELETE'])
+def delete_event(event_id):
+    """
+        This is endpoint for deleting an event 
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = event_service.delete_event(event_id)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/update', methods=['PUT'])
+def update_event():
+    """
+        This is endpoint for updating an event 
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()        
+        api_response = event_service.update_event(data)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/event/my-events', methods=['GET'])
+def my_events():
+    """
+        This is endpoint for fetching all available events for the requested user
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = event_service.get_my_events(core_app_context)
         return api_response
 
     return req_handler_response
