@@ -9,9 +9,9 @@ import { LoadingService } from 'src/app/core/services/loading.service';
   styleUrls: ['./event-category.component.scss']
 })
 export class EventCategoryComponent implements OnInit {
-  eventCategories;
+  eventCategories = [];
 
-  constructor( private eventCategoryService: EventCategoryService,
+  constructor(private eventCategoryService: EventCategoryService,
     private alertService: AlertService,
     private loadingService: LoadingService) { }
 

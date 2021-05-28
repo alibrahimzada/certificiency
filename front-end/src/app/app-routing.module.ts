@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UpsertCustomerComponent } from './components/customer/components/upsert-customer/upsert-customer.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { UpsertEventCategoryComponent } from './components/event-category/components/upsert-event-category/upsert-event-category.component';
 import { EventCategoryComponent } from './components/event-category/event-category.component';
@@ -54,11 +55,6 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'customer',
-        component: CustomerComponent,
-        canActivate: [AuthGuard]
-      },
-      {
         path: 'event-categories',
         component: EventCategoryComponent,
         canActivate: [AuthGuard]
@@ -71,6 +67,21 @@ const routes: Routes = [
       {
         path: 'event-categories/detail/:id',
         component: UpsertEventCategoryComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'customers',
+        component: CustomerComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'customers/new',
+        component: UpsertCustomerComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'customers/detail/:id',
+        component: UpsertCustomerComponent,
         canActivate: [AuthGuard]
       }
     ]

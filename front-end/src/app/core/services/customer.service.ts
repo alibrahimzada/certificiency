@@ -27,19 +27,19 @@ export class CustomerService {
   }
 
   createCustomer(customer: Customer): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/customer/', customer).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/customer/insert', customer).pipe(
       map(res => res)
     )
   }
 
   updateCustomer(customer: Customer): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/customer/', customer).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/customer/update', customer).pipe(
       map(res => res)
     )
   }
 
   deleteCustomer(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/customer/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/customer/delete/' + id).pipe(
       map(res => res)
     )
   }

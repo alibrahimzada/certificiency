@@ -4,4 +4,5 @@ export class Customer{
     is_active: any;
     created_on: any;
     company_permissions: any;
+    domain_name: string;
 }

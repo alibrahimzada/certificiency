@@ -7,7 +7,7 @@
         </div>
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-actions">
-                <a routerLink="/users/new" class="btn btn-success btn-pill btn-sm">
+                <a routerLink="/customers/new" class="btn btn-success btn-pill btn-sm">
                     <i class="fa fa-plus marr10"></i>Add New
                 </a>
 
@@ -26,27 +26,24 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Customer Name</th>
-                                <th>Customer Contact</th>
+                                <th>Name</th>
+                                <th>Creation Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr *ngFor="let user of users;"> -->
-                                <tr>
-                                <!-- <td>{{user.username}}</td>
-                                <td>{{user.email}}</td>
-                                <td>{{user.firstName}}</td>
-                                <td>{{user.lastName}}</td>
-                                <td>{{getRoleName(user.roleId)}}</td>
+                            <tr *ngFor="let customer of customers;">
+                                <td>{{customer.customer_name}}</td>
+                                <td>{{customer.created_on}}</td>
                                 <td>
-                                    <button class="btn btn-info mr-2" (click)="showChangePasswordModal(user)">Şifre
-                                        Değiştir</button>
-                                    <button class="btn btn-success mr-2"
-                                        [routerLink]="['/users/detail/'+user.id]">Düzenle</button>
-                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.id, user.email)"><i
-                                            class="fa fa-trash"></i>sil</button>
-                                </td> -->
+                                    <!-- <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.user_id]">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
+                                        class="fa fa-trash"></i>Delete</button> -->
+                                    <button class="btn btn-success mr-2" [routerLink]="['/customers/detail/'+customer.customer_id]">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteCustomer(customer.customer_id, customer.customer_name)"><i
+                                            class="fa fa-trash"></i>Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
