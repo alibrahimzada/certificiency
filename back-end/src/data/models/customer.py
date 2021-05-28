@@ -6,8 +6,12 @@ class Customer(BaseEntity):
         super(Customer, self).__init__()
   
     def get_all_customers(self):
+        query = """ SELECT *
+                    FROM customers
+                    WHERE is_deleted=false
+                """
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('customers')
+        rows = self.sql_helper.get_rows(query, 'customers')
         api_response['data'] = rows
         return api_response
 
@@ -18,10 +22,9 @@ class Customer(BaseEntity):
         return api_response
         
     def insert_customer(self, data):
-        query = """INSERT INTO \"customers\"
-                   values({}, '{}', '{}', '{}', '{}', '{}', '{}')
-                """.format(data['customer_id'], data['customer_name'],
-                           data['is_active'], data['created_on'],
+        query = """INSERT INTO \"customers\" (customer_id, customer_name, is_active, created_on, company_permissions, is_deleted, domain_name)
+                   values(DEFAULT, '{}', '{}', '{}', '{}', '{}', '{}')
+                """.format(data['customer_name'], True, data['created_on'],
                            data['company_permissions'], False, data['domain_name'])
 
         try:
@@ -34,11 +37,11 @@ class Customer(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! Customer with id = {} already exists'.format(data['customer_id'])]}
 
-    def delete_customer(self, data):
+    def delete_customer(self, customer_id):
         query = """UPDATE \"customers\"
                    SET is_deleted = 'true' 
                    WHERE customer_id={}
-                """.format(data['customer_id'])
+                """.format(customer_id)
 
         rows_affected = self.sql_helper.execute(query)
         
@@ -49,10 +52,10 @@ class Customer(BaseEntity):
 
     def update_customer(self, data):
         query = """UPDATE \"customers\"
-                   SET customer_name='{}', is_active='{}', created_on='{}', company_permissions='{}', is_deleted='{}', domain_name='{}'
+                   SET customer_name='{}', company_permissions='{}', domain_name='{}'
                    WHERE customer_id={}
-                """.format(data['customer_name'], data['is_active'], data['created_on'],
-                           data['company_permissions'], data['is_deleted'], data['domain_name'], data['customer_id'])
+                """.format(data['customer_name'], data['company_permissions'], data['domain_name'],
+                           data['customer_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

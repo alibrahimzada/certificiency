@@ -1,5 +1,6 @@
 from src.service import Service
 from src.data.models.customer import Customer
+import datetime
 
 class CustomerService(Service):
 
@@ -13,10 +14,11 @@ class CustomerService(Service):
         return self.customer.get_customer(customer_id)
 
     def insert_customer(self, data):
+        data['created_on'] = datetime.datetime.now()
         return self.customer.insert_customer(data)
 
-    def delete_customer(self, data):
-        return self.customer.delete_customer(data)
+    def delete_customer(self, customer_id):
+        return self.customer.delete_customer(customer_id)
 
     def update_customer(self, data):
         return self.customer.update_customer(data)
