@@ -27,19 +27,19 @@ export class EventCategoryService {
   }
 
   createEventCategory(event_category: EventCategory): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/event_category/', event_category).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/event_category/insert', event_category).pipe(
       map(res => res)
     )
   }
 
   updateEventCategory(event_category: EventCategory): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/event_category/', event_category).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/event_category/update', event_category).pipe(
       map(res => res)
     )
   }
 
   deleteEventCategory(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/event_category/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/event_category/delete/' + id).pipe(
       map(res => res)
     )
   }  
