@@ -15,8 +15,8 @@ class EventCategoryService(Service):
     def insert_event_category(self, data):
         return self.event_category.insert_event_category(data)
 
-    def delete_event_category(self, data):
-        return self.event_category.delete_event_category(data)
+    def delete_event_category(self, event_category_id):
+        return self.event_category.delete_event_category(event_category_id)
 
     def update_event_category(self, data):
         return self.event_category.update_event_category(data)

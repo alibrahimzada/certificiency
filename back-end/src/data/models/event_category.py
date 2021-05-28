@@ -6,8 +6,12 @@ class EventCategory(BaseEntity):
         super(EventCategory, self).__init__()
   
     def get_all_event_categories(self):
+        query = """ SELECT *
+                    FROM event_categories
+                    WHERE is_deleted = 'false'
+                """
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('event_categories')
+        rows = self.sql_helper.get_rows(query, 'event_categories')
         api_response['data'] = rows
         return api_response
 
@@ -18,10 +22,9 @@ class EventCategory(BaseEntity):
         return api_response
 
     def insert_event_category(self, data):
-        query = """INSERT INTO \"event_categories\"
-                   values({}, '{}', '{}');
-                   """.format(data['event_category_id'], data['event_category_name'],
-                              False)
+        query = """INSERT INTO \"event_categories\" (event_category_id, event_category_name, is_deleted)
+                   values(DEFAULT, '{}', '{}');
+                   """.format(data['event_category_name'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -33,11 +36,11 @@ class EventCategory(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! event_category with id = {} already exists'.format(data['event_category_id'])]}
 
-    def delete_event_category(self, data):
+    def delete_event_category(self, event_category_id):
         query = """ UPDATE \"event_categories\"
                     SET is_deleted = 'true'
                     WHERE event_category_id={}
-                """.format(data['event_category_id'])
+                """.format(event_category_id)
 
         rows_affected = self.sql_helper.execute(query)
         
@@ -47,10 +50,9 @@ class EventCategory(BaseEntity):
 
     def update_event_category(self, data):
         query = """ UPDATE \"event_categories\"
-                    SET event_category_name='{}', is_deleted='{}'
+                    SET event_category_name='{}'
                     WHERE event_category_id={}
-                """.format(data['event_category_name'], data['is_deleted'],
-                           data['event_category_id'])
+                """.format(data['event_category_name'], data['event_category_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
