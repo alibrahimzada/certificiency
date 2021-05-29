@@ -33,7 +33,7 @@ def get_certificate(certificate_id):
 
     return req_handler_response
 
-@app.route(api_version + '/', methods=['POST'])
+@app.route(api_version + '/insert', methods=['POST'])
 def insert_certificate():
     """
         This is the endpoint for creating a new certificate
@@ -47,8 +47,8 @@ def insert_certificate():
 
     return req_handler_response
 
-@app.route(api_version + '/', methods=['DELETE'])
-def delete_certificate():
+@app.route(api_version + '/delete/<certificate_id>', methods=['DELETE'])
+def delete_certificate(certificate_id):
     """
         This is endpoint for deleting a certificate 
     """
@@ -56,12 +56,12 @@ def delete_certificate():
 
     if req_handler_response['success']:
         data = request.get_json()
-        api_response = certificate_service.delete_certificate(data)
+        api_response = certificate_service.delete_certificate(certificate_id)
         return api_response
 
     return req_handler_response
 
-@app.route(api_version + '/', methods=['PUT'])
+@app.route(api_version + '/update', methods=['PUT'])
 def update_certificate():
     """
         This is endpoint for updating a certificate 
@@ -85,6 +85,21 @@ def get_my_certificates():
     if req_handler_response['success']:
         core_app_context = req_handler_response['core_app_context']
         api_response = certificate_service.get_my_certificates(core_app_context)
+        return api_response
+
+    return req_handler_response
+
+@app.route(api_version + '/<event_id>/certificates', methods=['GET'])
+def get_event_certificates(event_id):
+    """
+        This is an endpoint for fetching all certificates which belongs to the given
+        event id
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = certificate_service.get_event_certificates(event_id)
         return api_response
 
     return req_handler_response

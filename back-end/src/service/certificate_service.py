@@ -15,8 +15,8 @@ class CertificateService(Service):
     def insert_certificate(self, data):
         return self.certificate.insert_certificate(data)
 
-    def delete_certificate(self, data):
-        return self.certificate.delete_certificate(data)
+    def delete_certificate(self, certificate_id):
+        return self.certificate.delete_certificate(certificate_id)
 
     def update_certificate(self, data):
         return self.certificate.update_certificate(data)
