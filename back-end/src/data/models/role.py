@@ -5,9 +5,13 @@ class Role(BaseEntity):
     def __init__(self):
         super(Role, self).__init__()
   
-    def get_all_roles(self):
+    def get_all_roles(self, core_app_context):
+        query = """ SELECT *
+                    FROM roles
+                    WHERE customer_id={} AND is_deleted=false
+                """.format(core_app_context.customer_id)
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('roles')
+        rows = self.sql_helper.get_rows(query, 'roles')
         api_response['data'] = rows
         return api_response
 

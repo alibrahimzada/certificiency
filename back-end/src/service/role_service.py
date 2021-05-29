@@ -6,8 +6,8 @@ class RoleService(Service):
     def __init__(self):
         self.role = Role()
 
-    def get_roles(self):
-        return self.role.get_all_roles()
+    def get_roles(self, core_app_context):
+        return self.role.get_all_roles(core_app_context)
 
     def get_role(self, role_id):
         return self.role.get_role(role_id)

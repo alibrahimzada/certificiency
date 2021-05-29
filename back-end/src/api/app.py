@@ -126,15 +126,14 @@ def get_roles():
     """
         This is the endpoint returning role list
     """
-    # req_handler_response = request_handler.validate_token(request)
+    req_handler_response = request_handler.validate_token(request)
 
-    # if req_handler_response['success']:
-    #     core_app_context = req_handler_response['core_app_context']
-    #     api_response = role_service.get_roles()
-    #     return api_response
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = role_service.get_roles(core_app_context)
+        return api_response
 
-    api_response = role_service.get_roles()
-    return api_response
+    return req_handler_response
 
 @app.route('/api/v1/role/<role_id>', methods=['GET'])
 def get_role(role_id):
