@@ -82,19 +82,10 @@ class Application(BaseEntity):
                    FROM \"applications\"
                    WHERE user_id={} AND is_deleted=false AND event_id={}
                 """.format(core_app_context.user_id, event_id)
-        
-        result = self.sql_helper.query_all(query)
 
-        if len(result) == 0:
-            return {'status': 500, 'success': False, 'errors': ['Error while getting applications']}
+        rows = self.sql_helper.get_rows(query, 'applications')
 
-        column_names = self.sql_helper.get_column_names('applications')
-        applications = []
+        if len(rows) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting event applications']}
 
-        for application in result:
-            application_data = {}
-            for i in range(len(application)):
-                application_data[column_names[i][0]] = application[i]
-            applications.append(application_data)   
-
-        return {'status': 200, 'success': True, 'errors': [], 'data': applications}
+        return {'status': 200, 'success': True, 'errors': [], 'data': rows}

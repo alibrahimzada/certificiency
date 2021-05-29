@@ -67,33 +67,20 @@ class Certificate(BaseEntity):
 
 
     def get_my_certificates(self, core_app_context):
-
-        query = """
-            SELECT * 
-            FROM certificates c
-            WHERE c.application_id IN (
+        query = """ SELECT * 
+                    FROM certificates c
+                    WHERE c.application_id IN (
                                         SELECT a.application_id 
                                         FROM applications a
-                                        WHERE  a.user_id = {}
-                                      )             
+                                        WHERE  a.user_id = {})             
         """.format(core_app_context.user_id)
+        
+        rows = self.sql_helper.get_rows(query, 'certificates')        
 
-        result = self.sql_helper.query_all(query)
+        if len(rows) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting my certificates']}
 
-        if len(result) == 0:
-            return {'status': 500, 'success': False, 'errors': ['Error while getting certificates']}
-
-        column_names = self.sql_helper.get_column_names('certificates')
-        my_certificates = []
-
-        for certificate in result:
-            certificate_data = {}
-            for i in range(len(certificate)):
-                certificate_data[column_names[i][0]] = certificate[i]
-            my_certificates.append(certificate_data)
-   
-
-        return {'status': 200, 'success': True, 'errors': [], 'data': my_certificates}
+        return {'status': 200, 'success': True, 'errors': [], 'data': rows}
 
     def get_event_certificates(self, event_id):
         query = """ SELECT * 
@@ -105,18 +92,9 @@ class Certificate(BaseEntity):
                                         )             
                 """.format(event_id)
 
-        result = self.sql_helper.query_all(query)
+        rows = self.sql_helper.get_rows(query, 'certificates')
 
-        if len(result) == 0:
-            return {'status': 500, 'success': False, 'errors': ['Error while getting certificates']}
+        if len(rows) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting event certificates']}
 
-        column_names = self.sql_helper.get_column_names('certificates')
-        my_certificates = []
-
-        for certificate in result:
-            certificate_data = {}
-            for i in range(len(certificate)):
-                certificate_data[column_names[i][0]] = certificate[i]
-            my_certificates.append(certificate_data)
-
-        return {'status': 200, 'success': True, 'errors': [], 'data': my_certificates}
+        return {'status': 200, 'success': True, 'errors': [], 'data': rows}
