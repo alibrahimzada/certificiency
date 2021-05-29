@@ -90,3 +90,18 @@ def update_application_status():
         return api_response
 
     return req_handler_response
+
+@app.route(api_version + '/<event_id>/applications', methods=['GET'])
+def get_event_applications(event_id):
+    """
+        This is an endpoint for fetching all applications which belongs to the given
+        event id
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = application_service.get_event_applications(event_id, core_app_context)
+        return api_response
+
+    return req_handler_response
