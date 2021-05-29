@@ -51,6 +51,7 @@
                                     <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
                                         class="fa fa-trash"></i>Delete</button> -->
                                     <button class="btn btn-success mr-2" [routerLink]="['/events/detail/'+event.event_id]">Update</button>
+                                    <button class="btn btn-warning mr-2" [routerLink]="['/events/detail/'+event.event_id]">Applications</button>
                                     <button class="btn btn-danger mr-2" (click)="deleteEvent(event.event_id, event.event_name)"><i
                                             class="fa fa-trash"></i>Delete</button>
                                 </td>

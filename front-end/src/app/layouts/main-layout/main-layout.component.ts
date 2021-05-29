@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from './../../core/models/user.model';
 import { AuthService } from './../../core/services/auth.service';
@@ -11,7 +11,7 @@ import { RoleService } from './../../core/services/role.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MainLayoutComponent implements OnInit, AfterViewInit {
   year = new Date().getFullYear();
   user: User = new User();
   notificationCount = 0;
@@ -26,33 +26,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.user.first_name = "Beyza";
-    this.user.last_name = "Aydogan";
-    // this.user = this.authService.getCurrentUser();
-    // this.refreshNotifications();
-    // this.route$ = this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationStart) {
-    //     this.refreshNotifications();
-    //   }
-    // });
-    // this.interval = setInterval(() => {
-    //   this.refreshNotifications();
-    // }, 10000)
-  }
-
-  refreshNotifications() {
-    if (this.authService.getToken()) {
-      this.notificationService.getNotificationCount().subscribe(response => {
-        if (response.success) {
-          this.notificationCount = response.data.notificationCount;
-        }
-      });
-      this.notificationService.getNotifications().subscribe(response => {
-        if (response.success) {
-          this.notifications = response.data;
-        }
-      });
-    }
+    this.user = this.authService.getCurrentUser();
+    console.log(this.user);
   }
 
   ngAfterViewInit() {
@@ -67,44 +42,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-  }
-
-  getUrl(entity: string, id: string) {
-    switch (entity) {
-      case 'Report': {
-        return ['/field-report/detail/' + id]
-      }
-      case 'License': {
-        return ['/license/detail/' + id]
-      }
-      case 'Settlement': {
-        return ['/settlement/detail/' + id]
-      }
-      case 'Demand': {
-        return ['/demand/detail/' + id]
-      }
-      default: {
-        return null;
-      }
-    }
-  }
-
-  navigateToNotification(e: any, notification: any) {
-    e.preventDefault();
-    const url = this.getUrl(notification.entity, notification.entityId)
-    this.notificationService.setNotificationAsRead(notification.id).subscribe(response => {
-      this.refreshNotifications();
-      if (url) {
-        this.router.navigate(url);
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.route$.unsubscribe();
-    if (this.interval) {
-      clearInterval(this.interval)
-    }
   }
 
 }
