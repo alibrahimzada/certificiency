@@ -26,20 +26,26 @@ export class ApplicationService {
     );
   }
 
+  getApplicationsByEventId(id: string): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/application/'+ id + '/applications').pipe(
+      map(res => res)
+    )
+  }
+
   createApplication(application: Application): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/application/', application).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/application/insert', application).pipe(
       map(res => res)
     )
   }
 
   updateApplication(application: Application): Observable<any> {
-    return this.httpClient.put(API_ENDPOINT + '/application/', application).pipe(
+    return this.httpClient.put(API_ENDPOINT + '/application/update', application).pipe(
       map(res => res)
     )
   }
 
   deleteApplication(id: string): Observable<any> {
-    return this.httpClient.delete(API_ENDPOINT + '/application/' + id).pipe(
+    return this.httpClient.delete(API_ENDPOINT + '/application/delete/' + id).pipe(
       map(res => res)
     )
   }  

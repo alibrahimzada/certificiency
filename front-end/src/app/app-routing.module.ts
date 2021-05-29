@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ApplicationComponent } from './components/application/application.component';
 import { UpsertCustomerComponent } from './components/customer/components/upsert-customer/upsert-customer.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { UpsertEventCategoryComponent } from './components/event-category/components/upsert-event-category/upsert-event-category.component';
@@ -99,6 +100,11 @@ const routes: Routes = [
       {
         path: 'customers/detail/:id',
         component: UpsertCustomerComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'applications/:id',
+        component: ApplicationComponent,
         canActivate: [AuthGuard]
       }
     ]
