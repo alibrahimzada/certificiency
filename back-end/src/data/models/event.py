@@ -96,3 +96,25 @@ class Event(BaseEntity):
             my_events.append(event_data)   
 
         return {'status': 200, 'success': True, 'errors': [], 'data': my_events}
+
+    def get_event_cat_events(self, event_category_id, core_app_context):
+        query = """ SELECT *
+                    FROM \"events\"
+                    WHERE customer_id={} AND is_deleted=false AND event_category_id={}
+                """.format(core_app_context.customer_id, event_category_id)
+
+        result = self.sql_helper.query_all(query)
+
+        if len(result) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting events']}
+
+        column_names = self.sql_helper.get_column_names('events')
+        events = []
+
+        for event in result:
+            event_data = {}
+            for i in range(len(event)):
+                event_data[column_names[i][0]] = event[i]
+            events.append(event_data)   
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': events}

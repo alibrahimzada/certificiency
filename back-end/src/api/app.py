@@ -453,5 +453,20 @@ def my_events():
 
     return req_handler_response
 
+@app.route('/api/v1/event/<event_category_id>/events', methods=['GET'])
+def get_event_cat_events(event_category_id):
+    """
+        This is an endpoint for fetching all events which belongs to the given
+        event category id
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = event_service.get_event_cat_events(event_category_id, core_app_context)
+        return api_response
+
+    return req_handler_response
+
 if __name__ == '__main__':
     app.run()

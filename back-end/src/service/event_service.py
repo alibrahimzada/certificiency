@@ -23,3 +23,6 @@ class EventService(Service):
 
     def get_my_events(self, core_app_context):
         return self.event.get_my_events(core_app_context)
+
+    def get_event_cat_events(self, event_category_id, core_app_context):
+        return self.event.get_event_cat_events(event_category_id, core_app_context)
