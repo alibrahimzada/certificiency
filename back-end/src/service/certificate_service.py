@@ -23,3 +23,6 @@ class CertificateService(Service):
 
     def get_my_certificates(self, core_app_context):
         return self.certificate.get_my_certificates(core_app_context)
+    
+    def get_event_certificates(self, event_id):
+        return self.certificate.get_event_certificates(event_id)

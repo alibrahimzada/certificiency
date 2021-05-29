@@ -7,6 +7,7 @@ from src.service.customer_service import CustomerService
 from src.service.event_category_service import EventCategoryService
 from src.service.event_service import EventService
 from src.service.application_service import ApplicationService
+from src.service.certificate_service import CertificateService
 from src.service.helpers.request_handler import RequestHandler
 from flask_cors import cross_origin
 
@@ -31,6 +32,7 @@ customer_service = CustomerService()
 event_category_service = EventCategoryService()
 event_service = EventService()
 application_service = ApplicationService()
+certificate_service = CertificateService()
 request_handler = RequestHandler()
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
@@ -481,6 +483,21 @@ def get_event_applications(event_id):
     if req_handler_response['success']:
         core_app_context = req_handler_response['core_app_context']
         api_response = application_service.get_event_applications(event_id, core_app_context)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/certificate/<event_id>/certificates', methods=['GET'])
+def get_event_certificates(event_id):
+    """
+        This is an endpoint for fetching all certificates which belongs to the given
+        event id
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = certificate_service.get_event_certificates(event_id)
         return api_response
 
     return req_handler_response

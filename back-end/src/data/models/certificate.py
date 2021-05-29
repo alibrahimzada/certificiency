@@ -92,3 +92,29 @@ class Certificate(BaseEntity):
    
 
         return {'status': 200, 'success': True, 'errors': [], 'data': my_certificates}
+
+    def get_event_certificates(self, event_id):
+        query = """ SELECT * 
+                    FROM certificates c
+                    WHERE c.application_id IN (
+                                            SELECT a.application_id 
+                                            FROM applications a
+                                            WHERE a.event_id = {}
+                                        )             
+                """.format(event_id)
+
+        result = self.sql_helper.query_all(query)
+
+        if len(result) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting certificates']}
+
+        column_names = self.sql_helper.get_column_names('certificates')
+        my_certificates = []
+
+        for certificate in result:
+            certificate_data = {}
+            for i in range(len(certificate)):
+                certificate_data[column_names[i][0]] = certificate[i]
+            my_certificates.append(certificate_data)
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': my_certificates}
