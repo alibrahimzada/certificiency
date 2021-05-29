@@ -66,3 +66,27 @@ class User(BaseEntity):
         if rows_affected > 0:
             return {'status': 200, 'success': True, 'errors': []}
         return {'status': 500, 'success': False, 'errors': ['Error! Updating of user with id = {} from USER table unsuccessful'.format(data['user_id'])]}
+
+    def update_profile(self, data, core_app_context):
+        query = """ UPDATE \"users\"
+                    SET first_name='{}', last_name='{}', email='{}'
+                    WHERE user_id={}
+                """.format(data['first_name'], data['last_name'], data['email'], core_app_context.user_id)
+
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Updating user profile unsuccessful']}
+
+    def change_password(self, data, core_app_context):
+        query = """ UPDATE \"users\"
+                    SET password = '{}'
+                    WHERE user_id={}
+                """.format(data['password'], core_app_context.user_id)
+
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Changing password unsuccessful']}

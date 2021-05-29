@@ -125,6 +125,36 @@ def update_user():
 
     return req_handler_response
 
+@app.route('/api/v1/user/update-my-profile', methods=['POST'])
+def update_my_profile():
+    """
+        This is endpoint for updating a user's profile
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()
+        api_response = user_service.update_profile(data, core_app_context)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/user/change-password', methods=['POST'])
+def change_password():
+    """
+        This is endpoint for changing a user's password
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        data = request.get_json()
+        api_response = user_service.change_password(data, core_app_context)
+        return api_response
+
+    return req_handler_response
+
 @app.route('/api/v1/role/all', methods=['GET'])
 def get_roles():
     """

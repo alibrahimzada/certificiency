@@ -38,6 +38,20 @@ class UserService(Service):
     def update_user(self, data):
         return self.user.update_user(data)
 
+    def update_profile(self, data, core_app_context):
+        return self.user.update_profile(data, core_app_context)
+
+    def change_password(self, data, core_app_context):
+        if data['new_password'] != data['confirm_new_password'] or data['old_password'].strip() == '':
+            return {'status': 500, 'success': False, 'errors': ['Error! Password changing unsuccessful']}
+
+        user_instance = self.user.sql_helper.get_single_instance('users', 'user_id', core_app_context.user_id)
+        data['username'] = user_instance['username']
+        data['password'] = data['new_password']
+        encrypted_new_password = self.encrypt_password(data)
+        data['password'] = encrypted_new_password
+        return self.user.change_password(data, core_app_context)
+
     def encrypt_password(self, data):
         encrypted_password = self.crypto_helper.sha256_encrypt(data['username'], data['password'])
         return encrypted_password
