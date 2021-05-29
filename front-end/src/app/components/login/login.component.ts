@@ -38,9 +38,6 @@ export class LoginComponent implements OnInit {
     if (token) {
       this.router.navigate(['/']);
     }
-    this.authService.helloWorld().subscribe(response =>{
-      console.log(response);
-    })
   }
 
   login() {

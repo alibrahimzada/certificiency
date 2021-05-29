@@ -27,13 +27,29 @@ export class AuthService {
     )
   }
 
-  saveUserToLocalStorage(response: { token: string, data: any }) {
+  saveUserToLocalStorage(response: { token: string, data: any, exp_in_mins: any }) {
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response.data));
+
+    let expires = response.exp_in_mins;
+    let currentDate = new Date();
+    let expiresDate = new Date(currentDate.getTime() + expires * 60000);
+
+    localStorage.setItem('expiresDate', JSON.stringify(expiresDate));
   }
 
   getToken() {
-    return localStorage.getItem('token') || null;
+    let token = localStorage.getItem('token') || null;
+    let date = new Date();
+    let expireDate = JSON.parse(localStorage.getItem('expiresDate') || '{}');
+
+    let expiredDate = expireDate;
+    let currentDate = date.toISOString();
+
+    if (expiredDate >= currentDate && token){
+      return token;
+    }
+    return null;
   }
 
   getCurrentUser() {
