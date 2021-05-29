@@ -23,3 +23,6 @@ class ApplicationService(Service):
 
     def update_application_status(self, data):
         return self.application.update_application_status(data)
+    
+    def get_event_applications(self, event_id, core_app_context):
+        return self.application.get_event_applications(event_id, core_app_context)

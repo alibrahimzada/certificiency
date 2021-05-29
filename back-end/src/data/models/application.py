@@ -74,3 +74,25 @@ class Application(BaseEntity):
             return {'status': 200, 'success': True, 'errors': []}
 
         return {'status': 500, 'success': False, 'errors': ['Error while udpating application status!']}
+
+    def get_event_applications(self, event_id, core_app_context):
+        query = """SELECT *
+                   FROM \"applications\"
+                   WHERE user_id={} AND is_deleted=false AND event_id={}
+                """.format(core_app_context.user_id, event_id)
+        
+        result = self.sql_helper.query_all(query)
+
+        if len(result) == 0:
+            return {'status': 500, 'success': False, 'errors': ['Error while getting applications']}
+
+        column_names = self.sql_helper.get_column_names('applications')
+        applications = []
+
+        for application in result:
+            application_data = {}
+            for i in range(len(application)):
+                application_data[column_names[i][0]] = application[i]
+            applications.append(application_data)   
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': applications}
