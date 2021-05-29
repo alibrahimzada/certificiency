@@ -5,9 +5,13 @@ class Application(BaseEntity):
     def __init__(self):
         super(Application, self).__init__()
 
-    def get_all_applications(self):
+    def get_all_applications(self, core_app_context):
+        query = """ SELECT * 
+                    FROM \"applications\"
+                    WHERE user_id = {} AND is_deleted = false
+        """.format(core_app_context.user_id)
         api_response = {'status': 200, 'success': True, 'errors': []}
-        rows = self.sql_helper.get_rows('applications')
+        rows = self.sql_helper.get_rows(query, 'applications')
         api_response['data'] = rows
         return api_response
 
@@ -17,13 +21,12 @@ class Application(BaseEntity):
         api_response['data'] = application_data
         return api_response
 
-    def insert_application(self, data):
-        query = """INSERT INTO \"applications\"
-                   values({}, '{}', '{}', '{}', '{}', '{}')
-                """.format(data['application_id'], data['event_id'],
-                           data['user_id'], data['applied_on'],
-                           data['application_status'], False)
-
+    def insert_application(self, data, core_app_context):
+        query = """INSERT INTO \"applications\" (application_id, event_id,
+                                 user_id, applied_on, application_status, is_deleted)
+                   values(DEFAULT, '{}', '{}', '{}', '{}', '{}')
+                """.format(data['event_id'], core_app_context.user_id, 
+                           data['applied_on'], 0, False)
         try:
             rows_affected = self.sql_helper.execute(query)
             if rows_affected > 0:
@@ -34,25 +37,24 @@ class Application(BaseEntity):
         except UniqueViolation:
             return {'status': 400, 'success': False, 'errors': ['Error! Application with id = {} already exists'.format(data['application_id'])]}
 
-    def delete_application(self, data):
+    def delete_application(self, application_id):
         query = """UPDATE \"applications\"
                    SET is_deleted = 'true' 
                    WHERE application_id={}
-                """.format(data['application_id'])
+                """.format(application_id)
 
         rows_affected = self.sql_helper.execute(query)
         
         if rows_affected > 0:
             return {'status': 200, 'success': True, 'errors': []}
         
-        return {'status': 500, 'success': False, 'errors': ['Error! Deletion of application with id = {} from APPLICATIONS table unsuccessful'.format(data['application_id'])]}
+        return {'status': 500, 'success': False, 'errors': ['Error while deleting application!']}
 
     def update_application(self, data):
         query = """UPDATE \"applications\"
-                   SET event_id='{}', user_id='{}', applied_on='{}', application_status='{}', is_deleted='{}'
-                   WHERE application_id={}
-                """.format(data['event_id'], data['user_id'], data['applied_on'],
-                           data['application_status'], data['is_deleted'], data['application_id'])
+                   SET application_status='{}'
+                   WHERE application_id = {}
+                """.format(data['application_status'], data['application_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

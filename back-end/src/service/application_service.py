@@ -1,22 +1,24 @@
 from src.service import Service
 from src.data.models.application import Application
+import datetime
 
 class ApplicationService(Service):
 
     def __init__(self):
         self.application = Application()
 
-    def get_applications(self):
-        return self.application.get_all_applications()
+    def get_applications(self, core_app_context):
+        return self.application.get_all_applications(core_app_context)
 
     def get_application(self, application_id):
         return self.application.get_application(application_id)
 
-    def insert_application(self, data):
-        return self.application.insert_application(data)
+    def insert_application(self, data, core_app_context):
+        data['applied_on'] = datetime.datetime.now()
+        return self.application.insert_application(data, core_app_context)
 
-    def delete_application(self, data):
-        return self.application.delete_application(data)
+    def delete_application(self, application_id):
+        return self.application.delete_application(application_id)
 
     def update_application(self, data):
         return self.application.update_application(data)
