@@ -25,6 +25,7 @@ CREATE TABLE users (
    last_name VARCHAR ( 500 ) NOT NULL,
    customer_id INT NOT NULL,
    role_id INT NOT NULL,
+   user_type INT NOT NULL,
    is_active BOOLEAN NOT NULL,
    email VARCHAR ( 255 ) UNIQUE NOT NULL,
    created_on TIMESTAMP NOT NULL,
