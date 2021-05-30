@@ -1,5 +1,8 @@
 import jwt
 import datetime
+from src.data.helpers.sql_helper import SqlHelper
+
+sql_helper = SqlHelper()
 
 class CoreAppContext():
 
@@ -7,7 +10,7 @@ class CoreAppContext():
         self.user_id = user_id
         self.customer_id = customer_id
         self.role_id = role_id
-
+    
 class RequestHandler():
 
     def __init__(self, request=None):
@@ -43,4 +46,14 @@ class RequestHandler():
         if exp_datetime > datetime.datetime.now():
             return True
 
+        return False
+
+    def is_admin(self, user_id):
+        query = """ SELECT user_type
+                    FROM users
+                    WHERE user_id = {}
+        """.format(user_id)
+        result = sql_helper.query_first_or_default(query)
+        if result[0] == 1:
+            return True
         return False
