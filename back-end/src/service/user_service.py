@@ -55,3 +55,6 @@ class UserService(Service):
     def encrypt_password(self, data):
         encrypted_password = self.crypto_helper.sha256_encrypt(data['username'], data['password'])
         return encrypted_password
+
+    def update_last_login(self, user_id):        
+        return self.user.update_last_login(user_id, datetime.datetime.now())

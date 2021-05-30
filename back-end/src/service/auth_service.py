@@ -2,6 +2,7 @@ from src.service import Service
 from src.data.models.auth import Auth 
 from src.service.helpers.crypto_helper import CryptoHelper
 from src.service.helpers.auth_helper import AuthHelper
+from src.service.user_service import UserService
 
 class AuthService(Service):
 
@@ -9,6 +10,7 @@ class AuthService(Service):
         self.auth = Auth()
         self.crypto_helper = CryptoHelper()
         self.auth_helper = AuthHelper()
+        self.user_service = UserService()
 
     def login(self, data):
         encrypted_password = self.encrypt_password(data)
@@ -20,7 +22,7 @@ class AuthService(Service):
             user_id = api_response['data']['user_id']
             customer_id = api_response['data']['customer_id']
             role_id = api_response['data']['role_id']
-
+            self.user_service.update_last_login(user_id)
             jwt = self.auth_helper.encode_auth_token(user_id, customer_id, role_id)
 
             api_response['token'] = jwt.decode("utf-8")

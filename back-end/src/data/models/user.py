@@ -94,3 +94,15 @@ class User(BaseEntity):
         if rows_affected > 0:
             return {'status': 200, 'success': True, 'errors': []}
         return {'status': 500, 'success': False, 'errors': ['Error! Changing password unsuccessful']}
+
+
+    def update_last_login(self, user_id, last_login_datetime):
+        query = """ UPDATE users
+                    SET last_login = '{}'
+                    WHERE user_id = {}
+        """.format(last_login_datetime, user_id)
+        rows_affected = self.sql_helper.execute(query)
+
+        if rows_affected > 0:
+            return {'status': 200, 'success': True, 'errors': []}
+        return {'status': 500, 'success': False, 'errors': ['Error! Updating last login unsuccessful']}
