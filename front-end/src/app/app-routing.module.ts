@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApplicationComponent } from './components/application/application.component';
+import { CertificateDetailComponent } from './components/certificate-detail/certificate-detail/certificate-detail.component';
 import { UpsertCustomerComponent } from './components/customer/components/upsert-customer/upsert-customer.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { UpsertEventCategoryComponent } from './components/event-category/components/upsert-event-category/upsert-event-category.component';
@@ -112,6 +113,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'certificate-detail',
+    component: CertificateDetailComponent
   }
 ];
 
