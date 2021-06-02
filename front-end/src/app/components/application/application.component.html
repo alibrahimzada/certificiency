@@ -38,7 +38,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let application of applications;">
-                                <td>{{application.event_name}}</td>
+                                <!-- <td>{{application.event_name}}</td>
                                 <td>{{getCategoryName(event.event_category_id)}}</td>
                                 <td>{{application.event_location}}</td>
                                 <td>{{application.event_start_date}}</td>
@@ -47,15 +47,21 @@
                                 <td>{{application.event_quota}}</td>
                                 <td>{{application.event_quota}}</td>
                                 <td>
-                                    <!-- <button class="btn btn-success mr-2"
-                                        [routerLink]="['/users/detail/'+user.user_id]">Update</button>
-                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
-                                        class="fa fa-trash"></i>Delete</button> -->
                                     <button class="btn btn-success mr-2" [routerLink]="['/events/detail/'+event.event_id]">Update</button>
                                     <button class="btn btn-warning mr-2" [routerLink]="['/applications/'+event.event_id]">Applications</button>
                                     <button class="btn btn-danger mr-2" (click)="deleteEvent(event.event_id, event.event_name)"><i
                                             class="fa fa-trash"></i>Delete</button>
-                                </td>
+                                </td> -->
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

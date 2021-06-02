@@ -27,6 +27,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
 import { UpsertEventCategoryComponent } from './components/event-category/components/upsert-event-category/upsert-event-category.component';
 import { UpsertCustomerComponent } from './components/customer/components/upsert-customer/upsert-customer.component';
 import { UpsertEventComponent } from './components/event/components/upsert-event/upsert-event.component';
+import { CertificateDetailComponent } from './components/certificate-detail/certificate-detail/certificate-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { UpsertEventComponent } from './components/event/components/upsert-event
     CertificateComponent,
     UpsertEventCategoryComponent,
     UpsertCustomerComponent,
-    UpsertEventComponent
+    UpsertEventComponent,
+    CertificateDetailComponent
   ],
   imports: [
     BrowserModule,
