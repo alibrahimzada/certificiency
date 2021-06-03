@@ -52,6 +52,8 @@ CREATE TABLE events (
    event_end_date TIMESTAMP,
    event_last_application_date TIMESTAMP,
    event_quota INT,
+   certificate_header VARCHAR(100),
+   certificate_content VARCHAR (500),
    customer_id INT NOT NULL,
    FOREIGN KEY (event_category_id) REFERENCES event_categories (event_category_id),
    FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
@@ -75,7 +77,6 @@ CREATE TABLE certificates (
    certified_on TIMESTAMP NOT NULL,
    application_id INT NOT NULL,
    certificate_link VARCHAR ( 255 ) NOT NULL,
-   certificate_properties JSON NOT NULL,
    is_public BOOLEAN NOT NULL,
    is_deleted BOOLEAN NOT NULL,
    FOREIGN KEY (application_id) REFERENCES applications (application_id)	
