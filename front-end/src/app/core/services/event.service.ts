@@ -20,6 +20,12 @@ export class EventService {
     )
   }
 
+  getMyEvents(): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/event/my-events').pipe(
+      map(res => res)
+    )
+  }
+
   getById(id: string): Observable<any> {
     return this.httpClient.get(API_ENDPOINT + '/event/' + id).pipe(
       map(res => res)
