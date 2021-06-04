@@ -24,10 +24,10 @@ class Certificate(BaseEntity):
 
     def insert_certificate(self, data):
         query = """INSERT INTO \"certificates\" (certificate_id, certified_on, application_id, 
-                                 certificate_link, certificate_properties, is_public, is_deleted)
-                   values(DEFAULT, '{}', {}, '{}', '{}', '{}', '{}')
+                                 certificate_link, is_public, is_deleted)
+                   values(DEFAULT, '{}', {}, '{}', '{}', '{}')
                 """.format(data['certified_on'], data['application_id'], data['certificate_link'],
-                           data['certificate_properties'], data['is_public'], False)
+                           data['is_public'], False)
 
         try:
             rows_affected = self.sql_helper.execute(query)
@@ -53,11 +53,10 @@ class Certificate(BaseEntity):
 
     def update_certificate(self, data):
         query = """ UPDATE \"certificates\"
-                    SET certified_on='{}', certificate_link='{}',
-                    certificate_properties='{}', is_public='{}'
+                    SET certified_on='{}', certificate_link='{}', is_public='{}'
                     WHERE certificate_id={}
                 """.format(data['certified_on'], data['certificate_link'],
-                           data['certificate_properties'], data['is_public'], data['certificate_id'])
+                           data['is_public'], data['certificate_id'])
 
         rows_affected = self.sql_helper.execute(query)
 

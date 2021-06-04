@@ -28,12 +28,14 @@ class Event(BaseEntity):
         query = """INSERT INTO \"events\" (event_id, event_name, event_category_id,
                                             event_location, event_thumbnail, event_link,
                                             event_start_date, event_end_date, event_last_application_date,
-                                            event_quota, customer_id, is_deleted)
-                   values(DEFAULT, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, '{}')
+                                            event_quota, certificate_header, certificate_content, 
+                                            customer_id, is_deleted)
+                   values(DEFAULT, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}', {}, '{}', '{}', {}, '{}')
                 """.format(data['event_name'], data['event_category_id'],
                            data['event_location'], data['event_thumbnail'], data['event_link'],
                            data['event_start_date'], data['event_end_date'], 
                            data['event_last_application_date'], data['event_quota'],
+                           data['certificate_header'], data['certificate_content'],
                            core_app_context.customer_id, False)
 
         try:
@@ -62,12 +64,14 @@ class Event(BaseEntity):
         query = """ UPDATE \"events\"
                     SET event_name='{}', event_category_id={}, event_location='{}',
                     event_thumbnail='{}', event_link='{}', event_start_date='{}', 
-                    event_end_date='{}', event_last_application_date='{}', event_quota={}
+                    event_end_date='{}', event_last_application_date='{}', 
+                    event_quota={}, certificate_header = '{}', certificate_content = '{}'
                     WHERE event_id={}
                 """.format(data['event_name'], data['event_category_id'], data['event_location'], 
                            data['event_thumbnail'], data['event_link'], data['event_start_date'],
                            data['event_end_date'], data['event_last_application_date'], 
-                           data['event_quota'], data['event_id'])
+                           data['event_quota'], data['certificate_header'], 
+                           data['certificate_content'], data['event_id'])
 
         rows_affected = self.sql_helper.execute(query)
 
