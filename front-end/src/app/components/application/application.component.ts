@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APPLICATION_STATUS } from 'src/app/core/models/application.model';
+import { Certificate } from 'src/app/core/models/certificate.model';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ApplicationService } from 'src/app/core/services/application.service';
+import { CertificateService } from 'src/app/core/services/certificate.service';
 import { EventService } from 'src/app/core/services/event.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -28,6 +30,7 @@ export class ApplicationComponent implements OnInit {
     private loadingService: LoadingService,
     private userService: UserService,
     private eventService: EventService,
+    private certificateService: CertificateService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -231,6 +234,23 @@ export class ApplicationComponent implements OnInit {
         this.hideUpdateStatusModal();
       } else {
         this.alertService.notification('Error!', 'Status could not updated', 'error');
+      }
+    })
+  }
+
+  createCertificate(){
+    let certificate = new Certificate();
+    certificate.application_id = this.newStatusBody.id;
+    certificate.certificate_link = "";
+    certificate.certified_on = new Date();
+    certificate.is_public = true;
+    this.certificateService.createCertificate(certificate).subscribe(response => {
+      if (response.success){
+        this.alertService.alert("Success!", "Certificate created!", "success");
+        this.newStatusBody.status = 7;
+        this.updateStatus();
+      } else {
+        this.alertService.alert("Error!", "Certificate could not create!", "error");
       }
     })
   }

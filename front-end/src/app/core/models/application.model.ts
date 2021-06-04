@@ -12,5 +12,6 @@ export const APPLICATION_STATUS = [
     { text: 'Rejected', code: 3},
     { text: 'Attended', code: 4},
     { text: 'Not Attended', code: 5},
-    { text: 'Completed', code: 6}
+    { text: 'Completed', code: 6},
+    { text: 'Certified', code: 7}
 ]

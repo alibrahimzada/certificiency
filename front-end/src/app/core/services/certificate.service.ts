@@ -33,7 +33,7 @@ export class CertificateService {
   }
 
   createCertificate(certificate: Certificate): Observable<any> {
-    return this.httpClient.post(API_ENDPOINT + '/certificate/', certificate).pipe(
+    return this.httpClient.post(API_ENDPOINT + '/certificate/insert', certificate).pipe(
       map(res => res)
     )
   }

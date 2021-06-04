@@ -47,7 +47,8 @@
                                 <td>{{application.applied_on}}</td>
                                 <td>{{getApplicationStatus(application.application_status)}}</td>
                                 <td>
-                                    <button class="btn btn-success mr-2" (click)="showUpdateStatusModal(application)">Update Status</button>
+                                    <button class="btn btn-success mr-2"
+                                        (click)="showUpdateStatusModal(application)">Update Status</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -73,38 +74,38 @@
                         <div class="kt-radio-inline">
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="1"
-                                [(ngModel)]="newStatusBody.status"  />
+                                    [(ngModel)]="newStatusBody.status" />
                                 Applied
                                 <span></span>
                             </label>
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="2"
-                                [(ngModel)]="newStatusBody.status" />
+                                    [(ngModel)]="newStatusBody.status" />
                                 Accepted
                                 <span></span>
                             </label>
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="3"
-                                [(ngModel)]="newStatusBody.status"/>
+                                    [(ngModel)]="newStatusBody.status" />
                                 Rejected
                                 <span></span>
                             </label>
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="4"
-                                [(ngModel)]="newStatusBody.status"/>
+                                    [(ngModel)]="newStatusBody.status" />
                                 Attended
                                 <span></span>
                             </label>
                             <br><br>
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="5"
-                                [(ngModel)]="newStatusBody.status" />
+                                    [(ngModel)]="newStatusBody.status" />
                                 Not Attended
                                 <span></span>
                             </label>
                             <label class="kt-radio kt-radio--solid">
                                 <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="6"
-                                [(ngModel)]="newStatusBody.status" />
+                                    [(ngModel)]="newStatusBody.status" />
                                 Completed
                                 <span></span>
                             </label>
@@ -112,14 +113,15 @@
                     </div>
                 </div>
 
-                
+
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold"
+                <button type="button" class="btn btn-dark font-weight-bold"
                     (click)="hideUpdateStatusModal()">Close</button>
-                <button type="button" class="btn btn-primary font-weight-bold"
-                    (click)="updateStatus()">Update</button>
+                <button type="button" class="btn btn-success font-weight-bold" (click)="updateStatus()">Update</button>
+                <button type="button" class="btn btn-primary font-weight-bold" (click)="createCertificate()">Create
+                    Certificate</button>
             </div>
         </div>
     </div>
