@@ -10,6 +10,8 @@ import { UpsertEventComponent } from './components/event/components/upsert-event
 import { EventComponent } from './components/event/event.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { MyApplicationsComponent } from './components/my-applications/my-applications/my-applications.component';
+import { MyEventsComponent } from './components/my-events/my-events/my-events.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { UpsertUserComponent } from './components/users/components/upsert-user/upsert-user.component';
@@ -86,6 +88,16 @@ const routes: Routes = [
       {
         path: 'events/detail/:id',
         component: UpsertEventComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'my-events',
+        component: MyEventsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'my-applications',
+        component: MyApplicationsComponent,
         canActivate: [AuthGuard]
       },
       {

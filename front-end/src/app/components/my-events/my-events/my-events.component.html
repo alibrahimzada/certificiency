@@ -1,0 +1,54 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Event List
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="eventCategories">
+        <div class="kt-section">
+            <div class="kt-section__content">
+
+                <div class="kt-pagination  kt-pagination--brand">
+                    <ul class="kt-pagination__links">
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Last Application Date</th>
+                                <th>Quota</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let event of events;">
+                                <td>{{event.event_name}}</td>
+                                <td>{{getCategoryName(event.event_category_id)}}</td>
+                                <td>{{event.event_location}}</td>
+                                <td>{{event.event_start_date}}</td>
+                                <td>{{event.event_end_date}}</td>
+                                <td>{{event.event_last_application_date}}</td>
+                                <td>{{event.event_quota}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.user_id]">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
+                                        class="fa fa-trash"></i>Delete</button> -->
+                                    <button class="btn btn-success mr-2" (click)="applyEvent(event.event_id, event.event_name)">Apply</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
