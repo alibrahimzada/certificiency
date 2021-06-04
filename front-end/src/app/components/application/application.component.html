@@ -38,34 +38,88 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let application of applications;">
-                                <!-- <td>{{application.event_name}}</td>
-                                <td>{{getCategoryName(event.event_category_id)}}</td>
-                                <td>{{application.event_location}}</td>
-                                <td>{{application.event_start_date}}</td>
-                                <td>{{application.event_end_date}}</td>
-                                <td>{{application.event_last_application_date}}</td>
-                                <td>{{application.event_quota}}</td>
-                                <td>{{application.event_quota}}</td>
+                                <td>{{getUserFirstName(application.user_id)}}</td>
+                                <td>{{getUserLastName(application.user_id)}}</td>
+                                <td>{{getUserEmail(application.user_id)}}</td>
+                                <td>{{getEventName(application.event_id)}}</td>
+                                <td>{{getEventStartDate(application.event_id)}}</td>
+                                <td>{{getEventEndDate(application.event_id)}}</td>
+                                <td>{{application.applied_on}}</td>
+                                <td>{{getApplicationStatus(application.application_status)}}</td>
                                 <td>
-                                    <button class="btn btn-success mr-2" [routerLink]="['/events/detail/'+event.event_id]">Update</button>
-                                    <button class="btn btn-warning mr-2" [routerLink]="['/applications/'+event.event_id]">Applications</button>
-                                    <button class="btn btn-danger mr-2" (click)="deleteEvent(event.event_id, event.event_name)"><i
-                                            class="fa fa-trash"></i>Delete</button>
-                                </td> -->
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                    <button class="btn btn-success mr-2" (click)="showUpdateStatusModal(application)">Update Status</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateStatus">
+    <div class="modal-dialog" role="document" style="max-width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                <button type="button" class="close" (click)="hideUpdateStatusModal()" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="project" class="col-3 col-form-label">Application Status</label>
+                    <div class="col-lg-9">
+                        <div class="kt-radio-inline">
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="1"
+                                [(ngModel)]="newStatusBody.status"  />
+                                Applied
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="2"
+                                [(ngModel)]="newStatusBody.status" />
+                                Accepted
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="3"
+                                [(ngModel)]="newStatusBody.status"/>
+                                Rejected
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="4"
+                                [(ngModel)]="newStatusBody.status"/>
+                                Attended
+                                <span></span>
+                            </label>
+                            <br><br>
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="5"
+                                [(ngModel)]="newStatusBody.status" />
+                                Not Attended
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--solid">
+                                <input id="projectStatusRadio" name="projectStatusRadio" type="radio" [value]="6"
+                                [(ngModel)]="newStatusBody.status" />
+                                Completed
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold"
+                    (click)="hideUpdateStatusModal()">Close</button>
+                <button type="button" class="btn btn-primary font-weight-bold"
+                    (click)="updateStatus()">Update</button>
             </div>
         </div>
     </div>

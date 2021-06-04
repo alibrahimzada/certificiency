@@ -11,6 +11,7 @@ import { EventComponent } from './components/event/event.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyApplicationsComponent } from './components/my-applications/my-applications/my-applications.component';
+import { MyCertificatesComponent } from './components/my-certificates/my-certificates/my-certificates.component';
 import { MyEventsComponent } from './components/my-events/my-events/my-events.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
 import { RolesComponent } from './components/roles/roles.component';
@@ -98,6 +99,11 @@ const routes: Routes = [
       {
         path: 'my-applications',
         component: MyApplicationsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'my-certificates',
+        component: MyCertificatesComponent,
         canActivate: [AuthGuard]
       },
       {

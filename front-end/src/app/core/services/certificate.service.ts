@@ -20,6 +20,12 @@ export class CertificateService {
     )
   }
 
+  getMyCertificates(): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/certificate/my-certificates').pipe(
+      map(res => res)
+    )
+  }
+
   getById(id: string): Observable<any> {
     return this.httpClient.get(API_ENDPOINT + '/certificate/' + id).pipe(
       map(res => res)

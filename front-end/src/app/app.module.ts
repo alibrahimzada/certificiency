@@ -31,6 +31,7 @@ import { CertificateDetailComponent } from './components/certificate-detail/cert
 import { MyEventsComponent } from './components/my-events/my-events/my-events.component';
 import { ProfileComponent } from './components/profile/profile/profile.component';
 import { MyApplicationsComponent } from './components/my-applications/my-applications/my-applications.component';
+import { MyCertificatesComponent } from './components/my-certificates/my-certificates/my-certificates.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,8 @@ import { MyApplicationsComponent } from './components/my-applications/my-applica
     CertificateDetailComponent,
     MyEventsComponent,
     ProfileComponent,
-    MyApplicationsComponent
+    MyApplicationsComponent,
+    MyCertificatesComponent
   ],
   imports: [
     BrowserModule,

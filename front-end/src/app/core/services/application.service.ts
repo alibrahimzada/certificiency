@@ -44,6 +44,12 @@ export class ApplicationService {
     )
   }
 
+  updateStatus(application_id: string, application_status: number): Observable<any> {
+    return this.httpClient.put(API_ENDPOINT + '/application/status', {application_id, application_status}).pipe(
+      map(res => res)
+    )
+  }
+
   deleteApplication(id: string): Observable<any> {
     return this.httpClient.delete(API_ENDPOINT + '/application/delete/' + id).pipe(
       map(res => res)

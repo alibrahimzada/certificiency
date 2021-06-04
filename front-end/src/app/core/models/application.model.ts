@@ -8,8 +8,9 @@ export class Application {
 
 export const APPLICATION_STATUS = [
     { text: 'Applied', code: 1},
-    { text: 'Waiting List', code: 2},
-    { text: 'Declined', code: 3},
-    { text: 'Approved', code: 5},
+    { text: 'Accepted', code: 2},
+    { text: 'Rejected', code: 3},
+    { text: 'Attended', code: 4},
+    { text: 'Not Attended', code: 5},
     { text: 'Completed', code: 6}
 ]
