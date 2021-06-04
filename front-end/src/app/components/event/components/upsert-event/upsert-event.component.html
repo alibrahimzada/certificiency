@@ -47,6 +47,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="certificate_header" class="col-2 col-form-label">Certificate Header</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="certificate_header" name="certificate_header"
+                            [(ngModel)]="event.certificate_header">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="certificate_content" class="col-2 col-form-label">Certificate Content</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="certificate_content" name="certificate_content"
+                            [(ngModel)]="event.certificate_content">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="event_start_date" class="col-2 col-form-label">Start Date</label>
                     <div class="col-10">
                         <input class="form-control" type="date" [(ngModel)]="event.event_start_date"

@@ -10,4 +10,6 @@ export class Event {
     event_last_application_date: any;
     event_quota: number;
     customer_id: string;
+    certificate_content:string;
+    certificate_header: string;
 }
