@@ -141,49 +141,49 @@
                   </li>
                   <li routerLink="/users" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 1"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">Users</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/roles" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 1"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">Roles</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/event-categories" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 1"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">Event Categories</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/events" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 1"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">Events</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/customers" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 3"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">Customers</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/my-events" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 2"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">My Events</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/my-applications" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 2"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">My Applications</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>
                   <li routerLink="/my-certificates" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="kt-menu__item--here"
                     class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click"
-                    aria-haspopup="true"><a class="kt-menu__link kt-menu__toggle"><span
+                    aria-haspopup="true" *ngIf="user.user_type === 3"><a class="kt-menu__link kt-menu__toggle"><span
                         class="kt-menu__link-text">My Certificates</span><i
                         class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   </li>

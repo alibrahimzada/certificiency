@@ -11,4 +11,5 @@ export class User {
     email: string
     created_on: any
     last_login: any;
+    user_type: any;
 }
