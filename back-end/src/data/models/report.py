@@ -1,5 +1,3 @@
-# TODO Numbers of Applications for specific event, with absent and attended details. (Beyza)
-# TODO Rate of attendance per user (Beyza)
 from src.data.models.base_entity import BaseEntity
 from psycopg2.errors import UniqueViolation
 
@@ -8,8 +6,42 @@ class Report(BaseEntity):
     def __init__(self):
         super(Report, self).__init__()
   
+    def get_event_report(self, event_id):
+        data = {}
+        data['number_of_applications'] = self.get_num_of_applications_of_event(event_id)
+        data['number_of_absents'] = self.get_num_of_absents_of_event(event_id)
+        data['numbers_of_attendents'] = self.get_num_of_attendents_of_event(event_id)
 
-    def get_num_of_applications(self, event_id):
+        return {'status': 200, 'success': True, 'errors': [], 'data': data}
+
+
+    def get_event_category_report(self, event_category_id):
+        stats = {}
+        total_events = self.get_total_events_of_event_cat(event_category_id)
+        
+        stats['total_events_per_event_cat'] = total_events
+        return {'status': 200, 'success': True, 'errors': [], 'data': stats}
+
+
+    def get_customer_report(self, customer_id):
+        stats = {}
+        user_stats = self.get_customer_user_stats(customer_id)
+        event_stats = self.get_customer_event_stats(customer_id)
+        stats['user_count'] = user_stats
+        stats['event_count'] = event_stats
+        
+        return {'status': 200, 'success': True, 'errors': [], 'data': stats}
+
+
+    def get_user_report(self, user_id):
+        data = {}
+        data['number_of_applications'] = self.get_num_of_applications_of_user(user_id)
+        data['numbers_of_attendents'] = self.get_num_of_attendents_of_user(user_id)
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': data}
+
+
+    def get_num_of_applications_of_event(self, event_id):
         query =  """ SELECT COUNT(*)
                      FROM applications a
                      WHERE {} = a.event_id   
@@ -17,10 +49,10 @@ class Report(BaseEntity):
 
         result = self.sql_helper.query_all(query)
 
-        return result
+        return result[0][0]
 
     
-    def get_num_of_absents(self, event_id):
+    def get_num_of_absents_of_event(self, event_id):
         query = """ SELECT COUNT(*)
                     FROM applications a
                     WHERE a.event_id = {} AND a.application_status = 2 
@@ -28,10 +60,10 @@ class Report(BaseEntity):
         
         result = self.sql_helper.query_all(query)
 
-        return result
+        return result[0][0]
         
     
-    def get_num_of_attendents(self, event_id):
+    def get_num_of_attendents_of_event(self, event_id):
         query = """ SELECT COUNT(*)
                     FROM applications a
                     WHERE a.event_id = {} AND a.application_status = 1
@@ -39,62 +71,58 @@ class Report(BaseEntity):
         
         result = self.sql_helper.query_all(query)
         
-        return result
+        return result[0][0]
 
 
-    def get_event_applications_details(self, event_id):
-        data = {}
-        data['number_of_applications'] = self.get_num_of_applications(event_id)[0][0]
-        data['number_of_absents'] = self.get_num_of_absents(event_id)[0][0]
-        data['numbers_of_attendents'] = self.get_num_of_attendents(event_id)[0][0]
-        return data
-
-
-    def get_total_events_per_event_cat(self):
-        query = """ SELECT COUNT(event_id), event_category_id
+    def get_total_events_of_event_cat(self, event_category_id):
+        query = """ SELECT COUNT(event_id)
                     FROM events
-                    GROUP BY event_category_id
-                """
+                    WHERE event_category_id = {}
+                """.format(event_category_id)
 
         result = self.sql_helper.query_all(query)
-        data = self.jsonify_result(result)
+        return result[0][0]
 
-        return {'status': 200, 'success': True, 'errors': [], 'data': data}
 
-    def get_customer_stats(self):
-        stats = {}
-        user_stats = self.get_customer_user_stats()
-        event_stats = self.get_customer_event_stats()
-        stats['user_stats'] = user_stats
-        stats['event_stats'] = event_stats
-        
-        return {'status': 200, 'success': True, 'errors': [], 'data': stats}
-
-    def get_customer_user_stats(self):
-        query = """ SELECT COUNT(user_id), customer_id
+    def get_customer_user_stats(self, customer_id):
+        query = """ SELECT COUNT(user_id)
                     FROM users
-                    GROUP BY customer_id
-                """
+                    WHERE customer_id = {}
+                """.format(customer_id)
 
         result = self.sql_helper.query_all(query)
-        data = self.jsonify_result(result)
-        return data
+
+        return result[0][0]
         
-    def get_customer_event_stats(self):
-        query = """ SELECT COUNT(event_id), customer_id
+
+    def get_customer_event_stats(self, customer_id):
+        query = """ SELECT COUNT(event_id)
                     FROM events
-                    GROUP BY customer_id
-                """
+                    WHERE customer_id = {}
+                """.format(customer_id)
 
         result = self.sql_helper.query_all(query)
-        data = self.jsonify_result(result)
-        return data
 
-    def jsonify_result(self, result):
-        data = {}
-        for i in range(len(result)):
-            count = result[i][0]
-            key = result[i][1]
-            data[str(key)] = count
+        return result[0][0]
 
-        return data
+
+    def get_num_of_applications_of_user(self, user_id):
+        query = """ SELECT COUNT(*)
+                    FROM applications
+                    WHERE user_id = {}  
+        """.format(user_id)
+
+        result = self.sql_helper.query_all(query)
+
+        return result[0][0]
+
+
+    def get_num_of_attendents_of_user(self, user_id):
+        query = """ SELECT COUNT(*)
+                    FROM applications
+                    WHERE user_id = {} AND application_status = 1
+        """.format(user_id)
+
+        result = self.sql_helper.query_all(query)
+
+        return result[0][0]

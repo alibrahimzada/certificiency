@@ -8,6 +8,7 @@ from src.service.event_category_service import EventCategoryService
 from src.service.event_service import EventService
 from src.service.application_service import ApplicationService
 from src.service.certificate_service import CertificateService
+from src.service.report_service import ReportService
 from src.service.helpers.request_handler import RequestHandler
 from flask_cors import cross_origin
 
@@ -33,6 +34,7 @@ event_category_service = EventCategoryService()
 event_service = EventService()
 application_service = ApplicationService()
 certificate_service = CertificateService()
+report_service = ReportService()
 request_handler = RequestHandler()
 # app.config.from_object(config[os.getenv('FLASK_CONFIGURATION', 'development')])
 
@@ -683,6 +685,65 @@ def get_my_certificates():
     if req_handler_response['success']:
         core_app_context = req_handler_response['core_app_context']
         api_response = certificate_service.get_my_certificates(core_app_context)
+        return api_response
+
+    return req_handler_response
+
+
+@app.route('/api/v1/report/<event_id>/event-report', methods=['GET'])
+def get_event_report(event_id):
+    """
+        This is endpoint for getting report details of event 
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+    #    core_app_context = req_handler_response['core_app_context']
+        api_response = report_service.get_event_report(event_id)
+        return api_response
+
+    return req_handler_response
+
+@app.route('/api/v1/report/<customer_id>/customer-report', methods=['GET'])
+def get_customer_report(customer_id):
+    """
+        This is endpoint for getting report details of customer 
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+    #    core_app_context = req_handler_response['core_app_context']
+        api_response = report_service.get_customer_report(customer_id)
+        return api_response
+
+    return req_handler_response
+
+
+@app.route('/api/v1/report/<event_category_id>/event-category-report', methods=['GET'])
+def get_event_category_report(event_category_id):
+    """
+        This is endpoint for getting report details of event category
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+    #    core_app_context = req_handler_response['core_app_context']
+        api_response = report_service.get_event_category_report(event_category_id)
+        return api_response
+
+    return req_handler_response
+
+
+@app.route('/api/v1/report/<user_id>/user-report', methods=['GET'])
+def get_user_report(user_id):
+    """
+        This is endpoint for getting report details of user 
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+    #    core_app_context = req_handler_response['core_app_context']
+        api_response = report_service.get_user_report(user_id)
         return api_response
 
     return req_handler_response

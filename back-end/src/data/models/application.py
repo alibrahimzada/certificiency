@@ -26,7 +26,7 @@ class Application(BaseEntity):
                                  user_id, applied_on, application_status, is_deleted)
                    values(DEFAULT, '{}', '{}', '{}', '{}', '{}')
                 """.format(data['event_id'], core_app_context.user_id, 
-                           data['applied_on'], 1, False)
+                           data['applied_on'], 0, False)
         try:
             rows_affected = self.sql_helper.execute(query)
             if rows_affected > 0:
