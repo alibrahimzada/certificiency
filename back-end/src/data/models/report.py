@@ -126,3 +126,58 @@ class Report(BaseEntity):
         result = self.sql_helper.query_all(query)
 
         return result[0][0]
+
+
+    def get_customer_stats(self, core_app_context):
+        stats = {}
+        stats['user_count'] = self.get_num_of_users_of_customer(core_app_context)
+        stats['event_count'] = self.get_num_of_events_of_customer(core_app_context)
+        stats['application_count'] = self.get_num_of_applications_of_customer(core_app_context)
+        stats['certificate_count'] = self.get_num_of_certificates_of_customer(core_app_context)
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': stats}        
+
+    def get_num_of_users_of_customer(self, core_app_context):
+        query = """ SELECT COUNT(user_id)
+                    FROM users
+                    WHERE customer_id = {}
+                """.format(core_app_context.customer_id)
+
+        result = self.sql_helper.query_all(query)
+        return result[0][0]
+
+
+    def get_num_of_events_of_customer(self, core_app_context):
+        query = """ SELECT COUNT(event_id)
+                    FROM events
+                    WHERE customer_id = {}
+                """.format(core_app_context.customer_id)
+
+        result = self.sql_helper.query_all(query)
+        return result[0][0]
+
+
+    def get_num_of_applications_of_customer(self, core_app_context):
+        query = """ SELECT COUNT(*)
+                    FROM events e, applications a
+                    WHERE e.customer_id = {} AND
+                    e.event_id = a.event_id
+                """.format(core_app_context.customer_id)
+
+        result = self.sql_helper.query_all(query)
+        return result[0][0]
+
+
+    def get_num_of_certificates_of_customer(self, core_app_context):
+        query = """ SELECT COUNT(certificate_id)
+                    FROM certificates
+                    WHERE application_id IN (
+                        SELECT a.application_id
+                        FROM events e, applications a
+                        WHERE e.customer_id = {} AND
+                        e.event_id = a.event_id
+                    )
+                """.format(core_app_context.customer_id)
+        
+        result = self.sql_helper.query_all(query)
+        return result[0][0]

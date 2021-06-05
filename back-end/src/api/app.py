@@ -331,6 +331,21 @@ def make_passive(customer_id):
 
     return req_handler_response
 
+@app.route('/api/v1/report/customer-stats', methods=['GET'])
+def get_customer_stats():
+    """
+        This is endpoint for returning customer stats, i.e. user,
+        certificate, event, and application counts
+    """
+    req_handler_response = request_handler.validate_token(request)
+
+    if req_handler_response['success']:
+        core_app_context = req_handler_response['core_app_context']
+        api_response = report_service.get_customer_stats(core_app_context)
+        return api_response
+
+    return req_handler_response
+
 @app.route('/api/v1/event_category/all', methods=['GET'])
 def get_event_categories():
     """
@@ -688,6 +703,15 @@ def get_my_certificates():
         return api_response
 
     return req_handler_response
+
+
+@app.route('/api/v1/certificate/<certificate_id>/validate-certificate', methods=['GET'])
+def validate_certificate(certificate_id):
+    """
+        This is endpoint for validating a certificate given its id
+    """
+    api_response = certificate_service.validate_certificate(certificate_id)
+    return api_response
 
 
 @app.route('/api/v1/report/<event_id>/event-report', methods=['GET'])
