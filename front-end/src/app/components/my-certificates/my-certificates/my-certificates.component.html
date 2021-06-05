@@ -1,1 +1,44 @@
-<p>my-certificates works!</p>
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Certificate List
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-section">
+            <div class="kt-section__content">
+
+                <div class="kt-pagination  kt-pagination--brand">
+                    <ul class="kt-pagination__links">
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Certification Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let certificate of certificates;">
+                                <td>{{getEventName(certificate.application_id)}}</td>
+                                <td>{{certificate.certified_on}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-success mr-2"
+                                        [routerLink]="['/users/detail/'+user.user_id]">Update</button>
+                                    <button class="btn btn-danger mr-2" (click)="deleteUser(user.user_id, user.email)"><i
+                                        class="fa fa-trash"></i>Delete</button> -->
+                                    <button class="btn btn-success mr-2" [routerLink]="['/certificate-detail/'+certificate.certificate_id]">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

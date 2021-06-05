@@ -139,7 +139,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'certificate-detail',
+    path: 'certificate-detail/:id',
     component: CertificateDetailComponent
   }
 ];

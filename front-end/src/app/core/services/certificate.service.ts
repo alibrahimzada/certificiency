@@ -25,9 +25,15 @@ export class CertificateService {
       map(res => res)
     )
   }
-
+  // /api/v1/certificate/<certificate_id>/validate-certificate
   getById(id: string): Observable<any> {
     return this.httpClient.get(API_ENDPOINT + '/certificate/' + id).pipe(
+      map(res => res)
+    );
+  }
+
+  getCertificate(id: string): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/certificate/' + id + '/validate-certificate').pipe(
       map(res => res)
     );
   }
