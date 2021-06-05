@@ -14,6 +14,14 @@ class ApplicationService(Service):
         return self.application.get_application(application_id)
 
     def insert_application(self, data, core_app_context):
+        # checking if a user already applied to this event
+        if self.application.is_application_available(data, core_app_context):
+            return {'status': 500, 'success': False, 'errors': ['You have already applied to this event']}
+
+        # checking if there is any quota available for this event
+        if not self.application.is_quota_available(data):
+            return {'status': 500, 'success': False, 'errors': ['There is no quota available for this event']}
+
         data['applied_on'] = datetime.datetime.now()
         return self.application.insert_application(data, core_app_context)
 

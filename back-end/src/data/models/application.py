@@ -89,3 +89,37 @@ class Application(BaseEntity):
             return {'status': 500, 'success': False, 'errors': ['Error while getting event applications']}
 
         return {'status': 200, 'success': True, 'errors': [], 'data': rows}
+
+    def is_application_available(self, data, core_app_context):
+        query = """ SELECT *
+                    FROM applications
+                    WHERE user_id = {} AND event_id = {}
+        """.format(core_app_context.user_id, data['event_id'])
+        
+        result = self.sql_helper.query_first_or_default(query)
+
+        if result == None:
+            return False
+        return True
+
+    def is_quota_available(self, data):
+        query = """ SELECT COUNT(a.application_id)
+                    FROM applications a, events e
+                    WHERE e.event_id = {} AND
+                    a.event_id = e.event_id
+                """.format(data['event_id'])
+
+        result = self.sql_helper.query_first_or_default(query)
+        total_applications = result[0]
+
+        query = """ SELECT e.event_quota
+                    FROM events e
+                    WHERE e.event_id = {} 
+        """.format(data['event_id'])
+
+        result = self.sql_helper.query_first_or_default(query)
+        total_quota = result[0]
+
+        if total_applications < total_quota:
+            return True
+        return False

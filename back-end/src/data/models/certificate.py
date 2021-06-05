@@ -97,3 +97,27 @@ class Certificate(BaseEntity):
             return {'status': 500, 'success': False, 'errors': ['Error while getting event certificates']}
 
         return {'status': 200, 'success': True, 'errors': [], 'data': rows}
+
+
+    def validate_certificate(self, certificate_id):
+        query = """ SELECT e.event_location, CONCAT(u.first_name, ' ', u.last_name) AS full_name, 
+                           e.event_start_date, e.event_name, e.certificate_header, e.certificate_content 
+                    FROM certificates c, applications a, users u, events e
+                    WHERE c.certificate_id = {} AND
+                          c.application_id = a.application_id AND
+                          a.user_id = u.user_id AND
+                          a.event_id = e.event_id  
+        """.format(certificate_id)
+
+        result = self.sql_helper.query_first_or_default(query)
+
+        if result == None:
+            return {'status': 500, 'success': False, 'errors': ['Certificate not found']}
+        
+        columns = ['event_location', 'full_name', 'date', 'event_name', 'certificate_header', 'certificate_content']
+        certificate_details = {}
+        
+        for i in range(len(columns)):
+            certificate_details[columns[i]] = result[i]
+
+        return {'status': 200, 'success': True, 'errors': [], 'data': certificate_details}

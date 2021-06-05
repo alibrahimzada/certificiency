@@ -17,3 +17,6 @@ class ReportService(Service):
 
     def get_user_report(self, user_id):
         return self.report.get_user_report(user_id)
+
+    def get_customer_stats(self, core_app_context):
+        return self.report.get_customer_stats(core_app_context)

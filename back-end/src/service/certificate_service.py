@@ -26,3 +26,6 @@ class CertificateService(Service):
     
     def get_event_certificates(self, event_id):
         return self.certificate.get_event_certificates(event_id)
+
+    def validate_certificate(self, certificate_id):
+        return self.certificate.validate_certificate(certificate_id)
