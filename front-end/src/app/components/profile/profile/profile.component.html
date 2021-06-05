@@ -1,1 +1,157 @@
-<p>profile works!</p>
+<div class="row">
+    <div class="col-xl-12">
+
+        <!--begin:: Widgets/Applications/User/Profile3-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__body">
+                <div class="kt-widget kt-widget--user-profile-3">
+                    <div class="kt-widget__top">
+                        <div class="kt-widget__media kt-hidden-">
+                            <img src="assets/media/users/default.jpg" alt="image">
+                        </div>
+                        <div
+                            class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+                            JM
+                        </div>
+                        <div class="kt-widget__content">
+                            <div class="kt-widget__head">
+                                <a href="#" class="kt-widget__username">
+                                    {{user.first_name}} {{user.last_name}}
+                                    <i class="flaticon2-correct"></i>
+                                </a>
+                                <!-- <div class="kt-widget__action">
+                                    <button type="button" class="btn btn-label-success btn-sm btn-upper">ask</button>&nbsp;
+                                    <button type="button" class="btn btn-brand btn-sm btn-upper">hire</button>
+                                </div> -->
+                            </div>
+                            <div class="kt-widget__subhead">
+                                <a href="#"><i class="flaticon2-new-email"></i>{{user.email}}</a>
+                                <a href="#"><i class="flaticon2-calendar-3"></i>{{user.username}}</a>
+                                <!-- <a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a> -->
+                            </div>
+                            <div class="kt-widget__info">
+                                <div class="kt-widget__desc">
+                                    Your account is created at {{user.created_on}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-widget__bottom">
+                        <div class="kt-widget__item">
+                            <div class="kt-widget__icon">
+                                <i class="flaticon-confetti"></i>
+                            </div>
+                            <div class="kt-widget__details">
+                                <span class="kt-widget__title">Number of applications</span>
+                                <span class="kt-widget__value">7</span>
+                            </div>
+                        </div>
+                        <div class="kt-widget__item">
+                            <div class="kt-widget__icon">
+                                <i class="flaticon-file-2"></i>
+                            </div>
+                            <div class="kt-widget__details">
+                                <span class="kt-widget__title">Number of attendees</span>
+                                <span class="kt-widget__value">6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end:: Widgets/Applications/User/Profile3-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head  d-flex align-items-center justify-content-between">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Update your information
+                    </h3>
+                </div>
+            </div>
+            <div class="container" style="width: 90%">
+                <form class="kt-form kt-form--label-left" autocomplete="off">
+                    <div class="kt-portlet__body">
+                        <div class="form-group row">
+                            <label for="ad" class="col-2 col-form-label">Name</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" id="ad" name="ad" [(ngModel)]="userChange.first_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="soyad" class="col-2 col-form-label">Surname</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" id="soyad" name="soyad" [(ngModel)]="userChange.last_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">E-mail</label>
+                            <div class="col-10">
+                                <input class="form-control" autocomplete="off" type="email" id="email" name="email"
+                                    [(ngModel)]="userChange.email">
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-success" (click)="updateUser()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head  d-flex align-items-center justify-content-between">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Change your password
+                    </h3>
+                </div>
+            </div>
+            <div class="container" style="width: 90%">
+                <form class="kt-form kt-form--label-left" autocomplete="off">
+                    <div class="kt-portlet__body">
+                        <div class="form-group row">
+                            <label for="ad" class="col-2 col-form-label">Old password</label>
+                            <div class="col-10">
+                                <input class="form-control" type="password" id="ad" name="ad" [(ngModel)]="passwordChange.old_password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="soyad" class="col-2 col-form-label">New password</label>
+                            <div class="col-10">
+                                <input class="form-control" type="password" id="soyad" name="soyad" [(ngModel)]="passwordChange.new_password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">Confirm new password</label>
+                            <div class="col-10">
+                                <input class="form-control" autocomplete="off" type="password" id="email" name="email"
+                                    [(ngModel)]="passwordChange.confirm_new_password">
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-success" (click)="changePassword()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

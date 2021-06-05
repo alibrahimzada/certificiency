@@ -44,6 +44,18 @@ export class UserService {
     )
   }
 
+  updateMyProfile(user: any): Observable<any> {
+    return this.httpClient.put(API_ENDPOINT + '/user/update-my-profile', user).pipe(
+      map(res => res)
+    )
+  }
+
+  changePassword(user: any): Observable<any> {
+    return this.httpClient.put(API_ENDPOINT + '/user/change-password', user).pipe(
+      map(res => res)
+    )
+  }
+
   deleteUser(id: string): Observable<any> {
     return this.httpClient.delete(API_ENDPOINT + '/user/delete/' + id).pipe(
       map(res => res)
