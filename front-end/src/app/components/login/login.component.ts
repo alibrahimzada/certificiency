@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         // })
         this.router.navigate(['/']);
       } else {
-        this.alertService.alert('Hata!', authErrors.login[errors[0]], 'error');
+        this.alertService.alert('Error!', authErrors.login[errors[0]], 'error');
       }
       this.loadingService.setLoading(false);
     })

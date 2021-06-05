@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/core/models/user.model';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
+import { RoleService } from 'src/app/core/services/role.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +12,55 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  user: User = new User();
+  userChange = {
+    first_name: '',
+    last_name: '',
+    email: ''
+  }
+  passwordChange = {
+    old_password: '',
+    new_password: '',
+    confirm_new_password: ''
+  }
+  constructor(private authService: AuthService,
+    private userService: UserService,
+    private alertService: AlertService,
+    private loadingService: LoadingService,
+    public roleService: RoleService) { }
 
   ngOnInit(): void {
+    this.user = this.authService.getCurrentUser();
+    console.log(this.user);
+    this.userChange.first_name = this.user.first_name;
+    this.userChange.last_name = this.user.last_name;
+    this.userChange.email = this.user.email;
+  }
+
+  updateUser() {
+    this.loadingService.setLoading(true);
+    if (this.user.user_id) {
+      this.userService.updateMyProfile(this.userChange).subscribe(response => {
+        if (response.success) {
+          this.alertService.alert('Success!', 'Your profile is updated! <b>Your changes will be updated once you logout and login!</b>', 'success');
+        } else {
+          this.alertService.alert('Error!', 'Your profile could not update', 'error');
+        }
+        this.loadingService.setLoading(false);
+      })
+    }
+  }
+
+  changePassword() {
+    this.loadingService.setLoading(true);
+    this.userService.changePassword(this.passwordChange).subscribe(response => {
+      if (response.success) {
+        this.alertService.alert('Success!', 'Your password is updated', 'success');
+      } else {
+        this.alertService.alert('Error!', 'Your password could not update', 'error');
+      }
+      this.loadingService.setLoading(false);
+    })
   }
 
 }

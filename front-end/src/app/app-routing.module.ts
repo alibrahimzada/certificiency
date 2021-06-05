@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MyApplicationsComponent } from './components/my-applications/my-applications/my-applications.component';
 import { MyCertificatesComponent } from './components/my-certificates/my-certificates/my-certificates.component';
 import { MyEventsComponent } from './components/my-events/my-events/my-events.component';
+import { ProfileComponent } from './components/profile/profile/profile.component';
 import { UpsertRoleComponent } from './components/roles/components/upsert-role/upsert-role.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { UpsertUserComponent } from './components/users/components/upsert-user/upsert-user.component';
@@ -124,6 +125,11 @@ const routes: Routes = [
       {
         path: 'applications/:id',
         component: ApplicationComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
         canActivate: [AuthGuard]
       }
     ]
