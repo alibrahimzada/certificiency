@@ -7,7 +7,7 @@ class ISqlHelper:
     def query_all(self, sql: str):
         pass
 
-    def query_first_or_default(self, table_name):
+    def query_first_or_default(self, sql):
         pass
 
     def execute(self, sql: str):

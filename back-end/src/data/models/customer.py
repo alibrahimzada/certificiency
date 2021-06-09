@@ -24,18 +24,19 @@ class Customer(BaseEntity):
     def insert_customer(self, data):
         query = """INSERT INTO \"customers\" (customer_id, customer_name, is_active, created_on, company_permissions, is_deleted, domain_name)
                    values(DEFAULT, '{}', '{}', '{}', '{}', '{}', '{}')
+                   RETURNING customer_id; 
                 """.format(data['customer_name'], True, data['created_on'],
                            data['company_permissions'], False, data['domain_name'])
 
         try:
-            rows_affected = self.sql_helper.execute(query)
-            if rows_affected > 0:
-                return {'status': 200, 'success': True, 'errors': []}
+            result = self.sql_helper.query_first_or_default(query)
+            if len(result) > 0:
+                return {'status': 200, 'success': True, 'errors': [], 'data': {'customer_id': result[0]}}
 
             return {'status': 500, 'success': False, 'errors': ['Error! Insertion into CUSTOMERS table unsuccessful']}
         
         except UniqueViolation:
-            return {'status': 400, 'success': False, 'errors': ['Error! Customer with id = {} already exists'.format(data['customer_id'])]}
+            return {'status': 400, 'success': False, 'errors': ['Error! Customer already exists']}
 
     def delete_customer(self, customer_id):
         query = """UPDATE \"customers\"

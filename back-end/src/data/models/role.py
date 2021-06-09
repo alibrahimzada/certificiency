@@ -23,14 +23,14 @@ class Role(BaseEntity):
 
     def insert_role(self, data, core_app_context):
         query = """INSERT INTO \"roles\" (role_id, role_name, role_permissions, customer_id, is_deleted)
-                   values(DEFAULT, '{}', '{}', '{}', '{}');
+                   values(DEFAULT, '{}', '{}', '{}', '{}') RETURNING role_id;
                    """.format(data['role_name'],
                              {}, core_app_context.customer_id, False)
-        print(query)
+
         try:
-            rows_affected = self.sql_helper.execute(query)
-            if rows_affected > 0:
-                return {'status': 200, 'success': True, 'errors': []}
+            result = self.sql_helper.query_first_or_default(query)
+            if len(result) > 0:
+                return {'status': 200, 'success': True, 'errors': [], 'data': {'role_id': result[0]}}
 
             return {'status': 500, 'success': False, 'errors': ['Error! Insertion of role with id = {} into ROLE table unsuccessful'.format(data['role_id'])]}
         

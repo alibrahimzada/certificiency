@@ -27,7 +27,8 @@ class User(BaseEntity):
         query = """INSERT INTO \"users\" (user_id, username, password, first_name, last_name, 
                                           customer_id, role_id, user_type, 
                                           is_active, email, created_on, last_login, is_deleted)
-                   values(DEFAULT, '{}', '{}', '{}', '{}', {}, {}, {}, '{}', '{}', '{}', '{}', '{}');
+                   values(DEFAULT, '{}', '{}', '{}', '{}', {}, {}, {}, '{}', '{}', '{}', '{}', '{}')
+                   RETURNING user_id;
                    """.format(data['username'],
                              data['password'], data['first_name'],
                              data['last_name'], core_app_context.customer_id,
@@ -36,9 +37,9 @@ class User(BaseEntity):
                              data['created_on'], False)
 
         try:
-            rows_affected = self.sql_helper.execute(query)
-            if rows_affected > 0:
-                return {'status': 200, 'success': True, 'errors': []}
+            result = self.sql_helper.query_first_or_default(query)
+            if len(result) > 0:
+                return {'status': 200, 'success': True, 'errors': [], 'data': {'user_id': result[0]}}
 
             return {'status': 500, 'success': False, 'errors': ['Error! Insertion of user with id = {} into USER table unsuccessful'.format(data['user_id'])]}
         

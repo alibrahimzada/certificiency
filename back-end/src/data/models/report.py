@@ -55,7 +55,7 @@ class Report(BaseEntity):
     def get_num_of_absents_of_event(self, event_id):
         query = """ SELECT COUNT(*)
                     FROM applications a
-                    WHERE a.event_id = {} AND a.application_status = 2 
+                    WHERE a.event_id = {} AND a.application_status = 5
         """.format(event_id)
         
         result = self.sql_helper.query_all(query)
@@ -66,7 +66,7 @@ class Report(BaseEntity):
     def get_num_of_attendents_of_event(self, event_id):
         query = """ SELECT COUNT(*)
                     FROM applications a
-                    WHERE a.event_id = {} AND a.application_status = 1
+                    WHERE a.event_id = {} AND a.application_status = 4
         """.format(event_id)
         
         result = self.sql_helper.query_all(query)
@@ -120,7 +120,7 @@ class Report(BaseEntity):
     def get_num_of_attendents_of_user(self, user_id):
         query = """ SELECT COUNT(*)
                     FROM applications
-                    WHERE user_id = {} AND application_status = 1
+                    WHERE user_id = {} AND application_status = 4
         """.format(user_id)
 
         result = self.sql_helper.query_all(query)
