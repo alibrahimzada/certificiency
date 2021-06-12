@@ -32,10 +32,10 @@ class Role(BaseEntity):
             if len(result) > 0:
                 return {'status': 200, 'success': True, 'errors': [], 'data': {'role_id': result[0]}}
 
-            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of role with id = {} into ROLE table unsuccessful'.format(data['role_id'])]}
+            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of role into ROLE table unsuccessful']}
         
         except UniqueViolation:
-            return {'status': 400, 'success': False, 'errors': ['Error! Role with id = {} already exists'.format(data['role_id'])]}
+            return {'status': 400, 'success': False, 'errors': ['Error! Role already exists']}
 
     def delete_role(self, role_id):
         query = """ UPDATE \"roles\"

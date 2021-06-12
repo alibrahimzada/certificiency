@@ -41,10 +41,10 @@ class User(BaseEntity):
             if len(result) > 0:
                 return {'status': 200, 'success': True, 'errors': [], 'data': {'user_id': result[0]}}
 
-            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of user with id = {} into USER table unsuccessful'.format(data['user_id'])]}
+            return {'status': 500, 'success': False, 'errors': ['Error! Insertion of user into USER table unsuccessful']}
         
         except UniqueViolation:
-            return {'status': 400, 'success': False, 'errors': ['Error! User with id = {} already exists'.format(data['user_id'])]}
+            return {'status': 400, 'success': False, 'errors': ['Error! User already exists']}
 
     def delete_user(self, user_id):
         query = """ UPDATE \"users\"
