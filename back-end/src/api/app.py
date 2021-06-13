@@ -127,7 +127,7 @@ def update_user():
 
     return req_handler_response
 
-@app.route('/api/v1/user/update-my-profile', methods=['POST'])
+@app.route('/api/v1/user/update-my-profile', methods=['PUT'])
 def update_my_profile():
     """
         This is endpoint for updating a user's profile
@@ -142,7 +142,7 @@ def update_my_profile():
 
     return req_handler_response
 
-@app.route('/api/v1/user/change-password', methods=['POST'])
+@app.route('/api/v1/user/change-password', methods=['PUT'])
 def change_password():
     """
         This is endpoint for changing a user's password

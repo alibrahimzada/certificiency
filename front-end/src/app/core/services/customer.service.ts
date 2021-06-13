@@ -26,6 +26,12 @@ export class CustomerService {
     );
   }
 
+  getStats(): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/report/customer-stats').pipe(
+      map(res => res)
+    );
+  }
+
   createCustomer(customer: Customer): Observable<any> {
     return this.httpClient.post(API_ENDPOINT + '/customer/insert', customer).pipe(
       map(res => res)
