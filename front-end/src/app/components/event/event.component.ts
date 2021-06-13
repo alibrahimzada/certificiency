@@ -45,6 +45,14 @@ export class EventComponent implements OnInit {
     })
   }
 
+  getEventStats(id: string){
+    this.eventService.getStatsById(id).subscribe(response => {
+      if (response.success) {
+        console.log(response);
+      }
+    })
+  }
+
   deleteEvent(id: string, name: string) {
     const x = confirm('Are you sure to delete the event named ' + name + ' ?');
     if (x) {

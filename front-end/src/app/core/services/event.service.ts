@@ -32,6 +32,12 @@ export class EventService {
     );
   }
 
+  getStatsById(id: string): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/report/' + id + '/event-report').pipe(
+      map(res => res)
+    );
+  }
+
   createEvent(event: Event): Observable<any> {
     return this.httpClient.post(API_ENDPOINT + '/event/insert', event).pipe(
       map(res => res)
