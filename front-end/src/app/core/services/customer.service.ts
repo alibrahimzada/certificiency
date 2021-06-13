@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { API_ENDPOINT } from '../config';
-import { Customer } from './../models/customer.model';
+import { Customer, CustomerCreateModel } from './../models/customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class CustomerService {
     );
   }
 
-  createCustomer(customer: Customer): Observable<any> {
+  createCustomer(customer: CustomerCreateModel): Observable<any> {
     return this.httpClient.post(API_ENDPOINT + '/customer/insert', customer).pipe(
       map(res => res)
     )

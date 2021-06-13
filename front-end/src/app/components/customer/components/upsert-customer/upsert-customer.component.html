@@ -11,7 +11,7 @@
         <form class="kt-form kt-form--label-left" autocomplete="off">
             <div class="kt-portlet__body">
                 <div class="form-group row">
-                    <label for="customer_name" class="col-2 col-form-label">Name</label>
+                    <label for="customer_name" class="col-2 col-form-label">Customer Name</label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="customer_name" name="customer_name" [(ngModel)]="customer.customer_name">
                     </div>
@@ -20,6 +20,45 @@
                     <label for="domain_name" class="col-2 col-form-label">Domain Name</label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="domain_name" name="domain_name" [(ngModel)]="customer.domain_name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="role_name" class="col-2 col-form-label">Role Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="role_name" name="role_name" [(ngModel)]="role.role_name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="user_name" class="col-2 col-form-label">User Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="user_name" name="user_name" [(ngModel)]="user.first_name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="user_lastname" class="col-2 col-form-label">User Surname</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="user_lastname" name="user_lastname" [(ngModel)]="user.last_name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-2 col-form-label">User E-mail</label>
+                    <div class="col-10">
+                        <input class="form-control" autocomplete="off" type="email" id="email" name="email"
+                            [(ngModel)]="user.email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="username" class="col-2 col-form-label">Username</label>
+                    <div class="col-10">
+                        <input class="form-control" autocomplete="off" type="text" id="username" name="username"
+                            [(ngModel)]="user.username">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-2 col-form-label">Password</label>
+                    <div class="col-10">
+                        <input class="form-control" autocomplete="off" type="password" id="password" name="password"
+                            [(ngModel)]="user.password">
                     </div>
                 </div>
             </div>
