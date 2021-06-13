@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
     new_password: '',
     confirm_new_password: ''
   }
+  stats: any;
   constructor(private authService: AuthService,
     private userService: UserService,
     private alertService: AlertService,
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
     this.userChange.first_name = this.user.first_name;
     this.userChange.last_name = this.user.last_name;
     this.userChange.email = this.user.email;
+    this.getStats();
   }
 
   updateUser() {
@@ -60,6 +62,18 @@ export class ProfileComponent implements OnInit {
         this.alertService.alert('Error!', 'Your password could not update', 'error');
       }
       this.loadingService.setLoading(false);
+    })
+  }
+
+  getStats(){
+    this.userService.getStatsById(this.user.user_id).subscribe(response => {
+      if (response.success) {
+        this.stats = response.data;
+        console.log(this.stats);
+      }
+      else {
+        this.alertService.alert('Error!', 'Could not get statistics of the user!', 'error');
+      }
     })
   }
 

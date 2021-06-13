@@ -26,6 +26,12 @@ export class UserService {
     );
   }
 
+  getStatsById(id: string): Observable<any> {
+    return this.httpClient.get(API_ENDPOINT + '/report/' + id + '/user-report').pipe(
+      map(res => res)
+    );
+  }
+
   getHelloWorld(): Observable<any> {
     return this.httpClient.get(API_ENDPOINT).pipe(
       map(res => res)
