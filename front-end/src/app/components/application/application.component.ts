@@ -36,11 +36,13 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.params.id) {
+      console.log("Applications 1");
       this.applicationService.getApplicationsByEventId(this.route.snapshot.params.id).subscribe(response => {
-        if (response.success) {
+        // if (response.success) {
           this.applications = response.data;
-          console.log(this.applications);
-        }
+          console.log("Applications");
+          console.log(response);
+        // }
       })
     }
 
