@@ -78,10 +78,11 @@ class Application(BaseEntity):
         return {'status': 500, 'success': False, 'errors': ['Error while udpating application status!']}
 
     def get_event_applications(self, event_id, core_app_context):
+        print(event_id)
         query = """SELECT *
                    FROM \"applications\"
-                   WHERE user_id={} AND is_deleted=false AND event_id={}
-                """.format(core_app_context.user_id, event_id)
+                   WHERE is_deleted=false AND event_id={}
+                """.format(event_id)
 
         rows = self.sql_helper.get_rows(query, 'applications')
 
