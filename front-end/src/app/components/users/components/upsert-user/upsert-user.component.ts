@@ -27,6 +27,7 @@ export class UpsertUserComponent implements OnInit {
     this.roleService.getRoles().subscribe(response => {
       if (response.success) {
         this.roles = response.data;
+        this.user.user_type = 2;
         console.log(response);
       }
     });
